@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Chapel Editorial Unit Platform is a centralized web-based application designed to foster collaboration and community among writers[cite: 3, 10]. It replaces fragmented communication with a dedicated space where team members can brainstorm, share suggestions, and collaboratively review articles. The platform features a highly intuitive, modern UI inspired by top-tier productivity tools.
+The Chapel Editorial Unit Platform is a centralized web-based application designed to foster collaboration and community among writers. It replaces fragmented communication with a dedicated space where team members can brainstorm, share suggestions, and collaboratively review articles. The platform features a highly intuitive, modern UI inspired by top-tier productivity tools.
 
 ## Core Features
 
