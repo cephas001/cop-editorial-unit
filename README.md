@@ -2,22 +2,22 @@
 
 ## Overview
 
-[cite_start]The Chapel Editorial Unit Platform is a centralized web-based application designed to foster collaboration and community among writers[cite: 3, 10]. [cite_start]It replaces fragmented communication with a dedicated space where team members can brainstorm, share suggestions, and collaboratively review articles[cite: 4]. [cite_start]The platform features a highly intuitive, modern UI inspired by top-tier productivity tools[cite: 20].
+The Chapel Editorial Unit Platform is a centralized web-based application designed to foster collaboration and community among writers[cite: 3, 10]. It replaces fragmented communication with a dedicated space where team members can brainstorm, share suggestions, and collaboratively review articles. The platform features a highly intuitive, modern UI inspired by top-tier productivity tools.
 
 ## Core Features
 
-- [cite_start]**Collaborative Editing:** Users can create articles, leave comments, and highlight specific areas within existing drafts to provide targeted feedback[cite: 16].
-- [cite_start]**Brainstorming Hub:** Team members can create and participate in brainstorming sessions based on new ideas or active article drafts[cite: 17].
-- [cite_start]**Task Management & Planning:** A visual writing calendar allows users to plan, schedule tasks, and set reminders[cite: 19, 21].
-- [cite_start]**Role-Based Access Control:** Distinct privileges are enforced for the unit head and assistant unit head, enabling them to assign topics, tasks, and brainstorming sessions to specific team members[cite: 8, 15].
-- [cite_start]**User Profiles:** Every user maintains a unique profile to track their writeups, assigned tasks, and comments[cite: 6, 14].
-- [cite_start]**Automated Notifications:** The system sends professionally styled emails to notify users of critical actions, assignments, and activities[cite: 18].
+- **Collaborative Editing:** Users can create articles, leave comments, and highlight specific areas within existing drafts to provide targeted feedback.
+- **Brainstorming Hub:** Team members can create and participate in brainstorming sessions based on new ideas or active article drafts.
+- **Task Management & Planning:** A visual writing calendar allows users to plan, schedule tasks, and set reminders.
+- **Role-Based Access Control:** Distinct privileges are enforced for the unit head and assistant unit head, enabling them to assign topics, tasks, and brainstorming sessions to specific team members.
+- **User Profiles:** Every user maintains a unique profile to track their writeups, assigned tasks, and comments.
+- **Automated Notifications:** The system sends professionally styled emails to notify users of critical actions, assignments, and activities.
 
 ## Tech Stack
 
-- [cite_start]**Frontend:** Nuxt.js (Vue 3) and Tailwind CSS for a responsive, minimalist, and accessible user interface (with full light/dark mode support)[cite: 10].
-- [cite_start]**Backend:** Express.js for handling specialized server-side logic and automated email dispatches[cite: 10].
-- [cite_start]**Database & Authentication:** Supabase for secure profile management, role-based access, and real-time database syncing[cite: 10].
+- **Frontend:** Nuxt.js (Vue 3) and Tailwind CSS for a responsive, minimalist, and accessible user interface (with full light/dark mode support).
+- **Backend:** Express.js for handling specialized server-side logic and automated email dispatches.
+- **Database & Authentication:** Supabase for secure profile management, role-based access, and real-time database syncing.
 - **Rich-Text Editor:** Tiptap (Headless) for building the custom collaborative editing canvas.
 
 ## Getting Started
@@ -36,10 +36,9 @@
     cd editorial-unit-app
     ```
 2.  Enter frontend folder:
+
+    ```bash
     cd frontend
-
-    ```
-
     ```
 
 3.  Install dependencies:
@@ -51,7 +50,9 @@
     npm run dev
     ```
 5.  Enter backend folder:
+    ```bash
     cd backend
+    ```
 6.  Install dependencies:
     ```bash
     npm install
