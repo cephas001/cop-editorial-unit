@@ -19,6 +19,7 @@
     "@nuxtjs/tailwindcss": "^6.14.0",
     "@pinia/nuxt": "^0.11.3",
     "@tiptap/extension-highlight": "^3.23.6",
+    "@tiptap/extension-image": "^3.24.0",
     "@tiptap/pm": "^3.23.6",
     "@tiptap/starter-kit": "^3.23.6",
     "@tiptap/vue-3": "^3.23.6",
@@ -32,7 +33,11 @@
     "tailwindcss": "^4.3.0",
     "v-calendar": "^2.4.2",
     "vue": "^3.5.34",
+    "vue-advanced-cropper": "^2.8.9",
     "vue-router": "^5.0.7",
-    "vuedraggable": "^2.24.3"
+    "vuedraggable": "^4.1.0"
+  },
+  "devDependencies": {
+    "@iconify-json/material-symbols": "^1.2.74"
   }
 }

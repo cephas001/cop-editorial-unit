@@ -1,0 +1,204 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// --- ENUMS ---
+
+enum Role {
+  ADMIN
+  EDITOR
+  WRITER
+  CONTRIBUTOR
+}
+
+enum ArticleStatus {
+  DRAFT
+  IN_REVIEW
+  PUBLISHED
+  ARCHIVED
+}
+
+enum IdeaStatus {
+  IDEA
+  IN_DISCUSSION
+  APPROVED
+  ASSIGNED
+}
+
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
+
+// --- MODELS ---
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  fullName  String
+  avatarUrl String?
+  bio       String?
+  role      Role     @default(WRITER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  articles           Article[]
+  comments           Comment[]
+  brainstormSessions BrainstormSession[] // Sessions created by the user
+  ideas              Idea[] // Ideas proposed by the user
+  notifications      Notification[]
+  activities         Activity[]
+  assignedTasks      Task[]              @relation("AssignedTasks")
+  givenTasks         Task[]              @relation("GivenTasks")
+  ideaComments       IdeaComment[]
+  kudos              Kudos[]
+  assignedIdeas      Idea[]              @relation("IdeaAssignee")
+}
+
+model Article {
+  id        String        @id @default(uuid())
+  title     String
+  content   Json? // Stores Tiptap structured JSON
+  status    ArticleStatus @default(DRAFT)
+  authorId  String
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  thumbnailUrl String?
+
+
+  // Relations
+  author     User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  comments   Comment[]
+  activities Activity[]
+}
+
+model Comment {
+  id          String   @id @default(uuid())
+  content     String
+  highlightId String?
+  resolved    Boolean  @default(false)
+  articleId   String
+  authorId    String
+  parentId    String? // NEW: Links to a parent comment if it's a reply
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  article      Article       @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  author       User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  parent       Comment?      @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies      Comment[]     @relation("CommentReplies")
+  ideaComments IdeaComment[]
+}
+
+model BrainstormSession {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  isActive    Boolean  @default(true)
+  creatorId   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  creator User   @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  ideas   Idea[]
+}
+
+model Idea {
+  id        String     @id @default(uuid())
+  content   String
+  tags      String[] // Array of strings for colored pills (e.g., ["urgent", "feature"])
+  status    IdeaStatus @default(IDEA)
+  sessionId String
+  authorId  String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  // Relations
+  session  BrainstormSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  author   User              @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  comments IdeaComment[]
+  assigneeId String?
+  assignee User? @relation("IdeaAssignee", fields: [assigneeId], references: [id])
+}
+
+model Task {
+  id          String    @id @default(uuid())
+  title       String
+  description String?
+  status      String    @default("PENDING") // PENDING, IN_PROGRESS, COMPLETED
+  priority    String    @default("MEDIUM") // LOW, MEDIUM, HIGH
+  dueDate     DateTime?
+
+  // The person doing the work
+  assigneeId String
+  assignee   User   @relation("AssignedTasks", fields: [assigneeId], references: [id], onDelete: Cascade)
+
+  // The person who assigned it (usually an ADMIN/Unit Head)
+  assignerId String
+  assigner   User   @relation("GivenTasks", fields: [assignerId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  content   String
+  isRead    Boolean  @default(false)
+  userId    String
+  createdAt DateTime @default(now())
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Activity {
+  id        String   @id @default(uuid())
+  type      String // e.g., "CREATE", "EDIT", "STATUS", "COMMENT"
+  message   String // e.g., "Submitted draft for review"
+  articleId String?
+  userId    String
+  createdAt DateTime @default(now())
+
+  // Relations
+  article Article? @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model IdeaComment {
+  id        String   @id @default(uuid())
+  content   String
+  createdAt DateTime @default(now())
+
+  // Relations
+  ideaId String
+  idea   Idea   @relation(fields: [ideaId], references: [id], onDelete: Cascade)
+
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  comment   Comment? @relation(fields: [commentId], references: [id])
+  commentId String?
+}
+
+model Kudos {
+  id        String   @id @default(uuid())
+  content   String   // The nice message
+  color     String   @default("bg-amber-100") // To make the wall colorful
+  createdAt DateTime @default(now())
+
+  // The person who wrote the note
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}

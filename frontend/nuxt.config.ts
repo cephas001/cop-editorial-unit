@@ -4,4 +4,75 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxt/icon", "@nuxt/ui", "@pinia/nuxt", "@vite-pwa/nuxt"],
   css: ["~/assets/css/main.css"],
+
+  app: {
+    head: {
+      link: [
+        {
+          rel: "icon",
+          type: "image/svg+xml",
+          href: "/favicon.svg",
+        },
+        {
+          rel: "icon",
+          type: "image/png",
+          href: "/favicon.png",
+        },
+        {
+          rel: "apple-touch-icon",
+          sizes: "180x180",
+          href: "/apple-touch-icon.png",
+        },
+      ],
+    },
+  },
+
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.API_BASE_URL || "http://localhost:5000/api",
+    },
+  },
+
+  pwa: {
+    registerType: "autoUpdate",
+    manifest: {
+      name: "Our Editorial Unit",
+      short_name: "The Vineyard",
+      description: "Team collaboration and editorial management platform.",
+      theme_color: "#4f46e5", // Tailwind indigo-600
+      background_color: "#ffffff",
+      display: "standalone",
+      orientation: "portrait",
+      icons: [
+        {
+          src: "pwa-192x192.png",
+          sizes: "192x192",
+          type: "image/png",
+        },
+        {
+          src: "pwa-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+        },
+        {
+          src: "pwa-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+          purpose: "any maskable",
+        },
+      ],
+    },
+    workbox: {
+      navigateFallback: "/",
+      globPatterns: ["**/*.{js,css,html,png,svg,ico}"],
+    },
+    client: {
+      installPrompt: true,
+    },
+    devOptions: {
+      enabled: true, // Set to false in production
+      suppressWarnings: true,
+      type: "module",
+    },
+  },
 });

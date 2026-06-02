@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Vibrant Indigo to Purple Gradient -->
+    <linearGradient id="brandGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" /> <!-- Tailwind Indigo 600 -->
+      <stop offset="100%" stop-color="#9333ea" /> <!-- Tailwind Purple 600 -->
+    </linearGradient>
+  </defs>
+
+  <!-- Extracted Center Logo -->
+  <g fill="url(#brandGradient)">
+    <!-- Top Oval Ring -->
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M256 80C205.742 80 165 120.742 165 171V205C165 255.258 205.742 296 256 296C306.258 296 347 255.258 347 205V171C347 120.742 306.258 80 256 80ZM205 171C205 142.833 227.833 120 256 120C284.167 120 307 142.833 307 171V205C307 233.167 284.167 256 256 256C227.833 256 205 233.167 205 205V171Z" />
+    
+    <!-- Connecting Stem -->
+    <rect x="236" y="295" width="40" height="85" />
+    
+    <!-- Flared Base -->
+    <path d="M236 380H276L324.6 440.75C330.843 448.553 325.293 460 315.305 460H196.695C186.707 460 181.157 448.553 187.4 440.75L236 380Z" />
+  </g>
+</svg>
