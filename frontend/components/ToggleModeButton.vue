@@ -37,10 +37,15 @@ onMounted(() => {
   if (typeof window !== "undefined") {
     const stored = localStorage.getItem("color_theme");
 
-    if (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("color_theme", "dark");
-      color_theme.value = "dark";
+    if (!stored) {
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        document.documentElement.classList.add("dark");
+        localStorage.setItem("color_theme", "dark");
+        color_theme.value = "dark";
+      } else {
+        color_theme.value = "light";
+        localStorage.setItem("color_theme", "light");
+      }
     } else if (stored === "dark") {
       document.documentElement.classList.add("dark");
       color_theme.value = "dark";
