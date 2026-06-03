@@ -50,8 +50,6 @@ router.post("/", requireAuth, async (req, res) => {
       const notificationsToInsert = otherUsers.map((user) => ({
         userId: user.id,
         content: `${req.user.fullName} posted a new Kudo on the Team Wall!`,
-        type: "COMMENT", // You can use "COMMENT" or create a new "KUDOS" type in your Prisma schema
-        isRead: false,
       }));
 
       // Insert them all at once efficiently
