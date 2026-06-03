@@ -20,15 +20,23 @@ import { ref, onMounted } from "vue";
 
 const color_theme = ref("light");
 
+const setLightTheme = () => {
+  document.documentElement.classList.remove("dark");
+  localStorage.setItem("color_theme", "light");
+  color_theme.value = "light";
+};
+
+const setDarkTheme = () => {
+  document.documentElement.classList.add("dark");
+  localStorage.setItem("color_theme", "dark");
+  color_theme.value = "dark";
+};
+
 const toggleDarkMode = () => {
   if (color_theme.value === "light") {
-    document.documentElement.classList.add("dark");
-    localStorage.setItem("color_theme", "dark");
-    color_theme.value = "dark";
+    setDarkTheme();
   } else {
-    document.documentElement.classList.remove("dark");
-    localStorage.setItem("color_theme", "light");
-    color_theme.value = "light";
+    setLightTheme();
   }
 };
 
@@ -39,18 +47,14 @@ onMounted(() => {
 
     if (!stored) {
       if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        document.documentElement.classList.add("dark");
-        localStorage.setItem("color_theme", "dark");
-        color_theme.value = "dark";
+        setDarkTheme();
       } else {
-        color_theme.value = "light";
-        localStorage.setItem("color_theme", "light");
+        setLightTheme();
       }
     } else if (stored === "dark") {
-      document.documentElement.classList.add("dark");
-      color_theme.value = "dark";
+      setDarkTheme();
     } else {
-      color_theme.value = stored || "light";
+      setLightTheme();
     }
   }
 });
