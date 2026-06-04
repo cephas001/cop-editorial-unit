@@ -192,18 +192,22 @@ const filteredArticles = computed(() => {
   switch (activeTab.value) {
     case "Drafts":
       result = articles.value.filter((article) => article.status === "DRAFT");
+      break;
     case "Published":
       result = articles.value.filter(
         (article) => article.status === "PUBLISHED",
       );
+      break;
     case "My Writeups":
       // Replace 'currentUser.id' with your actual user ID ref/store variable.
       result = articles.value.filter(
         (article) => article.authorId === user?.value.id,
       );
+      break;
     case "All":
     default:
       result = articles.value;
+      break;
   }
 
   console.log(result);
