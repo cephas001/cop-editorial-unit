@@ -1,6 +1,6 @@
 <template>
   <div
-    class="min-h-screen flex items-center justify-center p-4 antialiased font-sans bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-200"
+    class="min-h-[110vh] flex items-center justify-center p-4 antialiased font-sans bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-200"
   >
     <main
       class="w-full max-w-md bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden relative flex flex-col"
@@ -21,7 +21,7 @@
             />
           </div>
           <h1
-            class="text-2xl font-semibold text-slate-900 dark:text-white tracking-tight mb-3"
+            class="text-xl font-semibold text-slate-900 dark:text-white tracking-tight mb-3"
           >
             Create your profile
           </h1>
@@ -186,7 +186,7 @@
           </div>
         </form>
 
-        <div class="text-center mt-2">
+        <div class="text-center mt-1">
           <p class="text-sm text-slate-500 dark:text-slate-400">
             Already have an account?
             <NuxtLink

@@ -6,7 +6,7 @@
       <div class="w-full max-w-full flex-1">
         <div class="flex flex-wrap items-center gap-2 sm:gap-3">
           <h1
-            class="text-2xl font-semibold text-slate-900 dark:text-white tracking-tight"
+            class="text-xl md:text-2xl font-semibold text-slate-900 dark:text-white tracking-tight"
           >
             Brainstorming Board
           </h1>
@@ -14,7 +14,7 @@
             v-if="sessionsList.length > 0"
             v-model="currentSession"
             @change="fetchIdeasForSession"
-            class="bg-slate-100 dark:bg-slate-800 border-none text-sm font-semibold text-indigo-600 dark:text-indigo-400 rounded-lg py-1.5 px-3 focus:ring-2 focus:ring-indigo-600 cursor-pointer w-fit max-w-full truncate"
+            class="bg-slate-100 dark:bg-slate-800 border-none text-xs md:text-sm font-semibold text-indigo-600 dark:text-indigo-400 rounded-lg py-1.5 px-3 focus:ring-2 focus:ring-indigo-600 cursor-pointer w-fit max-w-full truncate"
           >
             <option
               v-for="session in sessionsList"
@@ -26,7 +26,7 @@
           </select>
         </div>
         <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">
-          Propose, discuss, and assign article ideas for the team.
+          Propose, and discuss article ideas.
         </p>
       </div>
 
@@ -34,6 +34,7 @@
         <button
           @click="createDefaultSession"
           class="px-3 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium transition-colors shadow-sm flex items-center gap-2"
+          v-if="user?.role == 'ADMIN'"
         >
           <Icon
             name="material-symbols:add-box-outline-rounded"
@@ -44,9 +45,9 @@
         <button
           @click="isIdeaModalOpen = true"
           :disabled="!currentSession"
-          class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-mono transition-colors shadow-sm flex items-center gap-2 disabled:opacity-50"
+          class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs md:text-sm font-mono transition-colors shadow-sm flex items-center gap-2 disabled:opacity-50"
         >
-          <Icon name="material-symbols:add-rounded" class="text-xl" />
+          <Icon name="material-symbols:add-rounded" class="text-lg" />
           New Idea
         </button>
       </div>
@@ -86,7 +87,7 @@
 
     <div
       v-else
-      class="flex-1 overflow-x-auto overflow-y-hidden kanban-scrollbar pb-4 -mx-2 px-2"
+      class="flex-1 overflow-x-auto overflow-y-hidden kanban-scrollbar pb-4 -mx-2 px-2 min-h-[100vh]"
     >
       <div class="flex items-start gap-6 h-full min-w-max">
         <div
@@ -149,7 +150,7 @@
 
                   <h3
                     @click="openIdeaDetails(element)"
-                    class="text-sm font-mono text-slate-900 dark:text-white mb-4 leading-snug line-clamp-4 cursor-pointer hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                    class="text-xs md:text-sm font-mono text-slate-900 dark:text-white mb-3 md:mb-4 leading-snug line-clamp-4 cursor-pointer hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                     title="Click to view full idea"
                   >
                     {{ element.content }}
@@ -194,7 +195,7 @@
                   >
                     <div
                       v-if="element.assignee"
-                      class="text-xs font-semibold text-slate-500 dark:text-slate-400 text-center py-1 bg-slate-50 dark:bg-slate-800/50 rounded-lg"
+                      class="text-xs font-semibold text-slate-600 dark:text-slate-400 text-center py-1 bg-slate-50 dark:bg-slate-800/50 rounded-lg"
                     >
                       Assigned to:
                       <span class="text-indigo-600 dark:text-indigo-400">{{
@@ -376,7 +377,7 @@
         >
           <div class="flex gap-4 mb-8">
             <div
-              class="w-10 h-10 shrink-0 rounded-full border-2 border-white dark:border-slate-800 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 flex items-center justify-center text-sm font-bold shadow-sm"
+              class="w-8 h-8 shrink-0 rounded-full border-2 border-white dark:border-slate-800 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 flex items-center justify-center text-sm font-bold shadow-sm"
             >
               <img
                 v-if="activeIdea?.author?.avatarUrl"
@@ -391,12 +392,12 @@
               class="flex-1 bg-white dark:bg-slate-800 p-4 rounded-2xl rounded-tl-none shadow-sm border border-slate-200 dark:border-slate-700"
             >
               <p
-                class="text-sm font-semibold text-slate-900 dark:text-white mb-1"
+                class="text-xs md:text-sm font-semibold text-slate-900 dark:text-white mb-1"
               >
                 {{ activeIdea?.author?.fullName }}
               </p>
               <p
-                class="text-base text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap font-mono"
+                class="text-xs md:text-base text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap font-mono"
               >
                 {{ activeIdea?.content }}
               </p>
@@ -454,7 +455,7 @@
                 <div class="flex items-baseline justify-between gap-2 mb-0.5">
                   <div class="flex items-baseline gap-2">
                     <span
-                      class="text-sm font-semibold text-slate-900 dark:text-white"
+                      class="text-xs md:text-sm font-semibold text-slate-900 dark:text-white"
                     >
                       {{ comment.author?.fullName }}
                     </span>
@@ -482,7 +483,7 @@
 
                 <div v-if="editingCommentId !== comment.id">
                   <p
-                    class="text-sm text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 p-3 rounded-xl rounded-tl-none border border-slate-100 dark:border-slate-700/50 shadow-sm inline-block whitespace-pre-wrap"
+                    class="text-xs md:text-sm text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 p-3 rounded-xl rounded-tl-none border border-slate-100 dark:border-slate-700/50 shadow-sm inline-block whitespace-pre-wrap"
                   >
                     {{ comment.content }}
                   </p>
@@ -543,7 +544,7 @@
                 type="text"
                 :disabled="isSubmittingComment"
                 placeholder="Share your thoughts..."
-                class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-full py-2.5 pl-4 pr-12 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition-all disabled:opacity-60"
+                class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-full py-2.5 pl-4 pr-12 text-xs md:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition-all disabled:opacity-60"
               />
               <button
                 type="submit"

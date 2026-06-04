@@ -5,7 +5,7 @@
     >
       <div>
         <h1
-          class="text-2xl font-semibold text-slate-900 dark:text-white tracking-tight"
+          class="text-xl md:text-2xl font-semibold text-slate-900 dark:text-white tracking-tight"
         >
           Ohana means Family
         </h1>
@@ -15,9 +15,9 @@
       </div>
       <button
         @click="isKudosModalOpen = true"
-        class="px-2 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-mono transition-colors shadow-sm flex items-center gap-2"
+        class="px-2 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs md:text-sm font-mono transition-colors shadow-sm flex items-center gap-2"
       >
-        <Icon name="material-symbols:add-rounded" class="text-xl" />
+        <Icon name="material-symbols:add-rounded" class="text-lg md:text-xl" />
         Give a Shoutout
       </button>
     </div>
@@ -62,7 +62,7 @@
 
         <div class="flex-1 text-center md:text-left relative z-10">
           <h2
-            class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-1"
+            class="text-xl md:text-2xl font-bold text-slate-900 dark:text-white mb-1"
           >
             {{ spotlightUser.fullName }}
           </h2>
@@ -72,7 +72,7 @@
             {{ spotlightUser.role === "ADMIN" ? "Unit Head" : "Writer" }}
           </p>
           <blockquote
-            class="text-md text-slate-600 dark:text-slate-300 italic mb-6 border-l-4 border-indigo-500 pl-4 text-left line-clamp-3"
+            class="text-sm md:text-md text-slate-600 dark:text-slate-300 italic mb-6 border-l-4 border-indigo-500 pl-4 text-left line-clamp-3"
           >
             "{{
               spotlightUser.bio ||
@@ -81,12 +81,12 @@
           </blockquote>
           <button
             @click="navigateToProfile(spotlightUser.id)"
-            class="bg-indigo-600 text-white px-6 py-2.5 rounded-lg text-sm font-mono hover:bg-indigo-700 transition-colors shadow-sm inline-flex items-center gap-2"
+            class="bg-indigo-600 text-white px-6 py-2.5 rounded-lg text-xs md:text-sm font-mono hover:bg-indigo-700 transition-colors shadow-sm inline-flex items-center gap-2"
           >
             View Full Profile
             <Icon
               name="material-symbols:arrow-forward-rounded"
-              class="text-lg"
+              class="text-md md:text-lg"
             />
           </button>
         </div>
@@ -151,7 +151,7 @@
               <span v-else>{{ member.fullName.charAt(0) }}</span>
             </div>
             <h4
-              class="text-lg text-slate-900 dark:text-white font-bold mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"
+              class="text-md md:text-lg text-slate-900 dark:text-white font-bold mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"
             >
               {{ member.fullName }}
             </h4>
@@ -165,7 +165,9 @@
             >
               {{ member.role === "ADMIN" ? "Unit Head" : "Writer" }}
             </span>
-            <p class="text-sm text-slate-500 dark:text-slate-400 line-clamp-2">
+            <p
+              class="text-xs md:text-sm text-slate-500 dark:text-slate-400 line-clamp-2"
+            >
               {{ member.bio || "A valued member of the Editorial Unit." }}
             </p>
           </div>
@@ -176,17 +178,20 @@
         <div class="flex items-center justify-between mb-6">
           <div class="flex items-center gap-2">
             <h3
-              class="text-xl font-bold text-slate-900 dark:text-white font-mono"
+              class="text-md md:text-lg font-bold text-slate-900 dark:text-white font-mono"
             >
               Kudos Wall
             </h3>
           </div>
           <button
             @click="isKudosModalOpen = true"
-            class="text-sm font-mono text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 flex items-center gap-1"
+            class="text-xs md:text-sm font-mono text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 flex items-center gap-1"
           >
-            <Icon name="material-symbols:add-rounded" class="text-lg" /> Post a
-            Kudo
+            <Icon
+              name="material-symbols:add-rounded"
+              class="text-md md:text-lg"
+            />
+            Post a Kudo
           </button>
         </div>
 
@@ -220,7 +225,7 @@
               class="absolute top-2 right-2 text-3xl opacity-20"
             />
             <p
-              class="text-sm font-mono mb-4 relative z-10 pt-2 leading-relaxed"
+              class="text-xs md:text-sm font-mono mb-4 relative z-10 pt-2 leading-relaxed"
             >
               "{{ kudo.content }}"
             </p>
@@ -235,7 +240,7 @@
                 name="material-symbols:person-rounded"
                 class="text-sm"
               />
-              <span class="text-[10px] font-bold uppercase tracking-wider"
+              <span class="text-[9px] font-bold uppercase tracking-wider"
                 >From {{ kudo.author?.fullName.split(" ")[0] }}</span
               >
             </div>

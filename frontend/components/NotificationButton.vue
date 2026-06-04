@@ -1,5 +1,5 @@
 <template>
-  <div class="relative" ref="dropdownContainer">
+  <div ref="dropdownContainer">
     <button
       @click="toggleDropdown"
       class="text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-2 transition-colors duration-200 flex items-center justify-center relative"
@@ -25,7 +25,7 @@
 
     <div
       v-if="isOpen"
-      class="absolute right-0 mt-2 w-80 sm:w-96 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden z-50 transform origin-top-right animate-fade-in"
+      class="absolute right-0 left-0 mt-2 w-[95%] mx-auto sm:w-96 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden z-50 transform origin-top-right animate-fade-in"
     >
       <div
         class="px-4 py-3 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50"
@@ -92,7 +92,7 @@
             <div class="flex-1 pr-8">
               <p
                 :class="[
-                  'text-sm leading-snug',
+                  'text-xs md:text-sm leading-snug',
                   !notification.isRead
                     ? 'text-slate-900 dark:text-white font-medium'
                     : 'text-slate-600 dark:text-slate-400',

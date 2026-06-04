@@ -1,9 +1,11 @@
 <template>
   <div class="max-w-7xl mx-auto space-y-8 font-sans">
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <div
+      class="flex flex-col md:flex-row md:items-center justify-between gap-4"
+    >
       <div>
         <h2
-          class="text-2xl md:text-3xl font-semibold text-slate-900 dark:text-white tracking-tight font-sans"
+          class="text-xl md:text-2xl font-semibold text-slate-900 dark:text-white tracking-tight font-sans"
         >
           Welcome back, {{ firstName }}
         </h2>
@@ -14,17 +16,11 @@
         </p>
       </div>
       <div class="flex gap-3">
-        <button
-          class="px-2 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg font-mono text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm flex items-center gap-2 font-mono text-sm"
-        >
-          <Icon name="material-symbols:download-rounded" class="text-xl" />
-          Export
-        </button>
         <NuxtLink
-          class="px-2 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-mono transition-colors shadow-sm flex items-center gap-2"
+          class="px-2 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-mono transition-colors shadow-sm flex items-center gap-2"
           to="/editor/new"
         >
-          <Icon name="material-symbols:add-rounded" class="text-xl" />
+          <Icon name="material-symbols:add-rounded" class="text-lg" />
           New Draft
         </NuxtLink>
       </div>
@@ -40,7 +36,7 @@
         >
           <Icon
             name="material-symbols:edit-document-outline-rounded"
-            class="text-6xl text-indigo-600 dark:text-indigo-400"
+            class="text-4xl text-indigo-600 dark:text-indigo-400"
           />
         </div>
         <div class="flex items-center gap-3 mb-4">
@@ -57,12 +53,12 @@
           </h3>
         </div>
         <div class="flex items-baseline gap-2">
-          <span class="text-3xl font-bold text-slate-900 dark:text-white">{{
+          <span class="text-2xl font-bold text-slate-900 dark:text-white">{{
             activeDraftsCount
           }}</span>
         </div>
         <div
-          class="mt-2 flex items-center gap-1 text-emerald-600 dark:text-emerald-400 text-sm font-mono"
+          class="mt-2 flex items-center gap-1 text-emerald-600 dark:text-emerald-400 text-xs font-mono"
         >
           <Icon name="material-symbols:trending-up-rounded" class="text-base" />
           <span>In Review</span>
@@ -78,7 +74,7 @@
         >
           <Icon
             name="material-symbols:assignment-late-outline-rounded"
-            class="text-6xl text-rose-600 dark:text-rose-400"
+            class="text-4xl text-rose-600 dark:text-rose-400"
           />
         </div>
         <div class="flex items-center gap-3 mb-4">
@@ -95,12 +91,12 @@
           </h3>
         </div>
         <div class="flex items-baseline gap-2">
-          <span class="text-3xl font-bold text-slate-900 dark:text-white">{{
+          <span class="text-2xl font-bold text-slate-900 dark:text-white">{{
             pendingTasksCount
           }}</span>
         </div>
         <div
-          class="mt-2 flex items-center gap-1 text-rose-600 dark:text-rose-400 text-sm font-mono"
+          class="mt-2 flex items-center gap-1 text-rose-600 dark:text-rose-400 text-xs font-mono"
         >
           <Icon
             name="material-symbols:priority-high-rounded"
@@ -119,7 +115,7 @@
         >
           <Icon
             name="material-symbols:psychology-outline-rounded"
-            class="text-6xl text-amber-600 dark:text-amber-400"
+            class="text-4xl text-amber-600 dark:text-amber-400"
           />
         </div>
         <div class="flex items-center gap-3 mb-4">
@@ -136,12 +132,12 @@
           </h3>
         </div>
         <div class="flex items-baseline gap-2">
-          <span class="text-3xl font-bold text-slate-900 dark:text-white">{{
+          <span class="text-2xl font-bold text-slate-900 dark:text-white">{{
             brainstormSessionsCount
           }}</span>
         </div>
         <div
-          class="mt-2 flex items-center gap-1 text-slate-500 dark:text-slate-400 text-sm font-mono"
+          class="mt-2 flex items-center gap-1 text-slate-500 dark:text-slate-400 text-xs font-mono"
         >
           <Icon name="material-symbols:event-rounded" class="text-base" />
           <span>Active</span>
@@ -156,7 +152,7 @@
         <div
           class="p-5 border-b border-slate-100 dark:border-slate-700/50 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/50 shrink-0"
         >
-          <h3 class="text-base font-semibold text-slate-900 dark:text-white">
+          <h3 class="text-sm font-semibold text-slate-900 dark:text-white">
             Recent Activities
           </h3>
         </div>
@@ -220,7 +216,7 @@
         <div
           class="p-5 border-b border-slate-100 dark:border-slate-700/50 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/50"
         >
-          <h3 class="text-base font-semibold text-slate-900 dark:text-white">
+          <h3 class="text-sm font-semibold text-slate-900 dark:text-white">
             Team Tasks
           </h3>
           <span
@@ -235,7 +231,7 @@
             v-if="tasks.length === 0"
             class="text-center py-6 text-sm text-slate-500 dark:text-slate-400"
           >
-            No pending tasks. You're all caught up!
+            No pending tasks.
           </div>
           <ul v-else class="space-y-2">
             <li v-for="task in tasks" :key="task.id">
@@ -330,9 +326,9 @@
           <div v-if="!isCreatingTask" class="flex justify-center">
             <button
               @click="isCreatingTask = true"
-              class="w-full py-2 flex items-center justify-center gap-2 text-sm font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-500/20 transition-colors"
+              class="w-full py-2 flex items-center justify-center gap-2 text-xs font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-500/20 transition-colors"
             >
-              <Icon name="material-symbols:add-rounded" class="text-lg" />
+              <Icon name="material-symbols:add-rounded" class="text-md" />
               New Task
             </button>
           </div>

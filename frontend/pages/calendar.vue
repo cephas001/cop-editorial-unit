@@ -69,7 +69,7 @@
               :key="index"
               @click="openDayModal(day)"
               :class="[
-                'p-2 min-h-[100px] flex flex-col gap-1 transition-colors group relative',
+                'pt-2 pr-2 min-h-[80px] flex flex-col gap-1 transition-colors group relative',
                 day.isCurrentMonth
                   ? 'bg-white dark:bg-slate-800 cursor-pointer'
                   : 'bg-slate-50/50 dark:bg-slate-800/50 opacity-50',
@@ -122,7 +122,7 @@
         class="p-5 sm:p-6 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/50 shrink-0"
       >
         <h3
-          class="text-base font-semibold text-slate-900 dark:text-white tracking-tight"
+          class="text-sm md:text-base font-semibold text-slate-900 dark:text-white tracking-tight"
         >
           My Tasks
         </h3>
@@ -145,7 +145,7 @@
           </h4>
           <div
             v-if="myUpcomingTasks.length === 0"
-            class="text-sm text-slate-500 font-mono"
+            class="text-xs md:text-sm text-slate-500 font-mono"
           >
             No immediate deadlines.
           </div>
@@ -209,7 +209,7 @@
           </h4>
           <div
             v-if="myTasks.length === 0"
-            class="text-sm text-slate-500 font-mono"
+            class="text-xs md:text-sm text-slate-500 font-mono"
           >
             No tasks assigned yet.
           </div>

@@ -67,9 +67,7 @@
             class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2"
           >
             <div>
-              <h2
-                class="text-2xl font-bold text-slate-900 dark:text-white mb-1"
-              >
+              <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-2">
                 {{ user?.fullName || "Loading..." }}
               </h2>
               <div
@@ -88,9 +86,12 @@
             </div>
             <button
               @click="openEditProfile"
-              class="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors flex items-center justify-center gap-2 bg-white dark:bg-slate-800 shadow-sm"
+              class="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 text-xs md:text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors flex items-center justify-center gap-2 bg-white dark:bg-slate-800 shadow-sm w-fit mx-auto"
             >
-              <Icon name="material-symbols:edit-rounded" class="text-lg" />
+              <Icon
+                name="material-symbols:edit-rounded"
+                class="text-md md:text-lg"
+              />
               Edit Profile
             </button>
           </div>
@@ -106,7 +107,7 @@
           >
             <div class="text-center md:text-left">
               <span
-                class="block text-xl font-bold text-slate-900 dark:text-white"
+                class="block text-lg md:text-xl font-bold text-slate-900 dark:text-white"
                 >{{ totalWriteups }}</span
               >
               <span
@@ -117,7 +118,7 @@
             <div class="w-px h-8 bg-slate-200 dark:bg-slate-700"></div>
             <div class="text-center md:text-left">
               <span
-                class="block text-xl font-bold text-slate-900 dark:text-white"
+                class="block text-lg md:text-xl font-bold text-slate-900 dark:text-white"
                 >{{ draftCount }}</span
               >
               <span
@@ -139,7 +140,7 @@
         <button
           @click="switchTab('writeups')"
           :class="[
-            'px-4 py-3 text-sm font-semibold whitespace-nowrap transition-colors border-b-2',
+            'px-4 py-3 text-xs md:text-sm font-semibold whitespace-nowrap transition-colors border-b-2',
             activeTab === 'writeups'
               ? 'text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400'
               : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border-transparent',
@@ -150,7 +151,7 @@
         <button
           @click="switchTab('comments')"
           :class="[
-            'px-4 py-3 text-sm font-semibold whitespace-nowrap transition-colors border-b-2',
+            'px-4 py-3 text-xs md:text-sm font-semibold whitespace-nowrap transition-colors border-b-2',
             activeTab === 'comments'
               ? 'text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400'
               : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border-transparent',
@@ -161,7 +162,7 @@
         <button
           @click="switchTab('ideas')"
           :class="[
-            'px-4 py-3 text-sm font-semibold whitespace-nowrap transition-colors border-b-2',
+            'px-4 py-3 text-xs md:text-sm font-semibold whitespace-nowrap transition-colors border-b-2',
             activeTab === 'ideas'
               ? 'text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400'
               : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border-transparent',

@@ -1,11 +1,11 @@
 <template>
-  <div class="flex flex-col h-full font-sans">
+  <div class="flex flex-col min-h-[110vh] font-sans">
     <div
       class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4"
     >
       <div>
         <h1
-          class="text-2xl font-semibold text-slate-900 dark:text-white tracking-tight"
+          class="text-xl md:text-2xl font-semibold text-slate-900 dark:text-white tracking-tight"
         >
           Directory
         </h1>
@@ -15,9 +15,9 @@
       </div>
       <NuxtLink
         to="/editor/new"
-        class="px-2 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-mono transition-colors shadow-sm flex items-center gap-2"
+        class="px-2 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-mono transition-colors shadow-sm flex items-center gap-2"
       >
-        <Icon name="material-symbols:add-rounded" class="text-xl" />
+        <Icon name="material-symbols:add-rounded" class="text-lg" />
         New Article
       </NuxtLink>
     </div>
@@ -54,11 +54,12 @@
         />
       </div>
       <div class="flex items-center gap-2 shrink-0">
-        <span class="text-sm font-mono text-slate-500 dark:text-slate-400"
+        <span
+          class="text-xs md:text-sm font-mono text-slate-500 dark:text-slate-400"
           >Sort by:</span
         >
         <select
-          class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 text-sm font-mono text-slate-700 dark:text-slate-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-colors cursor-pointer"
+          class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 text-xs md:text-sm font-mono text-slate-700 dark:text-slate-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-colors cursor-pointer"
           v-model="sortOrder"
         >
           <option>Newest First</option>
@@ -119,7 +120,7 @@
 
         <div class="p-5 flex flex-col flex-1">
           <h3
-            class="text-lg font-semibold text-slate-900 dark:text-white mb-2 line-clamp-2 group-hover:text-indigo-600 transition-colors"
+            class="text-md md:text-lg font-semibold text-slate-900 dark:text-white mb-2 line-clamp-2 group-hover:text-indigo-600 transition-colors"
           >
             {{ article.title }}
           </h3>
@@ -142,7 +143,7 @@
                 }}</span>
               </div>
               <span
-                class="text-xs font-medium text-slate-600 dark:text-slate-300"
+                class="text-[12px] md:text-xs font-medium text-slate-600 dark:text-slate-300"
               >
                 {{ article.author?.fullName || "Unknown Author" }}
               </span>
@@ -204,6 +205,8 @@ const filteredArticles = computed(() => {
     default:
       result = articles.value;
   }
+
+  console.log(result);
 
   // Apply sorting
   return result.slice().sort((a, b) => {
