@@ -49,7 +49,7 @@ router.post("/", requireAuth, async (req, res) => {
       // Map over the users to create an array of notification objects
       const notificationsToInsert = otherUsers.map((user) => ({
         userId: user.id,
-        content: `${req.user.fullName} posted a new Kudo on the Team Wall!`,
+        content: "Someone just posted a new Kudo on the Team Wall!",
       }));
 
       // Insert them all at once efficiently

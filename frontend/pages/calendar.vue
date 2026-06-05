@@ -2,7 +2,20 @@
   <div
     class="flex flex-col lg:flex-row min-h-[calc(100vh-8rem)] gap-6 font-sans relative"
   >
+    <!-- Main Calendar Panel: Slides in from the left -->
     <section
+      v-motion
+      :initial="{ opacity: 0, x: -30 }"
+      :enter="{
+        opacity: 1,
+        x: 0,
+        transition: {
+          duration: 500,
+          type: 'spring',
+          stiffness: 250,
+          damping: 25,
+        },
+      }"
       class="flex-1 flex flex-col min-h-[500px] bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden shrink-0"
     >
       <div
@@ -92,7 +105,9 @@
                 {{ day.date }}
               </div>
 
+              <!-- AutoAnimate added so task updates glide smoothly within the cell -->
               <div
+                v-auto-animate
                 class="flex flex-col gap-1 mt-1 overflow-y-auto hide-scrollbar flex-1"
               >
                 <div
@@ -115,7 +130,21 @@
       </div>
     </section>
 
+    <!-- Sidebar Task Panel: Slides in from the right with a delay -->
     <section
+      v-motion
+      :initial="{ opacity: 0, x: 30 }"
+      :enter="{
+        opacity: 1,
+        x: 0,
+        transition: {
+          delay: 100,
+          duration: 500,
+          type: 'spring',
+          stiffness: 250,
+          damping: 25,
+        },
+      }"
       class="w-full lg:w-80 xl:w-96 flex flex-col min-h-[400px] bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden shrink-0"
     >
       <div
@@ -149,7 +178,8 @@
           >
             No immediate deadlines.
           </div>
-          <div v-else class="flex flex-col gap-3">
+          <!-- AutoAnimate applied to Upcoming Deadlines list -->
+          <div v-else v-auto-animate class="flex flex-col gap-3">
             <div
               v-for="task in myUpcomingTasks"
               :key="'up-' + task.id"
@@ -213,7 +243,8 @@
           >
             No tasks assigned yet.
           </div>
-          <div class="flex flex-col gap-3">
+          <!-- AutoAnimate applied to All Tasks list -->
+          <div v-auto-animate class="flex flex-col gap-3">
             <div
               v-for="task in myTasks"
               :key="'all-' + task.id"
@@ -283,13 +314,23 @@
       </div>
     </section>
 
+    <!-- Modals -->
+
+    <!-- Day Details Modal -->
     <div
       v-if="isDayModalOpen"
       class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
       @click.self="isDayModalOpen = false"
     >
       <div
-        class="bg-white dark:bg-slate-800 rounded-xl w-full max-w-lg shadow-xl overflow-hidden border border-slate-200 dark:border-slate-700 animate-zoom-in flex flex-col max-h-[80vh]"
+        v-motion
+        :initial="{ opacity: 0, scale: 0.95 }"
+        :enter="{
+          opacity: 1,
+          scale: 1,
+          transition: { type: 'spring', stiffness: 300, damping: 25 },
+        }"
+        class="bg-white dark:bg-slate-800 rounded-xl w-full max-w-lg shadow-xl overflow-hidden border border-slate-200 dark:border-slate-700 flex flex-col max-h-[80vh]"
       >
         <div
           class="px-6 py-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50 shrink-0"
@@ -318,7 +359,10 @@
           </button>
         </div>
 
-        <div class="p-6 overflow-y-auto flex-1 custom-scrollbar space-y-4">
+        <div
+          v-auto-animate
+          class="p-6 overflow-y-auto flex-1 custom-scrollbar space-y-4"
+        >
           <div
             v-for="task in selectedDay?.tasks"
             :key="'modal-' + task.id"
@@ -387,13 +431,21 @@
       </div>
     </div>
 
+    <!-- Create Task Modal -->
     <div
       v-if="isCreatingTask"
       class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
       @click.self="cancelCreateTask"
     >
       <div
-        class="bg-white dark:bg-slate-800 rounded-xl w-full max-w-md shadow-xl overflow-hidden border border-slate-200 dark:border-slate-700 animate-zoom-in"
+        v-motion
+        :initial="{ opacity: 0, scale: 0.95 }"
+        :enter="{
+          opacity: 1,
+          scale: 1,
+          transition: { type: 'spring', stiffness: 300, damping: 25 },
+        }"
+        class="bg-white dark:bg-slate-800 rounded-xl w-full max-w-md shadow-xl overflow-hidden border border-slate-200 dark:border-slate-700"
       >
         <div
           class="px-6 py-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50"
@@ -519,6 +571,7 @@
 import { ref, computed, onMounted } from "vue";
 import { useAuthStore } from "~/stores/auth";
 import { useAppToast } from "~/composables/useAppToast";
+import { vAutoAnimate } from "@formkit/auto-animate/vue";
 
 const authStore = useAuthStore();
 const user = computed(() => authStore.user);
@@ -737,7 +790,6 @@ const submitTask = async () => {
       },
     });
 
-    // Determine assignee object manually to avoid needing a backend re-fetch immediately
     let mappedAssignee = user.value;
     if (addedTask.assigneeId !== user.value.id) {
       mappedAssignee =
@@ -779,6 +831,7 @@ onMounted(async () => {
 
 <style scoped>
 @reference "tailwindcss";
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -798,19 +851,5 @@ onMounted(async () => {
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-
-.animate-zoom-in {
-  animation: zoomIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-@keyframes zoomIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
 }
 </style>

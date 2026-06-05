@@ -2,6 +2,9 @@
   <div class="flex flex-col h-full font-sans max-w-7xl mx-auto space-y-6 pb-24">
     <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
       <div
+        v-motion
+        :initial="{ opacity: 0, y: -20 }"
+        :enter="{ opacity: 1, y: 0, transition: { duration: 400 } }"
         class="md:col-span-8 bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col md:flex-row items-center md:items-start gap-6 relative overflow-hidden text-center md:text-left"
       >
         <div
@@ -132,6 +135,9 @@
     </div>
 
     <div
+      v-motion
+      :initial="{ opacity: 0, y: 30 }"
+      :enter="{ opacity: 1, y: 0, transition: { delay: 150, duration: 400 } }"
       class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col flex-1"
     >
       <div
@@ -172,11 +178,8 @@
         </button>
       </div>
 
-      <div class="p-0 flex-1 flex flex-col min-h-[300px]">
-        <div
-          v-if="activeTab === 'writeups'"
-          class="animate-fade-in flex flex-col h-full"
-        >
+      <div v-auto-animate class="p-0 flex-1 flex flex-col min-h-[300px]">
+        <div v-if="activeTab === 'writeups'" class="flex flex-col h-full">
           <div
             class="grid grid-cols-12 gap-4 px-6 py-3 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 hidden md:grid shrink-0"
           >
@@ -185,6 +188,7 @@
             <div class="col-span-2 text-right">Status</div>
           </div>
           <div
+            v-auto-animate
             class="divide-y divide-slate-100 dark:divide-slate-700/50 flex-1 overflow-y-auto"
           >
             <div
@@ -214,8 +218,9 @@
               >
                 <span
                   class="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1"
-                  >{{ article.title || "Untitled Draft" }}</span
                 >
+                  {{ article.title || "Untitled Draft" }}
+                </span>
               </div>
               <div
                 class="md:col-span-3 text-xs font-mono text-slate-500 dark:text-slate-400 text-center md:text-left"
@@ -230,18 +235,17 @@
                     'inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border',
                     getStatusBadge(article.status),
                   ]"
-                  >{{ article.status.replace("_", " ") }}</span
                 >
+                  {{ article.status.replace("_", " ") }}
+                </span>
               </div>
             </div>
           </div>
         </div>
 
-        <div
-          v-if="activeTab === 'comments'"
-          class="animate-fade-in flex flex-col h-full"
-        >
+        <div v-if="activeTab === 'comments'" class="flex flex-col h-full">
           <div
+            v-auto-animate
             class="divide-y divide-slate-100 dark:divide-slate-700/50 flex-1 overflow-y-auto p-4 sm:p-6 space-y-4"
           >
             <div v-if="isLoadingData" class="py-8 flex justify-center">
@@ -291,11 +295,9 @@
           </div>
         </div>
 
-        <div
-          v-if="activeTab === 'ideas'"
-          class="animate-fade-in flex flex-col h-full"
-        >
+        <div v-if="activeTab === 'ideas'" class="flex flex-col h-full">
           <div
+            v-auto-animate
             class="divide-y divide-slate-100 dark:divide-slate-700/50 flex-1 overflow-y-auto p-4 sm:p-6 space-y-4"
           >
             <div v-if="isLoadingData" class="py-8 flex justify-center">
@@ -363,7 +365,14 @@
       @click.self="isEditProfileOpen = false"
     >
       <div
-        class="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-lg shadow-xl overflow-hidden border border-slate-200 dark:border-slate-700 animate-zoom-in"
+        v-motion
+        :initial="{ opacity: 0, scale: 0.95 }"
+        :enter="{
+          opacity: 1,
+          scale: 1,
+          transition: { type: 'spring', stiffness: 300, damping: 25 },
+        }"
+        class="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-lg shadow-xl overflow-hidden border border-slate-200 dark:border-slate-700"
       >
         <div
           class="px-6 py-5 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50"
@@ -433,11 +442,19 @@
     <Teleport to="body">
       <div
         v-if="isActionMenuOpen"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 animate-fade-in"
+        v-motion-fade
+        class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4"
         @click.self="isActionMenuOpen = false"
       >
         <div
-          class="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-sm shadow-xl overflow-hidden border border-slate-200 dark:border-slate-700 animate-zoom-in"
+          v-motion
+          :initial="{ opacity: 0, scale: 0.95 }"
+          :enter="{
+            opacity: 1,
+            scale: 1,
+            transition: { type: 'spring', stiffness: 300, damping: 25 },
+          }"
+          class="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-sm shadow-xl overflow-hidden border border-slate-200 dark:border-slate-700"
         >
           <div
             class="px-6 py-5 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50"
@@ -542,6 +559,7 @@ import { useAuthStore } from "~/stores/auth";
 import { useAppToast } from "~/composables/useAppToast";
 import { useConfirm } from "~/composables/useConfirm";
 import { useRouter } from "vue-router";
+import { vAutoAnimate } from "@formkit/auto-animate/vue";
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -699,7 +717,7 @@ const getTagColor = (tag) => {
   );
 };
 
-// Avatar Helpers (Unchanged logic)
+// Avatar Helpers
 const handleAvatarClick = () => {
   if (!user.value?.avatarUrl && !avatarPreview.value) {
     triggerFileInput();
@@ -785,29 +803,5 @@ const handleRemoveAvatar = async () => {
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-.animate-fade-in {
-  animation: fadeIn 0.2s ease-out forwards;
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-.animate-zoom-in {
-  animation: zoomIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-@keyframes zoomIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
 }
 </style>

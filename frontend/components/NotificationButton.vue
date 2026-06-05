@@ -2,7 +2,7 @@
   <div ref="dropdownContainer">
     <button
       @click="toggleDropdown"
-      class="text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-2 transition-colors duration-200 flex items-center justify-center relative"
+      class="text-black hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-2 transition-colors duration-200 flex items-center justify-center relative"
       aria-label="Notifications"
     >
       <Icon

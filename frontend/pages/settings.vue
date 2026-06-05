@@ -1,8 +1,13 @@
 <template>
   <div class="max-w-6xl mx-auto font-sans pb-24 space-y-6">
-    <div class="mb-8">
+    <div
+      v-motion
+      :initial="{ opacity: 0, y: -20 }"
+      :enter="{ opacity: 1, y: 0, transition: { duration: 400 } }"
+      class="mb-8"
+    >
       <h1
-        class="text-2xl md:text-3xl font-semibold text-slate-900 dark:text-white tracking-tight mb-2"
+        class="text-xl md:text-2xl font-semibold text-slate-900 dark:text-white tracking-tight mb-2"
       >
         Settings
       </h1>
@@ -12,14 +17,16 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
-      <!-- Settings Sidebar -->
       <aside
+        v-motion
+        :initial="{ opacity: 0, x: -20 }"
+        :enter="{ opacity: 1, x: 0, transition: { delay: 100, duration: 400 } }"
         class="md:col-span-3 flex flex-row md:flex-col gap-2 overflow-x-auto pb-4 md:pb-0 hide-scrollbar"
       >
         <button
           @click="activeTab = 'preferences'"
           :class="[
-            'flex-shrink-0 flex items-center gap-3 px-4 py-3 rounded-lg transition-colors w-auto md:w-full text-left font-medium text-sm whitespace-nowrap',
+            'flex-shrink-0 flex items-center gap-3 px-4 py-3 rounded-lg transition-colors w-auto md:w-full text-left font-medium text-xs md:text-sm whitespace-nowrap',
             activeTab === 'preferences'
               ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-400'
               : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800',
@@ -27,7 +34,7 @@
         >
           <Icon
             name="material-symbols:settings-outline-rounded"
-            class="text-xl"
+            class="text-lg"
           />
           <span>Preferences</span>
         </button>
@@ -35,7 +42,7 @@
         <button
           @click="activeTab = 'notifications'"
           :class="[
-            'flex-shrink-0 flex items-center gap-3 px-4 py-3 rounded-lg transition-colors w-auto md:w-full text-left font-medium text-sm whitespace-nowrap',
+            'flex-shrink-0 flex items-center gap-3 px-4 py-3 rounded-lg transition-colors w-auto md:w-full text-left font-medium text-xs md:text-sm whitespace-nowrap',
             activeTab === 'notifications'
               ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-400'
               : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800',
@@ -43,7 +50,7 @@
         >
           <Icon
             name="material-symbols:notifications-outline-rounded"
-            class="text-xl"
+            class="text-lg"
           />
           <span>Notifications</span>
         </button>
@@ -52,27 +59,30 @@
           v-if="user?.role === 'ADMIN'"
           @click="activeTab = 'team'"
           :class="[
-            'flex-shrink-0 flex items-center gap-3 px-4 py-3 rounded-lg transition-colors w-auto md:w-full text-left font-medium text-sm whitespace-nowrap',
+            'flex-shrink-0 flex items-center gap-3 px-4 py-3 rounded-lg transition-colors w-auto md:w-full text-left font-medium text-xs md:text-sm whitespace-nowrap',
             activeTab === 'team'
               ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-400'
               : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800',
           ]"
         >
-          <Icon name="material-symbols:group-outline-rounded" class="text-xl" />
+          <Icon name="material-symbols:group-outline-rounded" class="text-lg" />
           <span>Team Management</span>
         </button>
       </aside>
 
-      <div class="md:col-span-9">
+      <div
+        v-motion
+        :initial="{ opacity: 0, x: 20 }"
+        :enter="{ opacity: 1, x: 0, transition: { delay: 200, duration: 400 } }"
+        class="md:col-span-9"
+      >
         <div
+          v-auto-animate
           class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 min-h-[400px] relative overflow-hidden"
         >
-          <div
-            v-if="activeTab === 'preferences'"
-            class="animate-fade-in space-y-8"
-          >
+          <div v-if="activeTab === 'preferences'" class="space-y-8">
             <div>
-              <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-4">
+              <h2 class="text-md font-bold text-slate-900 dark:text-white mb-4">
                 Theme Appearance
               </h2>
               <div
@@ -84,7 +94,7 @@
                   >
                     Dark Mode
                   </h3>
-                  <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">
                     Adjust the interface to match your system preferences.
                   </p>
                 </div>
@@ -93,7 +103,7 @@
             </div>
 
             <div>
-              <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-4">
+              <h2 class="text-md font-bold text-slate-900 dark:text-white mb-4">
                 Personal Details
               </h2>
               <div
@@ -113,9 +123,7 @@
                     <span v-else>{{ user?.fullName?.charAt(0) || "U" }}</span>
                   </div>
                   <div>
-                    <p
-                      class="text-base font-bold text-slate-900 dark:text-white"
-                    >
+                    <p class="text-sm font-bold text-slate-900 dark:text-white">
                       {{ user?.fullName || "Loading..." }}
                     </p>
                     <p
@@ -126,7 +134,7 @@
                   </div>
                 </div>
                 <p
-                  class="text-sm text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed whitespace-pre-wrap"
+                  class="text-xs text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed whitespace-pre-wrap"
                 >
                   {{
                     user?.bio ||
@@ -137,7 +145,7 @@
               <div class="flex justify-end">
                 <button
                   @click="navigateTo('/profile')"
-                  class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm px-5 py-2.5 rounded-lg transition-colors shadow-sm"
+                  class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-xs md:text-sm px-5 py-2.5 rounded-lg transition-colors shadow-sm"
                 >
                   Edit Profile
                 </button>
@@ -147,7 +155,7 @@
 
           <div
             v-if="activeTab === 'notifications'"
-            class="animate-fade-in relative h-full flex flex-col"
+            class="relative h-full flex flex-col"
           >
             <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-2">
               App Notifications
@@ -239,7 +247,7 @@
 
           <div
             v-if="activeTab === 'team' && user?.role === 'ADMIN'"
-            class="animate-fade-in flex flex-col h-full min-h-[350px]"
+            class="flex flex-col h-full min-h-[350px]"
           >
             <div class="flex justify-between items-center mb-6">
               <div>
@@ -281,6 +289,7 @@
 
               <div
                 v-else
+                v-auto-animate
                 class="divide-y divide-slate-100 dark:divide-slate-700/50 overflow-y-auto custom-scrollbar flex-1"
               >
                 <div
@@ -362,6 +371,7 @@ import { ref, computed, onMounted } from "vue";
 import { useAuthStore } from "~/stores/auth";
 import { useAppToast } from "~/composables/useAppToast";
 import { useConfirm } from "~/composables/useConfirm";
+import { vAutoAnimate } from "@formkit/auto-animate/vue";
 
 const authStore = useAuthStore();
 const user = computed(() => authStore.user);
@@ -448,18 +458,5 @@ onMounted(() => {
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
   @apply bg-slate-300 dark:bg-slate-600 rounded-full;
-}
-.animate-fade-in {
-  animation: fadeIn 0.2s ease-out forwards;
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 </style>

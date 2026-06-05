@@ -2,7 +2,13 @@
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
-  modules: ["@nuxt/icon", "@nuxt/ui", "@pinia/nuxt", "@vite-pwa/nuxt"],
+  modules: [
+    "@nuxt/icon",
+    "@nuxt/ui",
+    "@pinia/nuxt",
+    "@vite-pwa/nuxt",
+    "@vueuse/motion/nuxt",
+  ],
   css: ["~/assets/css/main.css"],
 
   app: {

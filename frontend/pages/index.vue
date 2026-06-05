@@ -1,11 +1,15 @@
 <template>
   <div class="max-w-7xl mx-auto space-y-8 font-sans">
+    <!-- Header: Slides down gently on load -->
     <div
+      v-motion
+      :initial="{ opacity: 0, y: -20 }"
+      :enter="{ opacity: 1, y: 0, transition: { duration: 400 } }"
       class="flex flex-col md:flex-row md:items-center justify-between gap-4"
     >
       <div>
         <h2
-          class="text-xl md:text-2xl font-semibold text-slate-900 dark:text-white tracking-tight font-sans"
+          class="text-xl md:text-2xl font-semibold text-black dark:text-white tracking-tight font-sans"
         >
           Welcome back, {{ firstName }}
         </h2>
@@ -26,8 +30,12 @@
       </div>
     </div>
 
+    <!-- Stat Cards: Staggered slide up -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <div
+        v-motion
+        :initial="{ opacity: 0, y: 30 }"
+        :enter="{ opacity: 1, y: 0, transition: { delay: 100, duration: 400 } }"
         class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm relative overflow-hidden group cursor-pointer"
         @click="navigateTo('/articles')"
       >
@@ -53,7 +61,7 @@
           </h3>
         </div>
         <div class="flex items-baseline gap-2">
-          <span class="text-2xl font-bold text-slate-900 dark:text-white">{{
+          <span class="text-2xl font-bold text-black dark:text-white">{{
             activeDraftsCount
           }}</span>
         </div>
@@ -66,6 +74,9 @@
       </div>
 
       <div
+        v-motion
+        :initial="{ opacity: 0, y: 30 }"
+        :enter="{ opacity: 1, y: 0, transition: { delay: 200, duration: 400 } }"
         class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm relative overflow-hidden group cursor-pointer"
         @click="handleTaskClick"
       >
@@ -91,7 +102,7 @@
           </h3>
         </div>
         <div class="flex items-baseline gap-2">
-          <span class="text-2xl font-bold text-slate-900 dark:text-white">{{
+          <span class="text-2xl font-bold text-black dark:text-white">{{
             pendingTasksCount
           }}</span>
         </div>
@@ -107,6 +118,9 @@
       </div>
 
       <div
+        v-motion
+        :initial="{ opacity: 0, y: 30 }"
+        :enter="{ opacity: 1, y: 0, transition: { delay: 300, duration: 400 } }"
         class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm relative overflow-hidden group cursor-pointer"
         @click="navigateTo('/brainstorming')"
       >
@@ -132,7 +146,7 @@
           </h3>
         </div>
         <div class="flex items-baseline gap-2">
-          <span class="text-2xl font-bold text-slate-900 dark:text-white">{{
+          <span class="text-2xl font-bold text-black dark:text-white">{{
             brainstormSessionsCount
           }}</span>
         </div>
@@ -145,20 +159,29 @@
       </div>
     </div>
 
+    <!-- Main Panels -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Activities Panel -->
       <div
+        v-motion
+        :initial="{ opacity: 0, y: 30 }"
+        :enter="{ opacity: 1, y: 0, transition: { delay: 400, duration: 400 } }"
         class="lg:col-span-2 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden flex flex-col max-h-[500px]"
       >
         <div
           class="p-5 border-b border-slate-100 dark:border-slate-700/50 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/50 shrink-0"
         >
-          <h3 class="text-sm font-semibold text-slate-900 dark:text-white">
+          <h3 class="text-sm font-semibold text-black dark:text-white">
             Recent Activities
           </h3>
         </div>
 
         <div class="flex-1 overflow-y-auto hide-scrollbar">
-          <ul class="divide-y divide-slate-100 dark:divide-slate-700/50">
+          <!-- AutoAnimate applied to the list for smooth entry of new items -->
+          <ul
+            v-auto-animate
+            class="divide-y divide-slate-100 dark:divide-slate-700/50"
+          >
             <li
               v-if="activities.length === 0"
               class="p-8 text-center text-slate-500 dark:text-slate-400 text-sm font-mono"
@@ -180,7 +203,7 @@
               <div class="flex-1 min-w-0">
                 <div class="flex justify-between items-start mb-1 gap-2">
                   <p
-                    class="text-sm font-mono text-slate-900 dark:text-white truncate"
+                    class="text-sm font-mono text-black dark:text-white truncate"
                   >
                     {{
                       activity.article?.title
@@ -209,14 +232,18 @@
         </div>
       </div>
 
+      <!-- Tasks Panel -->
       <div
-        class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden flex flex-col"
         ref="taskListing"
+        v-motion
+        :initial="{ opacity: 0, y: 30 }"
+        :enter="{ opacity: 1, y: 0, transition: { delay: 500, duration: 400 } }"
+        class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden flex flex-col"
       >
         <div
           class="p-5 border-b border-slate-100 dark:border-slate-700/50 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/50"
         >
-          <h3 class="text-sm font-semibold text-slate-900 dark:text-white">
+          <h3 class="text-sm font-semibold text-black dark:text-white">
             Team Tasks
           </h3>
           <span
@@ -233,7 +260,8 @@
           >
             No pending tasks.
           </div>
-          <ul v-else class="space-y-2">
+          <!-- AutoAnimate added here to smooth task completion removal -->
+          <ul v-else v-auto-animate class="space-y-2">
             <li v-for="task in tasks" :key="task.id">
               <label
                 class="flex items-start gap-3 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/30 cursor-pointer transition-colors group border border-transparent hover:border-slate-100 dark:hover:border-slate-700/50"
@@ -258,7 +286,7 @@
                       'text-sm font-medium transition-colors group-hover:text-indigo-600 dark:group-hover:text-indigo-400',
                       task.status === 'COMPLETED'
                         ? 'line-through text-slate-400 dark:text-slate-500'
-                        : 'text-slate-900 dark:text-slate-100',
+                        : 'text-black dark:text-slate-100',
                     ]"
                   >
                     {{ task.title }}
@@ -319,7 +347,9 @@
           </ul>
         </div>
 
+        <!-- AutoAnimate on this wrapper creates a smooth toggle for the form -->
         <div
+          v-auto-animate
           class="p-4 border-t border-slate-100 dark:border-slate-700/50 bg-slate-50/50 dark:bg-slate-800/50"
           v-if="user?.role === 'ADMIN'"
         >
@@ -333,30 +363,26 @@
             </button>
           </div>
 
-          <form
-            v-else
-            @submit.prevent="submitTask"
-            class="space-y-3 animate-fade-in"
-          >
+          <form v-else @submit.prevent="submitTask" class="space-y-3">
             <input
               v-model="newTask.title"
               type="text"
               placeholder="Task Title..."
               required
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent text-sm text-slate-900 dark:text-white placeholder:text-slate-400 transition-colors"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent text-sm text-black dark:text-white placeholder:text-slate-400 transition-colors"
             />
 
             <textarea
               v-model="newTask.description"
               placeholder="Add detailed instructions... (optional)"
               rows="2"
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent text-sm text-slate-900 dark:text-white placeholder:text-slate-400 transition-colors resize-none"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent text-sm text-black dark:text-white placeholder:text-slate-400 transition-colors resize-none"
             ></textarea>
 
             <div class="flex gap-2">
               <select
                 v-model="newTask.priority"
-                class="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent text-sm text-slate-900 dark:text-white transition-colors"
+                class="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent text-sm text-black dark:text-white transition-colors"
               >
                 <option value="LOW">Low Priority</option>
                 <option value="MEDIUM">Medium Priority</option>
@@ -366,14 +392,14 @@
               <input
                 type="date"
                 v-model="newTask.dueDate"
-                class="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent text-sm text-slate-900 dark:text-white transition-colors"
+                class="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent text-sm text-black dark:text-white transition-colors"
               />
             </div>
 
             <select
               v-if="user?.role === 'ADMIN'"
               v-model="newTask.assigneeId"
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent text-sm text-slate-900 dark:text-white transition-colors"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent text-sm text-black dark:text-white transition-colors"
             >
               <option :value="user.id">Assign to myself</option>
               <option
@@ -417,6 +443,8 @@
 import { ref, computed, onMounted } from "vue";
 import { useAuthStore } from "~/stores/auth";
 import { useAppToast } from "~/composables/useAppToast";
+// Import AutoAnimate to ensure directives are registered cleanly
+import { vAutoAnimate } from "@formkit/auto-animate/vue";
 
 const taskListing = ref(null);
 
@@ -626,18 +654,5 @@ onMounted(async () => {
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-.animate-fade-in {
-  animation: fadeIn 0.2s ease-out forwards;
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 </style>

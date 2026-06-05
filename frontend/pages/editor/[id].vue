@@ -394,7 +394,7 @@
               :disabled="isReadOnly"
               type="text"
               placeholder="Article Title..."
-              class="w-full bg-transparent text-2xl sm:text-3xl md:text-4xl font-bold text-black dark:text-white leading-tight tracking-tight border-none outline-none focus:ring-0 placeholder:text-slate-300 placeholder:tracking-wide dark:placeholder:text-slate-800 px-0 disabled:opacity-80"
+              class="w-full bg-transparent text-lg md:text-2xl font-bold text-black dark:text-white leading-tight tracking-tight border-none outline-none focus:ring-0 placeholder:text-slate-300 placeholder:tracking-wide dark:placeholder:text-slate-800 px-0 disabled:opacity-80"
             />
           </div>
 
@@ -405,17 +405,17 @@
             <button
               @click="triggerCoverUpload"
               :disabled="isUploadingCover"
-              class="text-sm font-medium text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 flex items-center gap-2 transition-colors group disabled:opacity-50"
+              class="text-xs md:text-sm font-medium text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 flex items-center gap-2 transition-colors group disabled:opacity-50"
             >
               <Icon
                 v-if="isUploadingCover"
                 name="material-symbols:sync-rounded"
-                class="text-xl animate-spin"
+                class="text-lg md:text-xl animate-spin"
               />
               <Icon
                 v-else
                 name="material-symbols:image-outline-rounded"
-                class="text-xl group-hover:scale-110 transition-transform"
+                class="text-lg md:text-xl group-hover:scale-110 transition-transform"
               />
               {{ isUploadingCover ? "Uploading..." : "Add Cover" }}
             </button>
@@ -459,7 +459,7 @@
           >
             <editor-content
               :editor="editor"
-              class="font-serif text-base sm:text-lg text-black dark:text-slate-300 leading-relaxed prose prose-indigo dark:prose-invert max-w-none focus:outline-none"
+              class="font-serif text-sm md:text-lg text-black dark:text-slate-300 leading-relaxed prose prose-indigo dark:prose-invert max-w-none focus:outline-none"
             />
           </div>
         </template>

@@ -1,6 +1,9 @@
 <template>
   <div class="flex flex-col min-h-[110vh] font-sans">
     <div
+      v-motion
+      :initial="{ opacity: 0, y: -20 }"
+      :enter="{ opacity: 1, y: 0, transition: { duration: 400 } }"
       class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4"
     >
       <div>
@@ -18,11 +21,14 @@
         class="px-2 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-mono transition-colors shadow-sm flex items-center gap-2"
       >
         <Icon name="material-symbols:add-rounded" class="text-lg" />
-        New Article
+        New Draft
       </NuxtLink>
     </div>
 
     <div
+      v-motion
+      :initial="{ opacity: 0, y: 20 }"
+      :enter="{ opacity: 1, y: 0, transition: { delay: 150, duration: 400 } }"
       class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-6 gap-4"
     >
       <div
@@ -70,6 +76,7 @@
 
     <div
       v-if="!isLoading"
+      v-auto-animate="{ duration: 300 }"
       class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6"
     >
       <NuxtLink
@@ -155,13 +162,17 @@
         </div>
       </NuxtLink>
 
-      <div v-else class="text-center pt-10 font-serif">
+      <div
+        v-else
+        class="col-span-full text-center pt-10 font-serif text-slate-500 dark:text-slate-400"
+      >
         There are no articles to display
       </div>
     </div>
 
     <div
       v-else
+      v-motion-fade
       class="flex flex-col items-center justify-center flex-1 min-h-[400px] w-full"
     >
       <VineyardLoader size="120px" />
@@ -176,6 +187,7 @@
 import { ref, onMounted, computed } from "vue";
 import { useAuthStore } from "~/stores/auth";
 import { storeToRefs } from "pinia";
+import { vAutoAnimate } from "@formkit/auto-animate/vue";
 
 const authStore = useAuthStore();
 const { user } = storeToRefs(authStore);
@@ -199,7 +211,6 @@ const filteredArticles = computed(() => {
       );
       break;
     case "My Writeups":
-      // Replace 'currentUser.id' with your actual user ID ref/store variable.
       result = articles.value.filter(
         (article) => article.authorId === user?.value.id,
       );
@@ -209,8 +220,6 @@ const filteredArticles = computed(() => {
       result = articles.value;
       break;
   }
-
-  console.log(result);
 
   // Apply sorting
   return result.slice().sort((a, b) => {

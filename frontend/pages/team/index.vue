@@ -1,6 +1,9 @@
 <template>
   <div class="max-w-7xl mx-auto font-sans pb-24 space-y-12">
     <div
+      v-motion
+      :initial="{ opacity: 0, y: -20 }"
+      :enter="{ opacity: 1, y: 0, transition: { duration: 400 } }"
       class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4"
     >
       <div>
@@ -24,6 +27,7 @@
 
     <div
       v-if="isLoading"
+      v-motion-fade
       class="flex flex-col items-center justify-center flex-1 min-h-[400px] w-full"
     >
       <VineyardLoader size="120px" />
@@ -35,6 +39,9 @@
     <template v-else>
       <section
         v-if="spotlightUser"
+        v-motion
+        :initial="{ opacity: 0, y: 30 }"
+        :enter="{ opacity: 1, y: 0, transition: { delay: 100, duration: 400 } }"
         class="bg-indigo-50 dark:bg-indigo-900/10 rounded-2xl p-6 md:p-10 border border-indigo-100 dark:border-indigo-500/20 shadow-sm flex flex-col md:flex-row items-center gap-8 relative overflow-hidden"
       >
         <div
@@ -94,16 +101,25 @@
 
       <section>
         <div
+          v-motion
+          :initial="{ opacity: 0, y: 20 }"
+          :enter="{
+            opacity: 1,
+            y: 0,
+            transition: { delay: 200, duration: 400 },
+          }"
           class="flex justify-between items-end mb-6 border-b border-slate-200 dark:border-slate-700 pb-4"
         >
-          <div class="flex gap-2 items-center">
+          <div
+            class="inline-flex items-center p-1 bg-slate-100 dark:bg-slate-800/60 rounded-lg border border-slate-200/60 dark:border-slate-700/50"
+          >
             <button
               @click="filter = 'ALL'"
               :class="[
-                'px-3 py-1 rounded-md text-xs font-bold transition-colors',
+                'px-4 py-1.5 rounded-md text-xs font-semibold transition-all duration-200',
                 filter === 'ALL'
-                  ? 'bg-indigo-100 dark:bg-slate-700 text-black dark:text-slate-200'
-                  : 'text-slate-500 hover:text-slate-900 dark:hover:text-white',
+                  ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm ring-1 ring-slate-900/5 dark:ring-white/5'
+                  : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200',
               ]"
             >
               All
@@ -111,10 +127,10 @@
             <button
               @click="filter = 'WRITER'"
               :class="[
-                'px-3 py-1 rounded-md text-xs font-bold transition-colors',
+                'px-4 py-1.5 rounded-md text-xs font-semibold transition-all duration-200',
                 filter === 'WRITER'
-                  ? 'bg-indigo-100 dark:bg-slate-700 text-black dark:text-slate-200'
-                  : 'text-slate-500 hover:text-slate-900 dark:hover:text-white',
+                  ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm ring-1 ring-slate-900/5 dark:ring-white/5'
+                  : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200',
               ]"
             >
               Writers
@@ -122,10 +138,10 @@
             <button
               @click="filter = 'ADMIN'"
               :class="[
-                'px-3 py-1 rounded-md text-xs font-bold transition-colors',
+                'px-4 py-1.5 rounded-md text-xs font-semibold transition-all duration-200',
                 filter === 'ADMIN'
-                  ? 'bg-indigo-100 dark:bg-slate-700 text-black dark:text-slate-200'
-                  : 'text-slate-500 hover:text-slate-900 dark:hover:text-white',
+                  ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm ring-1 ring-slate-900/5 dark:ring-white/5'
+                  : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200',
               ]"
             >
               Unit Heads
@@ -133,7 +149,10 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div
+          v-auto-animate
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
           <div
             v-for="member in filteredRoster"
             :key="member.id"
@@ -175,7 +194,16 @@
       </section>
 
       <section>
-        <div class="flex items-center justify-between mb-6">
+        <div
+          v-motion
+          :initial="{ opacity: 0, y: 20 }"
+          :enter="{
+            opacity: 1,
+            y: 0,
+            transition: { delay: 300, duration: 400 },
+          }"
+          class="flex items-center justify-between mb-6 mt-6"
+        >
           <div class="flex items-center gap-2">
             <h3
               class="text-md md:text-lg font-bold text-slate-900 dark:text-white font-mono"
@@ -197,6 +225,7 @@
 
         <div
           v-if="kudos.length === 0"
+          v-motion-fade
           class="text-center py-12 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700 border-dashed"
         >
           <p class="text-slate-500 px-2">
@@ -206,6 +235,7 @@
 
         <div
           v-else
+          v-auto-animate
           class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-max"
         >
           <div
@@ -251,11 +281,19 @@
 
     <div
       v-if="isKudosModalOpen"
-      class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 animate-fade-in"
+      v-motion-fade
+      class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4"
       @click.self="isKudosModalOpen = false"
     >
       <div
-        class="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-md shadow-xl overflow-hidden border border-slate-200 dark:border-slate-700 animate-zoom-in"
+        v-motion
+        :initial="{ opacity: 0, scale: 0.95 }"
+        :enter="{
+          opacity: 1,
+          scale: 1,
+          transition: { type: 'spring', stiffness: 300, damping: 25 },
+        }"
+        class="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-md shadow-xl overflow-hidden border border-slate-200 dark:border-slate-700"
       >
         <div
           class="px-6 py-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center"
@@ -263,10 +301,6 @@
           <h3
             class="font-bold text-slate-900 dark:text-white flex items-center gap-2"
           >
-            <Icon
-              name="material-symbols:favorite-rounded"
-              class="text-rose-500"
-            />
             Leave a Kudo
           </h3>
           <button
@@ -283,7 +317,7 @@
             rows="3"
             placeholder="Thank someone, celebrate a win, or just share some good vibes..."
             required
-            class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-600 text-sm text-black dark:text-white resize-none"
+            class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-600 text-xs md:text-sm text-black dark:text-white resize-none"
           ></textarea>
 
           <div>
@@ -299,7 +333,7 @@
                     'bg-amber-50 text-amber-900 border-amber-200 dark:bg-amber-900/30 dark:text-amber-100 dark:border-amber-700'
                 "
                 :class="[
-                  'w-8 h-8 rounded-full bg-amber-200 border-2',
+                  'w-8 h-8 rounded-full bg-amber-200 border-2 transition-transform',
                   selectedColor.includes('amber')
                     ? 'border-slate-900 dark:border-white scale-110'
                     : 'border-transparent',
@@ -312,7 +346,7 @@
                     'bg-rose-50 text-rose-900 border-rose-200 dark:bg-rose-900/30 dark:text-rose-100 dark:border-rose-700'
                 "
                 :class="[
-                  'w-8 h-8 rounded-full bg-rose-200 border-2',
+                  'w-8 h-8 rounded-full bg-rose-200 border-2 transition-transform',
                   selectedColor.includes('rose')
                     ? 'border-slate-900 dark:border-white scale-110'
                     : 'border-transparent',
@@ -325,7 +359,7 @@
                     'bg-sky-50 text-sky-900 border-sky-200 dark:bg-sky-900/30 dark:text-sky-100 dark:border-sky-700'
                 "
                 :class="[
-                  'w-8 h-8 rounded-full bg-sky-200 border-2',
+                  'w-8 h-8 rounded-full bg-sky-200 border-2 transition-transform',
                   selectedColor.includes('sky')
                     ? 'border-slate-900 dark:border-white scale-110'
                     : 'border-transparent',
@@ -338,7 +372,7 @@
                     'bg-emerald-50 text-emerald-900 border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-100 dark:border-emerald-700'
                 "
                 :class="[
-                  'w-8 h-8 rounded-full bg-emerald-200 border-2',
+                  'w-8 h-8 rounded-full bg-emerald-200 border-2 transition-transform',
                   selectedColor.includes('emerald')
                     ? 'border-slate-900 dark:border-white scale-110'
                     : 'border-transparent',
@@ -351,7 +385,7 @@
             <button
               type="submit"
               :disabled="!newKudo.trim() || isSubmitting"
-              class="bg-indigo-600 text-white px-5 py-2.5 rounded-lg text-sm font-mono hover:bg-indigo-700 disabled:opacity-50 transition-colors shadow-sm flex items-center gap-2"
+              class="bg-indigo-600 text-white px-5 py-2.5 rounded-lg text-xs md:text-sm font-mono hover:bg-indigo-700 disabled:opacity-50 transition-colors shadow-sm flex items-center gap-2"
             >
               <Icon
                 v-if="isSubmitting"
@@ -371,6 +405,7 @@
 import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useAppToast } from "~/composables/useAppToast";
+import { vAutoAnimate } from "@formkit/auto-animate/vue";
 
 const router = useRouter();
 const { success: toastSuccess, error: toastError } = useAppToast();
@@ -391,8 +426,22 @@ const selectedColor = ref(
 
 // Computed
 const spotlightUser = computed(() => {
-  // Find an admin to spotlight, otherwise fallback to the first user
-  return users.value.find((u) => u.role === "ADMIN") || users.value[0];
+  if (!users.value.length) return null;
+
+  // 1. Sort users predictably (crucial so the order is identical for everyone)
+  const sortedUsers = [...users.value].sort((a, b) => a.id.localeCompare(b.id));
+
+  // 2. Calculate the current week number of the year
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 0);
+  const diff = now - start;
+  const oneWeek = 1000 * 60 * 60 * 24 * 7;
+  const currentWeek = Math.floor(diff / oneWeek);
+
+  // 3. Use modulo to pick the user for this week
+  const spotlightIndex = currentWeek % sortedUsers.length;
+
+  return sortedUsers[spotlightIndex];
 });
 
 const filteredRoster = computed(() => {
@@ -448,28 +497,5 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.animate-fade-in {
-  animation: fadeIn 0.2s ease-out forwards;
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-.animate-zoom-in {
-  animation: zoomIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-@keyframes zoomIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
+@reference "tailwindcss";
 </style>

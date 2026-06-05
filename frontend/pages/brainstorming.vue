@@ -1,6 +1,10 @@
 <template>
   <div class="h-[calc(100vh-8rem)] flex flex-col font-sans relative">
+    <!-- Header: Slides down smoothly on load -->
     <div
+      v-motion
+      :initial="{ opacity: 0, y: -20 }"
+      :enter="{ opacity: 1, y: 0, transition: { duration: 400 } }"
       class="flex flex-col md:flex-row items-start justify-between mb-6 gap-4"
     >
       <div class="w-full max-w-full flex-1">
@@ -53,6 +57,7 @@
       </div>
     </div>
 
+    <!-- Loading State -->
     <div
       v-if="isLoading"
       class="flex-1 flex flex-col items-center justify-center w-full h-full min-h-[50vh]"
@@ -63,8 +68,10 @@
       >
     </div>
 
+    <!-- Empty State -->
     <div
       v-else-if="!currentSession"
+      v-motion-fade
       class="flex-1 flex flex-col items-center justify-center border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-xl"
     >
       <Icon
@@ -85,14 +92,23 @@
       </button>
     </div>
 
+    <!-- Kanban Board -->
     <div
       v-else
       class="flex-1 overflow-x-auto overflow-y-hidden kanban-scrollbar pb-4 -mx-2 px-2 min-h-[100vh]"
     >
       <div class="flex items-start gap-6 h-full min-w-max">
+        <!-- Columns: Staggered animation using the column index for the delay -->
         <div
-          v-for="column in columns"
+          v-for="(column, index) in columns"
           :key="column.id"
+          v-motion
+          :initial="{ opacity: 0, y: 30 }"
+          :enter="{
+            opacity: 1,
+            y: 0,
+            transition: { delay: index * 100 + 100, duration: 400 },
+          }"
           class="w-80 h-full flex flex-col bg-slate-100/50 dark:bg-slate-800/30 rounded-xl border border-slate-200 dark:border-slate-700/50 shrink-0"
         >
           <div
@@ -113,6 +129,7 @@
           <div
             class="p-3 flex-1 overflow-y-auto kanban-scrollbar flex flex-col gap-3"
           >
+            <!-- Added :animation="250" for smooth native drag reordering -->
             <draggable
               v-model="column.cards"
               group="ideas"
@@ -121,6 +138,7 @@
               class="min-h-[100px] h-full flex flex-col gap-3"
               ghost-class="opacity-50"
               drag-class="cursor-grabbing"
+              :animation="250"
               @change="(event) => onDragChange(column.id, event)"
             >
               <template #item="{ element }">
@@ -253,13 +271,24 @@
       </div>
     </div>
 
+    <!-- Modals -->
+
+    <!-- New Idea Modal -->
     <div
       v-if="isIdeaModalOpen"
       class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
       @click.self="isIdeaModalOpen = false"
     >
+      <!-- Spring animation for the modal popup -->
       <div
-        class="bg-white dark:bg-slate-800 rounded-xl w-full max-w-md shadow-xl overflow-hidden border border-slate-200 dark:border-slate-700 animate-zoom-in"
+        v-motion
+        :initial="{ opacity: 0, scale: 0.95 }"
+        :enter="{
+          opacity: 1,
+          scale: 1,
+          transition: { type: 'spring', stiffness: 300, damping: 25 },
+        }"
+        class="bg-white dark:bg-slate-800 rounded-xl w-full max-w-md shadow-xl overflow-hidden border border-slate-200 dark:border-slate-700"
       >
         <div
           class="px-6 py-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50"
@@ -334,13 +363,21 @@
       </div>
     </div>
 
+    <!-- View / Discuss Modal -->
     <div
       v-if="isViewModalOpen"
       class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
       @click.self="isViewModalOpen = false"
     >
       <div
-        class="bg-white dark:bg-slate-800 rounded-xl w-full max-w-2xl shadow-xl overflow-hidden border border-slate-200 dark:border-slate-700 animate-zoom-in flex flex-col max-h-[85vh]"
+        v-motion
+        :initial="{ opacity: 0, scale: 0.95 }"
+        :enter="{
+          opacity: 1,
+          scale: 1,
+          transition: { type: 'spring', stiffness: 300, damping: 25 },
+        }"
+        class="bg-white dark:bg-slate-800 rounded-xl w-full max-w-2xl shadow-xl overflow-hidden border border-slate-200 dark:border-slate-700 flex flex-col max-h-[85vh]"
       >
         <div
           class="px-6 py-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50 shrink-0"
@@ -433,7 +470,8 @@
             </p>
           </div>
 
-          <div v-else class="space-y-4">
+          <!-- AutoAnimate applied to the comments list -->
+          <div v-else v-auto-animate class="space-y-4">
             <div
               v-for="comment in ideaComments"
               :key="comment.id"
@@ -456,17 +494,14 @@
                   <div class="flex items-baseline gap-2">
                     <span
                       class="text-xs md:text-sm font-semibold text-slate-900 dark:text-white"
+                      >{{ comment.author?.fullName }}</span
                     >
-                      {{ comment.author?.fullName }}
-                    </span>
-                    <span class="text-[10px] text-slate-400">
-                      {{
-                        new Date(comment.createdAt).toLocaleTimeString([], {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })
-                      }}
-                    </span>
+                    <span class="text-[10px] text-slate-400">{{
+                      new Date(comment.createdAt).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })
+                    }}</span>
                   </div>
                   <button
                     v-if="comment.authorId === user?.id"
@@ -489,7 +524,7 @@
                   </p>
                 </div>
 
-                <div v-else class="animate-fade-in max-w-sm">
+                <div v-else class="max-w-sm">
                   <textarea
                     v-model="editCommentText"
                     rows="2"
@@ -568,13 +603,21 @@
       </div>
     </div>
 
+    <!-- Assign Task Modal -->
     <div
       v-if="isAssignTaskModalOpen"
       class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
       @click.self="isAssignTaskModalOpen = false"
     >
       <div
-        class="bg-white dark:bg-slate-800 rounded-xl w-full max-w-md shadow-xl overflow-hidden border border-slate-200 dark:border-slate-700 animate-zoom-in"
+        v-motion
+        :initial="{ opacity: 0, scale: 0.95 }"
+        :enter="{
+          opacity: 1,
+          scale: 1,
+          transition: { type: 'spring', stiffness: 300, damping: 25 },
+        }"
+        class="bg-white dark:bg-slate-800 rounded-xl w-full max-w-md shadow-xl overflow-hidden border border-slate-200 dark:border-slate-700"
       >
         <div
           class="px-6 py-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50"
@@ -707,6 +750,7 @@ import draggable from "vuedraggable";
 import { useAppToast } from "~/composables/useAppToast";
 import { useAuthStore } from "~/stores/auth";
 import { storeToRefs } from "pinia";
+import { vAutoAnimate } from "@formkit/auto-animate/vue";
 
 const { success: toastSuccess, error: toastError } = useAppToast();
 const authStore = useAuthStore();
@@ -815,7 +859,6 @@ const fetchIdeasForSession = async () => {
     const ideas = await useApiFetch(
       `/brainstorm/sessions/${currentSession.value.id}/ideas`,
     );
-    console.log(ideas);
     columns.value.forEach((col) => (col.cards = []));
     ideas.forEach((idea) => {
       const col = columns.value.find((c) => c.id === idea.status);
@@ -937,7 +980,6 @@ const submitIdeaComment = async () => {
     ideaComments.value.push(addedComment); // Append to bottom
     newIdeaComment.value = ""; // Clear input
 
-    // Optional: Update the local card's comment count if you are tracking it
     if (activeIdea.value.comments !== undefined) {
       activeIdea.value.comments += 1;
     }
@@ -974,7 +1016,6 @@ const saveEdit = async (commentId) => {
       },
     );
 
-    // Find the comment in your local array and update it so the UI reacts instantly
     const index = ideaComments.value.findIndex((c) => c.id === commentId);
     if (index !== -1) {
       ideaComments.value[index].content = updatedComment.content;
@@ -1010,7 +1051,6 @@ const submitAssignedTask = async () => {
   isSubmittingTask.value = true;
 
   try {
-    // 1. Create the Task in the Task board
     await useApiFetch("/tasks", {
       method: "POST",
       body: {
@@ -1024,7 +1064,6 @@ const submitAssignedTask = async () => {
       },
     });
 
-    // 2. NEW: Update the Idea in the database to link the assignee
     if (activeTaskIdea.value) {
       const updatedIdea = await useApiFetch(
         `/brainstorm/ideas/${activeTaskIdea.value.id}/assign`,
@@ -1034,7 +1073,6 @@ const submitAssignedTask = async () => {
         },
       );
 
-      // Update the local state so the UI reacts instantly without a page refresh
       activeTaskIdea.value.assignee = updatedIdea.assignee;
     }
 
@@ -1055,6 +1093,7 @@ onMounted(() => {
 
 <style scoped>
 @reference "tailwindcss";
+
 .kanban-scrollbar::-webkit-scrollbar {
   height: 6px;
   width: 6px;
@@ -1067,18 +1106,5 @@ onMounted(() => {
 }
 .kanban-scrollbar:hover::-webkit-scrollbar-thumb {
   @apply bg-slate-400 dark:bg-slate-600;
-}
-.animate-zoom-in {
-  animation: zoomIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-@keyframes zoomIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
 }
 </style>

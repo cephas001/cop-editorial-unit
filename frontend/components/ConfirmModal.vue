@@ -34,12 +34,12 @@
             </div>
 
             <h3
-              class="text-xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight"
+              class="text-lg md:text-xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight"
             >
               {{ title }}
             </h3>
             <p
-              class="text-sm text-slate-500 dark:text-slate-400 font-mono leading-relaxed"
+              class="text-xs md:text-sm text-slate-600 dark:text-slate-400 font-mono leading-relaxed"
             >
               {{ message }}
             </p>

@@ -3,14 +3,19 @@
     class="antialiased min-h-screen font-sans bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-200"
   >
     <header
-      class="fixed top-0 right-0 h-16 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-4 sm:px-6 lg:px-8 w-full md:w-[calc(100%-16rem)]"
+      :class="[
+        'fixed top-0 right-0 h-16 z-40 flex items-center justify-between px-4 sm:px-6 lg:px-8 w-full md:w-[calc(100%-16rem)] transition-all duration-300',
+        isScrolled
+          ? 'bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl backdrop-saturate-150 border-b border-slate-200/50 dark:border-slate-800/50 shadow-sm'
+          : 'bg-transparent border-b border-transparent',
+      ]"
     >
       <div class="flex items-center gap-4 w-full max-w-md">
         <button
           @click="isMobileMenuOpen = !isMobileMenuOpen"
-          class="md:hidden text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 flex * items-center justify-center"
+          class="md:hidden text-black hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 flex items-center justify-center"
         >
-          <Icon name="material-symbols:menu-rounded" class="text-2xl" />
+          <Icon name="material-symbols:menu-rounded" class="text-xl" />
         </button>
         <!-- 
         <div class="relative w-full hidden md:block">
@@ -186,15 +191,30 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onBeforeUnmount } from "vue";
 import { useAuthStore } from "~/stores/auth";
 import { storeToRefs } from "pinia";
 
 const isMobileMenuOpen = ref(false);
+const isScrolled = ref(false);
+
 const authStore = useAuthStore();
 const { user } = storeToRefs(authStore);
 
 const { success: toastSuccess, error: toastError } = useAppToast();
+
+const handleScroll = () => {
+  // Toggle the glass effect after scrolling down 10 pixels
+  isScrolled.value = window.scrollY > 10;
+};
+
+onMounted(() => {
+  window.addEventListener("scroll", handleScroll, { passive: true });
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("scroll", handleScroll);
+});
 
 const login = async () => {
   try {
