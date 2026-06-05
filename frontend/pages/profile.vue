@@ -8,12 +8,12 @@
         class="md:col-span-8 bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col md:flex-row items-center md:items-start gap-6 relative overflow-hidden text-center md:text-left"
       >
         <div
-          class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-indigo-500/10 to-transparent rounded-bl-full -mr-16 -mt-16 pointer-events-none"
+          class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary-500/10 to-transparent rounded-bl-full -mr-16 -mt-16 pointer-events-none"
         ></div>
 
         <div class="relative z-10 shrink-0">
           <div
-            class="w-32 h-32 rounded-full border-4 border-white dark:border-slate-800 shadow-sm overflow-hidden flex items-center justify-center bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 relative group cursor-pointer transition-transform duration-300 hover:scale-[1.02]"
+            class="w-32 h-32 rounded-full border-4 border-white dark:border-slate-800 shadow-sm overflow-hidden flex items-center justify-center bg-primary-100 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 relative group cursor-pointer transition-transform duration-300 hover:scale-[1.02]"
             @click="handleAvatarClick"
           >
             <img
@@ -40,7 +40,7 @@
             >
               <Icon
                 name="material-symbols:sync-rounded"
-                class="text-indigo-600 dark:text-indigo-400 text-3xl animate-spin"
+                class="text-primary-600 dark:text-primary-400 text-3xl animate-spin"
               />
             </div>
           </div>
@@ -78,7 +78,7 @@
               >
                 <Icon
                   name="material-symbols:edit-note-rounded"
-                  class="text-indigo-600 dark:text-indigo-400 text-base"
+                  class="text-primary-600 dark:text-primary-400 text-base"
                 />
                 <span
                   class="text-xs font-semibold text-slate-700 dark:text-slate-300"
@@ -148,7 +148,7 @@
           :class="[
             'px-4 py-3 text-xs md:text-sm font-semibold whitespace-nowrap transition-colors border-b-2',
             activeTab === 'writeups'
-              ? 'text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400'
+              ? 'text-primary-600 dark:text-primary-400 border-primary-600 dark:border-primary-400'
               : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border-transparent',
           ]"
         >
@@ -159,7 +159,7 @@
           :class="[
             'px-4 py-3 text-xs md:text-sm font-semibold whitespace-nowrap transition-colors border-b-2',
             activeTab === 'comments'
-              ? 'text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400'
+              ? 'text-primary-600 dark:text-primary-400 border-primary-600 dark:border-primary-400'
               : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border-transparent',
           ]"
         >
@@ -170,7 +170,7 @@
           :class="[
             'px-4 py-3 text-xs md:text-sm font-semibold whitespace-nowrap transition-colors border-b-2',
             activeTab === 'ideas'
-              ? 'text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400'
+              ? 'text-primary-600 dark:text-primary-400 border-primary-600 dark:border-primary-400'
               : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border-transparent',
           ]"
         >
@@ -197,7 +197,7 @@
             >
               <Icon
                 name="material-symbols:sync-rounded"
-                class="text-2xl animate-spin text-indigo-500"
+                class="text-2xl animate-spin text-primary-500"
               />
             </div>
             <div
@@ -217,7 +217,7 @@
                 class="md:col-span-7 flex flex-col items-center text-center md:items-start md:text-left"
               >
                 <span
-                  class="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1"
+                  class="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-1"
                 >
                   {{ article.title || "Untitled Draft" }}
                 </span>
@@ -251,7 +251,7 @@
             <div v-if="isLoadingData" class="py-8 flex justify-center">
               <Icon
                 name="material-symbols:sync-rounded"
-                class="text-2xl animate-spin text-indigo-500"
+                class="text-2xl animate-spin text-primary-500"
               />
             </div>
             <div
@@ -265,7 +265,7 @@
               v-for="comment in comments"
               :key="comment.id"
               @click="navigateToEditor(comment.articleId)"
-              class="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-indigo-300 transition-colors cursor-pointer group"
+              class="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-primary-300 transition-colors cursor-pointer group"
             >
               <p
                 class="text-sm text-slate-700 dark:text-slate-300 mb-3 font-mono leading-relaxed"
@@ -276,7 +276,7 @@
                 class="flex items-center justify-between text-xs text-slate-500"
               >
                 <div
-                  class="flex items-center gap-1.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"
+                  class="flex items-center gap-1.5 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors"
                 >
                   <Icon
                     name="material-symbols:description-outline-rounded"
@@ -303,7 +303,7 @@
             <div v-if="isLoadingData" class="py-8 flex justify-center">
               <Icon
                 name="material-symbols:sync-rounded"
-                class="text-2xl animate-spin text-indigo-500"
+                class="text-2xl animate-spin text-primary-500"
               />
             </div>
             <div
@@ -317,7 +317,7 @@
               v-for="idea in ideas"
               :key="idea.id"
               @click="navigateToBrainstorming"
-              class="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-indigo-300 transition-colors cursor-pointer group"
+              class="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-primary-300 transition-colors cursor-pointer group"
             >
               <div class="flex justify-between items-start gap-4 mb-2">
                 <span
@@ -397,7 +397,7 @@
               v-model="editForm.fullName"
               type="text"
               required
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600 text-sm text-slate-900 dark:text-white"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-slate-900 dark:text-white"
             />
           </div>
           <div>
@@ -409,7 +409,7 @@
               v-model="editForm.bio"
               rows="4"
               placeholder="Tell the team a bit about yourself..."
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600 text-sm text-slate-900 dark:text-white resize-none"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-slate-900 dark:text-white resize-none"
             ></textarea>
           </div>
           <div
@@ -425,7 +425,7 @@
             <button
               type="submit"
               :disabled="isSavingProfile"
-              class="px-4 py-2 text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-700 rounded-lg disabled:opacity-50 transition-colors flex items-center gap-2"
+              class="px-4 py-2 text-sm font-medium bg-primary-600 text-white hover:bg-primary-700 rounded-lg disabled:opacity-50 transition-colors flex items-center gap-2"
             >
               <Icon
                 v-if="isSavingProfile"
@@ -475,7 +475,7 @@
               @click="openExpandedView"
             >
               <div
-                class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 group-hover:bg-indigo-50 dark:group-hover:bg-indigo-500/20 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"
+                class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 group-hover:bg-primary-50 dark:group-hover:bg-primary-500/20 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors"
               >
                 <Icon
                   name="material-symbols:visibility-rounded"
@@ -496,7 +496,7 @@
               @click="triggerFileInput"
             >
               <div
-                class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 group-hover:bg-indigo-50 dark:group-hover:bg-indigo-500/20 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"
+                class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 group-hover:bg-primary-50 dark:group-hover:bg-primary-500/20 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors"
               >
                 <Icon name="material-symbols:edit-rounded" class="text-xl" />
               </div>
@@ -705,7 +705,7 @@ const getTagColor = (tag) => {
     Guide:
       "text-emerald-700 bg-emerald-100 dark:bg-emerald-500/20 dark:text-emerald-400",
     Editorial:
-      "text-indigo-700 bg-indigo-100 dark:bg-indigo-500/20 dark:text-indigo-400",
+      "text-primary-700 bg-primary-100 dark:bg-primary-500/20 dark:text-primary-400",
     Interview:
       "text-amber-700 bg-amber-100 dark:bg-amber-500/20 dark:text-amber-400",
     Feature: "text-sky-700 bg-sky-100 dark:bg-sky-500/20 dark:text-sky-400",

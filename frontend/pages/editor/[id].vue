@@ -23,11 +23,11 @@
       <div class="flex items-center gap-3 md:gap-6 shrink-0">
         <NuxtLink
           @click="router.back()"
-          class="flex items-center text-indigo-600 dark:text-indigo-400 cursor-pointer"
+          class="flex items-center text-primary-600 dark:text-primary-400 cursor-pointer"
         >
           <Icon
             name="material-symbols:arrow-back-rounded"
-            class="text-xl sm:text-2xl hover:text-indigo-700 transition-colors"
+            class="text-xl sm:text-2xl hover:text-primary-700 transition-colors"
           />
         </NuxtLink>
 
@@ -42,7 +42,7 @@
           <Icon
             v-else-if="saveStatus === 'Saving...'"
             name="material-symbols:sync-rounded"
-            class="animate-spin text-indigo-500 text-sm"
+            class="animate-spin text-primary-500 text-sm"
           />
           <Icon
             v-else-if="saveStatus === 'Save failed!'"
@@ -82,7 +82,7 @@
           <Icon
             v-else-if="saveStatus === 'Saving...'"
             name="material-symbols:sync-rounded"
-            class="animate-spin text-indigo-500 text-xs"
+            class="animate-spin text-primary-500 text-xs"
           />
           <Icon
             v-else-if="saveStatus === 'Save failed!'"
@@ -106,7 +106,7 @@
             (articleStatus === 'IN_REVIEW' && user?.id === articleAuthorId)
           "
           @click="submitForReview"
-          class="text-xs sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white transition-colors shadow-sm whitespace-nowrap shrink-0"
+          class="text-xs sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg bg-primary-600 hover:bg-primary-700 text-white transition-colors shadow-sm whitespace-nowrap shrink-0"
         >
           Submit<span class="hidden sm:inline"> for Review</span>
         </button>
@@ -163,7 +163,7 @@
           class="flex flex-col items-center justify-center w-full h-full min-h-[50vh]"
         >
           <VineyardLoader size="120px" />
-          <span class="mt-6 text-sm font-mono text-indigo-500/70 animate-pulse"
+          <span class="mt-6 text-sm font-mono text-primary-500/70 animate-pulse"
             >Fetching draft...</span
           >
         </div>
@@ -321,7 +321,7 @@
 
             <button
               @click="prepareComment"
-              class="p-1.5 rounded-md transition-colors flex items-center gap-1.5 pr-2 shrink-0 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-500/10"
+              class="p-1.5 rounded-md transition-colors flex items-center gap-1.5 pr-2 shrink-0 text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-500/10"
               title="Add Comment"
             >
               <Icon
@@ -405,7 +405,7 @@
             <button
               @click="triggerCoverUpload"
               :disabled="isUploadingCover"
-              class="text-xs md:text-sm font-medium text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 flex items-center gap-2 transition-colors group disabled:opacity-50"
+              class="text-xs md:text-sm font-medium text-slate-500 hover:text-primary-600 dark:text-slate-400 dark:hover:text-primary-400 flex items-center gap-2 transition-colors group disabled:opacity-50"
             >
               <Icon
                 v-if="isUploadingCover"
@@ -506,7 +506,7 @@
             :class="[
               'flex-1 py-3 flex justify-center items-center gap-2 transition-colors',
               activeSidebarTab === 'comments'
-                ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400 bg-indigo-50/50 dark:bg-indigo-500/10'
+                ? 'text-primary-600 dark:text-primary-400 border-b-2 border-primary-600 dark:border-primary-400 bg-primary-50/50 dark:bg-primary-500/10'
                 : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200',
             ]"
           >
@@ -518,7 +518,7 @@
             :class="[
               'flex-1 py-3 flex justify-center items-center gap-2 transition-colors',
               activeSidebarTab === 'activity'
-                ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400 bg-indigo-50/50 dark:bg-indigo-500/10'
+                ? 'text-primary-600 dark:text-primary-400 border-b-2 border-primary-600 dark:border-primary-400 bg-primary-50/50 dark:bg-primary-500/10'
                 : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200',
             ]"
           >
@@ -564,7 +564,7 @@
                   />
                   <div
                     v-else
-                    class="w-6 h-6 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 flex items-center justify-center text-[10px] font-bold"
+                    class="w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300 flex items-center justify-center text-[10px] font-bold"
                   >
                     {{ comment.author.fullName.charAt(0) }}
                   </div>
@@ -609,7 +609,7 @@
 
               <div
                 v-if="comment.highlightId"
-                class="mb-2 pl-2 border-l-2 border-indigo-400 text-xs italic text-slate-500 dark:text-slate-400 line-clamp-2"
+                class="mb-2 pl-2 border-l-2 border-primary-400 text-xs italic text-slate-500 dark:text-slate-400 line-clamp-2"
               >
                 "{{ comment.highlightId }}"
               </div>
@@ -625,7 +625,7 @@
                 <textarea
                   v-model="editCommentText"
                   rows="2"
-                  class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-2 text-sm focus:ring-1 focus:ring-indigo-600 resize-none text-slate-900 dark:text-white"
+                  class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-2 text-sm focus:ring-1 focus:ring-primary-600 resize-none text-slate-900 dark:text-white"
                 ></textarea>
                 <div class="flex justify-end gap-2">
                   <button
@@ -637,7 +637,7 @@
                   <button
                     @click="saveEdit(comment.id)"
                     :disabled="isSavingEdit"
-                    class="px-3 py-1 text-[10px] font-medium bg-indigo-600 text-white hover:bg-indigo-700 rounded disabled:opacity-50 transition-colors flex items-center gap-1"
+                    class="px-3 py-1 text-[10px] font-medium bg-primary-600 text-white hover:bg-primary-700 rounded disabled:opacity-50 transition-colors flex items-center gap-1"
                   >
                     <Icon
                       v-if="isSavingEdit"
@@ -652,7 +652,7 @@
               <div class="flex items-center gap-3 mt-2">
                 <button
                   @click="startReply(comment)"
-                  class="text-[10px] font-bold uppercase tracking-wider text-slate-400 hover:text-indigo-600 transition-colors"
+                  class="text-[10px] font-bold uppercase tracking-wider text-slate-400 hover:text-primary-600 transition-colors"
                 >
                   Reply
                 </button>
@@ -662,7 +662,7 @@
                     comment.authorId === user?.id
                   "
                   @click="startEditing(comment)"
-                  class="text-[10px] font-bold uppercase tracking-wider text-slate-400 hover:text-indigo-600 transition-colors"
+                  class="text-[10px] font-bold uppercase tracking-wider text-slate-400 hover:text-primary-600 transition-colors"
                 >
                   Edit
                 </button>
@@ -704,7 +704,7 @@
                           reply.authorId === user?.id
                         "
                         @click="startEditing(reply)"
-                        class="text-[9px] font-bold uppercase tracking-wider text-slate-400 hover:text-indigo-600 transition-colors opacity-0 group-hover:opacity-100"
+                        class="text-[9px] font-bold uppercase tracking-wider text-slate-400 hover:text-primary-600 transition-colors opacity-0 group-hover:opacity-100"
                       >
                         Edit
                       </button>
@@ -721,7 +721,7 @@
                       <textarea
                         v-model="editCommentText"
                         rows="1"
-                        class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded p-1.5 text-xs focus:ring-1 focus:ring-indigo-600 resize-none text-slate-900 dark:text-white"
+                        class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded p-1.5 text-xs focus:ring-1 focus:ring-primary-600 resize-none text-slate-900 dark:text-white"
                       ></textarea>
                       <div class="flex justify-end gap-1.5">
                         <button
@@ -733,7 +733,7 @@
                         <button
                           @click="saveEdit(reply.id)"
                           :disabled="isSavingEdit"
-                          class="px-2 py-0.5 text-[9px] font-medium bg-indigo-600 text-white hover:bg-indigo-700 rounded disabled:opacity-50 transition-colors"
+                          class="px-2 py-0.5 text-[9px] font-medium bg-primary-600 text-white hover:bg-primary-700 rounded disabled:opacity-50 transition-colors"
                         >
                           Save
                         </button>
@@ -842,12 +842,12 @@
               :placeholder="
                 replyingTo ? 'Write a reply...' : 'Add a comment...'
               "
-              class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg py-2.5 pl-3 pr-10 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 transition-all disabled:opacity-60"
+              class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg py-2.5 pl-3 pr-10 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600 transition-all disabled:opacity-60"
             />
             <button
               type="submit"
               :disabled="!newCommentContent.trim() || isSubmittingComment"
-              class="absolute right-6 top-1/2 transform -translate-y-1/2 text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors p-1 rounded-md disabled:opacity-40 flex items-center justify-center cursor-pointer"
+              class="absolute right-6 top-1/2 transform -translate-y-1/2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors p-1 rounded-md disabled:opacity-40 flex items-center justify-center cursor-pointer"
             >
               <Icon
                 v-if="isSubmittingComment"
@@ -1362,7 +1362,7 @@ onBeforeUnmount(() => {
   @apply bg-slate-100 dark:bg-slate-800 text-rose-500 dark:text-rose-400 px-1.5 py-0.5 rounded text-sm font-mono border border-slate-200 dark:border-slate-700;
 }
 .ProseMirror blockquote {
-  @apply bg-indigo-50 dark:bg-indigo-500/10 rounded-r-lg p-4 sm:p-5 my-6 sm:my-8 border-l-4 border-indigo-600 text-indigo-900 dark:text-indigo-200 italic font-sans text-sm sm:text-base shadow-sm;
+  @apply bg-primary-50 dark:bg-primary-500/10 rounded-r-lg p-4 sm:p-5 my-6 sm:my-8 border-l-4 border-primary-600 text-primary-900 dark:text-primary-200 italic font-sans text-sm sm:text-base shadow-sm;
 }
 .animate-fade-in {
   animation: fadeIn 0.2s ease-out forwards;

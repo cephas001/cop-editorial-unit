@@ -28,7 +28,7 @@
           :class="[
             'flex-shrink-0 flex items-center gap-3 px-4 py-3 rounded-lg transition-colors w-auto md:w-full text-left font-medium text-xs md:text-sm whitespace-nowrap',
             activeTab === 'preferences'
-              ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-400'
+              ? 'bg-primary-50 text-primary-700 dark:bg-primary-500/20 dark:text-primary-400'
               : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800',
           ]"
         >
@@ -44,7 +44,7 @@
           :class="[
             'flex-shrink-0 flex items-center gap-3 px-4 py-3 rounded-lg transition-colors w-auto md:w-full text-left font-medium text-xs md:text-sm whitespace-nowrap',
             activeTab === 'notifications'
-              ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-400'
+              ? 'bg-primary-50 text-primary-700 dark:bg-primary-500/20 dark:text-primary-400'
               : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800',
           ]"
         >
@@ -61,7 +61,7 @@
           :class="[
             'flex-shrink-0 flex items-center gap-3 px-4 py-3 rounded-lg transition-colors w-auto md:w-full text-left font-medium text-xs md:text-sm whitespace-nowrap',
             activeTab === 'team'
-              ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-400'
+              ? 'bg-primary-50 text-primary-700 dark:bg-primary-500/20 dark:text-primary-400'
               : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800',
           ]"
         >
@@ -82,15 +82,18 @@
         >
           <div v-if="activeTab === 'preferences'" class="space-y-8">
             <div>
-              <h2 class="text-md font-bold text-slate-900 dark:text-white mb-4">
+              <h2
+                class="text-sm md:text-md font-bold text-slate-900 dark:text-white mb-4"
+              >
                 Theme Appearance
               </h2>
+
               <div
                 class="flex items-center justify-between py-4 border-b border-slate-100 dark:border-slate-700"
               >
                 <div>
                   <h3
-                    class="text-sm font-semibold text-slate-900 dark:text-white"
+                    class="text-xs md:text-sm font-semibold text-slate-900 dark:text-white"
                   >
                     Dark Mode
                   </h3>
@@ -100,10 +103,44 @@
                 </div>
                 <ToggleModeButton />
               </div>
+
+              <div
+                class="flex gap-3 justify-between py-4 border-b border-slate-100 dark:border-slate-700 flex-col"
+              >
+                <div>
+                  <h3
+                    class="text-xs md:text-sm font-semibold text-slate-900 dark:text-white"
+                  >
+                    Theme Color
+                  </h3>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">
+                    Personalize your workspace accent color.
+                  </p>
+                </div>
+                <div
+                  class="flex gap-3 overflow-x-auto pb-3 pt-1 hide-scrollbar w-full"
+                >
+                  <button
+                    v-for="color in themeColors"
+                    :key="color.name"
+                    @click="setThemeColor(color)"
+                    class="w-8 h-8 shrink-0 rounded-full border-2 transition-transform"
+                    :class="[
+                      color.previewClass,
+                      activeColorName === color.name
+                        ? 'border-slate-900 dark:border-white scale-110'
+                        : 'border-transparent hover:scale-105',
+                    ]"
+                    :title="color.name"
+                  ></button>
+                </div>
+              </div>
             </div>
 
             <div>
-              <h2 class="text-md font-bold text-slate-900 dark:text-white mb-4">
+              <h2
+                class="text-sm md:text-md font-bold text-slate-900 dark:text-white mb-4"
+              >
                 Personal Details
               </h2>
               <div
@@ -113,7 +150,7 @@
                   class="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4"
                 >
                   <div
-                    class="w-12 h-12 rounded-full border-2 border-white dark:border-slate-800 shadow-sm overflow-hidden bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold text-lg"
+                    class="w-12 h-12 rounded-full border-2 border-white dark:border-slate-800 shadow-sm overflow-hidden bg-primary-100 dark:bg-primary-900/50 flex items-center justify-center text-primary-600 dark:text-primary-400 font-bold text-lg"
                   >
                     <img
                       v-if="user?.avatarUrl"
@@ -145,7 +182,7 @@
               <div class="flex justify-end">
                 <button
                   @click="navigateTo('/profile')"
-                  class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-xs md:text-sm px-5 py-2.5 rounded-lg transition-colors shadow-sm"
+                  class="bg-primary-600 hover:bg-primary-700 text-white font-medium text-xs md:text-sm px-5 py-2.5 rounded-lg transition-colors shadow-sm"
                 >
                   Edit Profile
                 </button>
@@ -172,7 +209,7 @@
                   <input
                     type="checkbox"
                     v-model="notificationPrefs.tasks"
-                    class="w-4 h-4 text-indigo-600 bg-white border-slate-300 rounded focus:ring-indigo-600 focus:ring-2 dark:bg-slate-900 dark:border-slate-600 transition-colors"
+                    class="w-4 h-4 text-primary-600 bg-white border-slate-300 rounded focus:ring-primary-600 focus:ring-2 dark:bg-slate-900 dark:border-slate-600 transition-colors"
                   />
                 </div>
                 <div>
@@ -194,7 +231,7 @@
                   <input
                     type="checkbox"
                     v-model="notificationPrefs.articles"
-                    class="w-4 h-4 text-indigo-600 bg-white border-slate-300 rounded focus:ring-indigo-600 focus:ring-2 dark:bg-slate-900 dark:border-slate-600 transition-colors"
+                    class="w-4 h-4 text-primary-600 bg-white border-slate-300 rounded focus:ring-primary-600 focus:ring-2 dark:bg-slate-900 dark:border-slate-600 transition-colors"
                   />
                 </div>
                 <div>
@@ -217,7 +254,7 @@
                   <input
                     type="checkbox"
                     v-model="notificationPrefs.comments"
-                    class="w-4 h-4 text-indigo-600 bg-white border-slate-300 rounded focus:ring-indigo-600 focus:ring-2 dark:bg-slate-900 dark:border-slate-600 transition-colors"
+                    class="w-4 h-4 text-primary-600 bg-white border-slate-300 rounded focus:ring-primary-600 focus:ring-2 dark:bg-slate-900 dark:border-slate-600 transition-colors"
                   />
                 </div>
                 <div>
@@ -238,7 +275,7 @@
             >
               <button
                 @click="savePreferences"
-                class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm px-5 py-2.5 rounded-lg transition-colors shadow-sm"
+                class="bg-primary-600 hover:bg-primary-700 text-white font-medium text-sm px-5 py-2.5 rounded-lg transition-colors shadow-sm"
               >
                 Save Preferences
               </button>
@@ -259,7 +296,7 @@
                 </p>
               </div>
               <button
-                class="text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 px-4 py-2 rounded-lg text-sm font-medium transition-colors border border-indigo-200 dark:border-indigo-500/30 flex items-center gap-2"
+                class="text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-500/10 px-4 py-2 rounded-lg text-sm font-medium transition-colors border border-primary-200 dark:border-primary-500/30 flex items-center gap-2"
               >
                 <Icon name="material-symbols:add-rounded" class="text-lg" />
                 Invite
@@ -283,7 +320,7 @@
               >
                 <Icon
                   name="material-symbols:sync-rounded"
-                  class="text-3xl text-indigo-500 animate-spin"
+                  class="text-3xl text-primary-500 animate-spin"
                 />
               </div>
 
@@ -325,7 +362,7 @@
                       :class="[
                         'inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider',
                         member.role === 'ADMIN'
-                          ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-400'
+                          ? 'bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-400'
                           : 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-600',
                       ]"
                     >
@@ -337,7 +374,7 @@
                     <button
                       v-if="member.role !== 'ADMIN'"
                       @click="promoteUser(member.id)"
-                      class="p-1.5 rounded-md text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 transition-colors"
+                      class="p-1.5 rounded-md text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-500/10 transition-colors"
                       title="Promote to Admin"
                     >
                       <Icon
@@ -393,6 +430,170 @@ const notificationPrefs = ref({
   comments: true,
 });
 
+// --- NEW: THEME COLOR LOGIC ---
+const activeColorName = ref("Indigo");
+
+const themeColors = [
+  {
+    name: "Indigo",
+    previewClass: "bg-indigo-500", // Fixed: Use static indigo so the button doesn't change color!
+    values: {
+      50: "#eef2ff",
+      100: "#e0e7ff",
+      200: "#c7d2fe",
+      300: "#a5b4fc",
+      400: "#818cf8",
+      500: "#6366f1",
+      600: "#4f46e5",
+      700: "#4338ca",
+      800: "#3730a3",
+      900: "#312e81",
+      950: "#1e1b4b",
+    },
+  },
+  {
+    name: "Blue",
+    previewClass: "bg-blue-500",
+    values: {
+      50: "#eff6ff",
+      100: "#dbeafe",
+      200: "#bfdbfe",
+      300: "#93c5fd",
+      400: "#60a5fa",
+      500: "#3b82f6",
+      600: "#2563eb",
+      700: "#1d4ed8",
+      800: "#1e40af",
+      900: "#1e3a8a",
+      950: "#172554",
+    },
+  },
+  {
+    name: "Teal",
+    previewClass: "bg-teal-500",
+    values: {
+      50: "#f0fdfa",
+      100: "#ccfbf1",
+      200: "#99f6e4",
+      300: "#5eead4",
+      400: "#2dd4bf",
+      500: "#14b8a6",
+      600: "#0d9488",
+      700: "#0f766e",
+      800: "#115e59",
+      900: "#134e4a",
+      950: "#042f2e",
+    },
+  },
+  {
+    name: "Emerald",
+    previewClass: "bg-emerald-500",
+    values: {
+      50: "#ecfdf5",
+      100: "#d1fae5",
+      200: "#a7f3d0",
+      300: "#6ee7b7",
+      400: "#34d399",
+      500: "#10b981",
+      600: "#059669",
+      700: "#047857",
+      800: "#065f46",
+      900: "#064e3b",
+      950: "#022c22",
+    },
+  },
+  {
+    name: "Amber",
+    previewClass: "bg-amber-500",
+    values: {
+      50: "#fffbeb",
+      100: "#fef3c7",
+      200: "#fde68a",
+      300: "#fcd34d",
+      400: "#fbbf24",
+      500: "#f59e0b",
+      600: "#d97706",
+      700: "#b45309",
+      800: "#92400e",
+      900: "#78350f",
+      950: "#451a03",
+    },
+  },
+  {
+    name: "Rose",
+    previewClass: "bg-rose-500",
+    values: {
+      50: "#fff1f2",
+      100: "#ffe4e6",
+      200: "#fecdd3",
+      300: "#fda4af",
+      400: "#fb7185",
+      500: "#f43f5e",
+      600: "#e11d48",
+      700: "#be123c",
+      800: "#9f1239",
+      900: "#881337",
+      950: "#4c0519",
+    },
+  },
+  {
+    name: "Violet",
+    previewClass: "bg-violet-500",
+    values: {
+      50: "#f5f3ff",
+      100: "#ede9fe",
+      200: "#ddd6fe",
+      300: "#c4b5fd",
+      400: "#a78bfa",
+      500: "#8b5cf6",
+      600: "#7c3aed",
+      700: "#6d28d9",
+      800: "#5b21b6",
+      900: "#4c1d95",
+      950: "#2e1065",
+    },
+  },
+  {
+    name: "Slate",
+    previewClass: "bg-slate-500",
+    values: {
+      50: "#f8fafc",
+      100: "#f1f5f9",
+      200: "#e2e8f0",
+      300: "#cbd5e1",
+      400: "#94a3b8",
+      500: "#64748b",
+      600: "#475569",
+      700: "#334155",
+      800: "#1e293b",
+      900: "#0f172a",
+      950: "#020617",
+    },
+  },
+];
+
+const setThemeColor = (colorObj) => {
+  activeColorName.value = colorObj.name;
+
+  // Inject the new hex values into the CSS variables at the document root
+  for (const [shade, hex] of Object.entries(colorObj.values)) {
+    document.documentElement.style.setProperty(`--primary-${shade}`, hex);
+  }
+
+  // Save preference to localStorage so it persists across reloads
+  localStorage.setItem("app-theme-color", JSON.stringify(colorObj));
+};
+
+// Apply saved theme on mount
+const loadSavedTheme = () => {
+  const saved = localStorage.getItem("app-theme-color");
+  if (saved) {
+    const colorObj = JSON.parse(saved);
+    setThemeColor(colorObj);
+  }
+};
+// ------------------------------
+
 const savePreferences = () => {
   toastSuccess("Preferences saved successfully.");
 };
@@ -403,7 +604,6 @@ const loadTeamMembers = async () => {
   isLoadingTeam.value = true;
   try {
     const data = await useApiFetch("/users");
-    // Show everyone except the logged-in user for management purposes
     teamMembers.value = data.filter((u) => u.id !== user.value.id);
   } catch (error) {
     toastError("Failed to load team data.");
@@ -437,6 +637,7 @@ const removeUser = async (userId) => {
 };
 
 onMounted(() => {
+  loadSavedTheme(); // Load theme color preference
   loadTeamMembers();
 });
 </script>

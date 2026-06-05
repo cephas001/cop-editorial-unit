@@ -7,7 +7,7 @@
   >
     <div class="flex items-center gap-3">
       <div
-        class="w-10 h-10 rounded-full bg-indigo-50 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0"
+        class="w-10 h-10 rounded-full bg-primary-50 dark:bg-primary-900/50 flex items-center justify-center text-primary-600 dark:text-primary-400 shrink-0"
       >
         <Icon name="material-symbols:system-update-rounded" class="text-xl" />
       </div>
@@ -32,7 +32,7 @@
       </button>
       <button
         @click="pwa.updateServiceWorker()"
-        class="px-3 py-1.5 text-xs font-medium bg-indigo-600 text-white hover:bg-indigo-700 rounded-lg transition-colors shadow-sm"
+        class="px-3 py-1.5 text-xs font-medium bg-primary-600 text-white hover:bg-primary-700 rounded-lg transition-colors shadow-sm"
       >
         Reload
       </button>

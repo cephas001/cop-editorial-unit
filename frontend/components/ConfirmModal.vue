@@ -20,7 +20,7 @@
               :class="
                 isDestructive
                   ? 'bg-rose-100 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400'
-                  : 'bg-indigo-100 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400'
+                  : 'bg-primary-100 dark:bg-primary-500/20 text-primary-600 dark:text-primary-400'
               "
             >
               <Icon
@@ -60,7 +60,7 @@
               :class="
                 isDestructive
                   ? 'text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-500/10'
-                  : 'text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-500/10'
+                  : 'text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-500/10'
               "
             >
               {{ confirmText }}

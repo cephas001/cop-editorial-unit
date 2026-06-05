@@ -49,19 +49,19 @@ const { toasts, remove } = useAppToast();
 const borderColors = {
   success: "border-emerald-200 dark:border-emerald-500/30",
   error: "border-rose-200 dark:border-rose-500/30",
-  info: "border-indigo-200 dark:border-indigo-500/30",
+  info: "border-primary-200 dark:border-primary-500/30",
   warning: "border-amber-300 dark:border-amber-500/30",
 };
 const bgColors = {
   success: "bg-emerald-50 dark:bg-emerald-500/10",
   error: "bg-rose-50 dark:bg-rose-500/10",
-  info: "bg-indigo-50 dark:bg-indigo-500/10",
+  info: "bg-primary-50 dark:bg-primary-500/10",
   warning: "bg-amber-50 dark:bg-amber-500/10",
 };
 const iconColors = {
   success: "text-emerald-600 dark:text-emerald-400",
   error: "text-rose-600 dark:text-rose-400",
-  info: "text-indigo-600 dark:text-indigo-400",
+  info: "text-primary-600 dark:text-primary-400",
   warning: "text-amber-600 dark:text-amber-400",
 };
 const icons = {

@@ -6,7 +6,7 @@
       class="w-full max-w-md bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden relative flex flex-col"
     >
       <div
-        class="h-1 w-full bg-gradient-to-r from-indigo-600 to-purple-500"
+        class="h-1 w-full bg-gradient-to-r from-primary-600 to-purple-500"
       ></div>
 
       <div class="px-6 py-8 flex flex-col gap-8">
@@ -54,7 +54,7 @@
                 placeholder="Tunmise"
                 required
                 type="text"
-                class="block w-full pl-10 pr-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-600/20 focus:border-indigo-600 dark:focus:border-indigo-500 transition-colors text-sm placeholder:text-slate-400 focus:outline-none"
+                class="block w-full pl-10 pr-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white rounded-lg focus:ring-2 focus:ring-primary-600/20 focus:border-primary-600 dark:focus:border-primary-500 transition-colors text-sm placeholder:text-slate-400 focus:outline-none"
               />
             </div>
           </div>
@@ -82,7 +82,7 @@
                 placeholder="Nwobodo"
                 required
                 type="text"
-                class="block w-full pl-10 pr-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-600/20 focus:border-indigo-600 dark:focus:border-indigo-500 transition-colors text-sm placeholder:text-slate-400 focus:outline-none"
+                class="block w-full pl-10 pr-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white rounded-lg focus:ring-2 focus:ring-primary-600/20 focus:border-primary-600 dark:focus:border-primary-500 transition-colors text-sm placeholder:text-slate-400 focus:outline-none"
               />
             </div>
           </div>
@@ -110,7 +110,7 @@
                 placeholder="shalomzimama@gmail.com"
                 required
                 type="email"
-                class="block w-full pl-10 pr-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-600/20 focus:border-indigo-600 dark:focus:border-indigo-500 transition-colors text-sm placeholder:text-slate-400 focus:outline-none"
+                class="block w-full pl-10 pr-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white rounded-lg focus:ring-2 focus:ring-primary-600/20 focus:border-primary-600 dark:focus:border-primary-500 transition-colors text-sm placeholder:text-slate-400 focus:outline-none"
               />
             </div>
           </div>
@@ -141,7 +141,7 @@
                 placeholder="••••••••"
                 required
                 :type="showPassword ? 'text' : 'password'"
-                class="block w-full pl-10 pr-10 py-2.5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-600/20 focus:border-indigo-600 dark:focus:border-indigo-500 transition-colors text-sm placeholder:text-slate-400 focus:outline-none"
+                class="block w-full pl-10 pr-10 py-2.5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white rounded-lg focus:ring-2 focus:ring-primary-600/20 focus:border-primary-600 dark:focus:border-primary-500 transition-colors text-sm placeholder:text-slate-400 focus:outline-none"
               />
 
               <!-- Toggle button with eye icon -->
@@ -172,7 +172,7 @@
             <button
               type="submit"
               :disabled="!isFormValid || authStore.isLoading"
-              class="w-full flex justify-center items-center gap-2 py-2.5 px-4 rounded-lg shadow-sm text-sm font-mono text-white bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 dark:focus:ring-offset-slate-900 transition-all duration-200 ease-in-out hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] disabled:opacity-70 disabled:pointer-events-none"
+              class="w-full flex justify-center items-center gap-2 py-2.5 px-4 rounded-lg shadow-sm text-sm font-mono text-white bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-600 dark:focus:ring-offset-slate-900 transition-all duration-200 ease-in-out hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] disabled:opacity-70 disabled:pointer-events-none"
             >
               <Icon
                 v-if="authStore.isLoading"
@@ -180,7 +180,7 @@
                 class="text-xl animate-spin"
               />
               <span>{{
-                authStore.isLoading ? "Creating..." : "Create account"
+                authStore.isLoading ? `${actionLabel}...` : "Create account"
               }}</span>
             </button>
           </div>
@@ -191,7 +191,7 @@
             Already have an account?
             <NuxtLink
               to="/login"
-              class="font-mono text-indigo-600 dark:text-indigo-400 hover:underline hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors ml-1"
+              class="font-mono text-primary-600 dark:text-primary-400 hover:underline hover:text-primary-700 dark:hover:text-primary-300 transition-colors ml-1"
             >
               Log In
             </NuxtLink>
@@ -219,6 +219,7 @@ const lastName = ref("");
 const email = ref("");
 const password = ref("");
 const showPassword = ref(false);
+const actionLabel = ref("Creating");
 
 // Computed validation
 const isFormValid = computed(() => {
@@ -237,11 +238,17 @@ const handleRegister = async () => {
       email.value,
       password.value,
     );
+
+    actionLabel.value = "Logging in";
+
+    await authStore.login(email.value, password.value);
+
     toastSuccess(
-      "Your profile has been created. Please log in.",
-      "Registration Successful",
+      "You have being registered and logged in! Welcome.",
+      "Login Successful",
     );
-    await navigateTo("/auth/login");
+
+    await navigateTo("/");
   } catch (err) {
     console.error(err);
     toastError(

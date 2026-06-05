@@ -45,7 +45,7 @@ export default defineNuxtConfig({
       name: "The Vineyard's Voice",
       short_name: "The Vineyard",
       description: "Team collaboration and editorial management platform.",
-      theme_color: "#4f46e5", // Tailwind indigo-600
+      theme_color: "#4f46e5", // Tailwind primary-600
       background_color: "#ffffff",
       display: "standalone",
       orientation: "portrait",

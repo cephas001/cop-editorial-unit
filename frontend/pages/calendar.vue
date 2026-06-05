@@ -90,7 +90,7 @@
                   ? 'hover:bg-slate-50 dark:hover:bg-slate-700/50'
                   : '',
                 day.isToday
-                  ? 'ring-2 ring-indigo-500 dark:ring-indigo-400 ring-inset'
+                  ? 'ring-2 ring-primary-500 dark:ring-primary-400 ring-inset'
                   : '',
               ]"
             >
@@ -98,8 +98,8 @@
                 :class="[
                   'self-end flex items-center justify-center text-sm font-mono',
                   day.isToday
-                    ? 'w-6 h-6 rounded-full bg-indigo-600 text-white font-bold shadow-sm'
-                    : 'text-slate-700 dark:text-slate-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400',
+                    ? 'w-6 h-6 rounded-full bg-primary-600 text-white font-bold shadow-sm'
+                    : 'text-slate-700 dark:text-slate-300 group-hover:text-primary-600 dark:group-hover:text-primary-400',
                 ]"
               >
                 {{ day.date }}
@@ -158,7 +158,7 @@
         <button
           v-if="user?.role === 'ADMIN'"
           @click="isCreatingTask = true"
-          class="text-sm font-mono text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-500/30 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1"
+          class="text-sm font-mono text-primary-600 dark:text-primary-400 border border-primary-200 dark:border-primary-500/30 hover:bg-primary-50 dark:hover:bg-primary-500/10 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1"
         >
           <Icon name="material-symbols:add-rounded" class="text-lg" />
           Assign
@@ -194,7 +194,7 @@
                   type="checkbox"
                   :checked="task.status === 'COMPLETED'"
                   @change="toggleTaskStatus(task)"
-                  class="peer appearance-none w-5 h-5 border-2 border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-800 checked:bg-indigo-600 checked:border-indigo-600 focus:ring-2 focus:ring-indigo-600 cursor-pointer transition-all"
+                  class="peer appearance-none w-5 h-5 border-2 border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-800 checked:bg-primary-600 checked:border-primary-600 focus:ring-2 focus:ring-primary-600 cursor-pointer transition-all"
                 />
                 <Icon
                   name="material-symbols:check-rounded"
@@ -252,7 +252,7 @@
                 'flex items-start gap-3 p-3 rounded-xl transition-colors cursor-pointer',
                 task.status === 'COMPLETED'
                   ? 'bg-slate-50 dark:bg-slate-800/30 border border-slate-200/60 dark:border-slate-700/50 opacity-75'
-                  : 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm group hover:border-indigo-300 dark:hover:border-indigo-600',
+                  : 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm group hover:border-primary-300 dark:hover:border-primary-600',
               ]"
             >
               <div
@@ -262,7 +262,7 @@
                   type="checkbox"
                   :checked="task.status === 'COMPLETED'"
                   @change="toggleTaskStatus(task)"
-                  class="peer appearance-none w-5 h-5 border-2 border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-800 checked:bg-indigo-600 checked:border-indigo-600 focus:ring-2 focus:ring-indigo-600 cursor-pointer transition-all"
+                  class="peer appearance-none w-5 h-5 border-2 border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-800 checked:bg-primary-600 checked:border-primary-600 focus:ring-2 focus:ring-primary-600 cursor-pointer transition-all"
                 />
                 <Icon
                   name="material-symbols:check-rounded"
@@ -276,7 +276,7 @@
                   :class="
                     task.status === 'COMPLETED'
                       ? 'text-slate-500 dark:text-slate-400 line-through'
-                      : 'text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400'
+                      : 'text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400'
                   "
                 >
                   {{ task.title }}
@@ -340,7 +340,7 @@
           >
             <Icon
               name="material-symbols:calendar-today-rounded"
-              class="text-indigo-600 dark:text-indigo-400"
+              class="text-primary-600 dark:text-primary-400"
             />
             {{
               selectedDay?.fullDate?.toLocaleDateString("en-US", {
@@ -472,7 +472,7 @@
               type="text"
               placeholder="e.g., Draft Adekoya Interview"
               required
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600 text-sm text-slate-900 dark:text-white"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-slate-900 dark:text-white"
             />
           </div>
 
@@ -485,7 +485,7 @@
               v-model="newTask.description"
               rows="3"
               placeholder="Add detailed instructions..."
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600 text-sm text-slate-900 dark:text-white resize-none"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-slate-900 dark:text-white resize-none"
             ></textarea>
           </div>
 
@@ -497,7 +497,7 @@
               >
               <select
                 v-model="newTask.priority"
-                class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600 text-sm text-slate-900 dark:text-white"
+                class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-slate-900 dark:text-white"
               >
                 <option value="LOW">Low</option>
                 <option value="MEDIUM">Medium</option>
@@ -513,7 +513,7 @@
                 type="date"
                 v-model="newTask.dueDate"
                 required
-                class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600 text-sm text-slate-900 dark:text-white"
+                class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-slate-900 dark:text-white"
               />
             </div>
           </div>
@@ -525,7 +525,7 @@
             >
             <select
               v-model="newTask.assigneeId"
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600 text-sm text-slate-900 dark:text-white"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-slate-900 dark:text-white"
             >
               <option :value="user.id">Assign to myself</option>
               <option
@@ -551,7 +551,7 @@
             <button
               type="submit"
               :disabled="isSubmittingTask"
-              class="px-4 py-2 text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-700 rounded-lg disabled:opacity-50 transition-colors flex items-center gap-2"
+              class="px-4 py-2 text-sm font-medium bg-primary-600 text-white hover:bg-primary-700 rounded-lg disabled:opacity-50 transition-colors flex items-center gap-2"
             >
               <Icon
                 v-if="isSubmittingTask"

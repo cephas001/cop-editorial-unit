@@ -18,7 +18,7 @@
       </div>
       <button
         @click="isKudosModalOpen = true"
-        class="px-2 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs md:text-sm font-mono transition-colors shadow-sm flex items-center gap-2"
+        class="px-2 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg text-xs md:text-sm font-mono transition-colors shadow-sm flex items-center gap-2"
       >
         <Icon name="material-symbols:add-rounded" class="text-lg md:text-xl" />
         Give a Shoutout
@@ -31,7 +31,7 @@
       class="flex flex-col items-center justify-center flex-1 min-h-[400px] w-full"
     >
       <VineyardLoader size="120px" />
-      <span class="mt-6 text-sm font-mono text-indigo-500/70 animate-pulse">
+      <span class="mt-6 text-sm font-mono text-primary-500/70 animate-pulse">
         Fetching roster...
       </span>
     </div>
@@ -42,10 +42,10 @@
         v-motion
         :initial="{ opacity: 0, y: 30 }"
         :enter="{ opacity: 1, y: 0, transition: { delay: 100, duration: 400 } }"
-        class="bg-indigo-50 dark:bg-indigo-900/10 rounded-2xl p-6 md:p-10 border border-indigo-100 dark:border-indigo-500/20 shadow-sm flex flex-col md:flex-row items-center gap-8 relative overflow-hidden"
+        class="bg-primary-50 dark:bg-primary-900/10 rounded-2xl p-6 md:p-10 border border-primary-100 dark:border-primary-500/20 shadow-sm flex flex-col md:flex-row items-center gap-8 relative overflow-hidden"
       >
         <div
-          class="absolute top-0 right-0 w-64 h-64 bg-indigo-200 dark:bg-indigo-800 rounded-full blur-3xl opacity-20 -mr-32 -mt-32"
+          class="absolute top-0 right-0 w-64 h-64 bg-primary-200 dark:bg-primary-800 rounded-full blur-3xl opacity-20 -mr-32 -mt-32"
         ></div>
 
         <div class="flex-shrink-0 relative z-10">
@@ -74,12 +74,12 @@
             {{ spotlightUser.fullName }}
           </h2>
           <p
-            class="font-mono text-sm text-indigo-600 dark:text-indigo-400 mb-4"
+            class="font-mono text-sm text-primary-600 dark:text-primary-400 mb-4"
           >
             {{ spotlightUser.role === "ADMIN" ? "Unit Head" : "Writer" }}
           </p>
           <blockquote
-            class="text-sm md:text-md text-slate-600 dark:text-slate-300 italic mb-6 border-l-4 border-indigo-500 pl-4 text-left line-clamp-3"
+            class="text-sm md:text-md text-slate-600 dark:text-slate-300 italic mb-6 border-l-4 border-primary-500 pl-4 text-left line-clamp-3"
           >
             "{{
               spotlightUser.bio ||
@@ -88,7 +88,7 @@
           </blockquote>
           <button
             @click="navigateToProfile(spotlightUser.id)"
-            class="bg-indigo-600 text-white px-6 py-2.5 rounded-lg text-xs md:text-sm font-mono hover:bg-indigo-700 transition-colors shadow-sm inline-flex items-center gap-2"
+            class="bg-primary-600 text-white px-6 py-2.5 rounded-lg text-xs md:text-sm font-mono hover:bg-primary-700 transition-colors shadow-sm inline-flex items-center gap-2"
           >
             View Full Profile
             <Icon
@@ -118,7 +118,7 @@
               :class="[
                 'px-4 py-1.5 rounded-md text-xs font-semibold transition-all duration-200',
                 filter === 'ALL'
-                  ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm ring-1 ring-slate-900/5 dark:ring-white/5'
+                  ? 'bg-white dark:bg-slate-700 text-primary-600 dark:text-primary-400 shadow-sm ring-1 ring-slate-900/5 dark:ring-white/5'
                   : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200',
               ]"
             >
@@ -129,7 +129,7 @@
               :class="[
                 'px-4 py-1.5 rounded-md text-xs font-semibold transition-all duration-200',
                 filter === 'WRITER'
-                  ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm ring-1 ring-slate-900/5 dark:ring-white/5'
+                  ? 'bg-white dark:bg-slate-700 text-primary-600 dark:text-primary-400 shadow-sm ring-1 ring-slate-900/5 dark:ring-white/5'
                   : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200',
               ]"
             >
@@ -140,7 +140,7 @@
               :class="[
                 'px-4 py-1.5 rounded-md text-xs font-semibold transition-all duration-200',
                 filter === 'ADMIN'
-                  ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm ring-1 ring-slate-900/5 dark:ring-white/5'
+                  ? 'bg-white dark:bg-slate-700 text-primary-600 dark:text-primary-400 shadow-sm ring-1 ring-slate-900/5 dark:ring-white/5'
                   : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200',
               ]"
             >
@@ -157,7 +157,7 @@
             v-for="member in filteredRoster"
             :key="member.id"
             @click="navigateToProfile(member.id)"
-            class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-600 transition-all duration-300 flex flex-col items-center text-center cursor-pointer group"
+            class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-primary-300 dark:hover:border-primary-600 transition-all duration-300 flex flex-col items-center text-center cursor-pointer group"
           >
             <div
               class="w-24 h-24 rounded-full overflow-hidden mb-4 border-2 border-slate-100 dark:border-slate-700 group-hover:scale-105 transition-transform duration-300 flex items-center justify-center bg-slate-100 dark:bg-slate-700 text-2xl font-bold text-slate-400"
@@ -170,7 +170,7 @@
               <span v-else>{{ member.fullName.charAt(0) }}</span>
             </div>
             <h4
-              class="text-md md:text-lg text-slate-900 dark:text-white font-bold mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"
+              class="text-md md:text-lg text-slate-900 dark:text-white font-bold mb-1 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors"
             >
               {{ member.fullName }}
             </h4>
@@ -213,7 +213,7 @@
           </div>
           <button
             @click="isKudosModalOpen = true"
-            class="text-xs md:text-sm font-mono text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 flex items-center gap-1"
+            class="text-xs md:text-sm font-mono text-primary-600 hover:text-primary-700 dark:text-primary-400 flex items-center gap-1"
           >
             <Icon
               name="material-symbols:add-rounded"
@@ -317,7 +317,7 @@
             rows="3"
             placeholder="Thank someone, celebrate a win, or just share some good vibes..."
             required
-            class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-600 text-xs md:text-sm text-black dark:text-white resize-none"
+            class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-primary-600 text-xs md:text-sm text-black dark:text-white resize-none"
           ></textarea>
 
           <div>
@@ -385,7 +385,7 @@
             <button
               type="submit"
               :disabled="!newKudo.trim() || isSubmitting"
-              class="bg-indigo-600 text-white px-5 py-2.5 rounded-lg text-xs md:text-sm font-mono hover:bg-indigo-700 disabled:opacity-50 transition-colors shadow-sm flex items-center gap-2"
+              class="bg-primary-600 text-white px-5 py-2.5 rounded-lg text-xs md:text-sm font-mono hover:bg-primary-700 disabled:opacity-50 transition-colors shadow-sm flex items-center gap-2"
             >
               <Icon
                 v-if="isSubmitting"

@@ -7,7 +7,7 @@
     >
       <div class="flex flex-col items-center gap-2 text-center">
         <div
-          class="w-15 h-15 bg-indigo-100 rounded-lg flex items-center justify-center mb-2"
+          class="w-15 h-15 bg-primary-100 rounded-lg flex items-center justify-center mb-2"
         >
           <img
             src="/assets/images/the_vineyard_logo.webp"
@@ -40,7 +40,7 @@
             placeholder="peter@example.com"
             required
             type="email"
-            class="w-full px-4 py-2.5 bg-white dark:bg-slate-900 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-2 focus:ring-indigo-600/20 dark:focus:ring-indigo-500/20 transition-all text-sm"
+            class="w-full px-4 py-2.5 bg-white dark:bg-slate-900 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-primary-600 dark:focus:border-primary-500 focus:ring-2 focus:ring-primary-600/20 dark:focus:ring-primary-500/20 transition-all text-sm"
           />
         </div>
 
@@ -54,7 +54,7 @@
             </label>
             <a
               href="#"
-              class="text-xs font-mono text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors"
+              class="text-xs font-mono text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors"
             >
               Forgot password?
             </a>
@@ -68,7 +68,7 @@
               placeholder="••••••••"
               required
               :type="showPassword ? 'text' : 'password'"
-              class="w-full px-4 py-2.5 bg-white dark:bg-slate-900 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-2 focus:ring-indigo-600/20 dark:focus:ring-indigo-500/20 transition-all text-sm"
+              class="w-full px-4 py-2.5 bg-white dark:bg-slate-900 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-primary-600 dark:focus:border-primary-500 focus:ring-2 focus:ring-primary-600/20 dark:focus:ring-primary-500/20 transition-all text-sm"
             />
             <button
               type="button"
@@ -90,13 +90,19 @@
         <button
           type="submit"
           :disabled="authStore.isLoading"
-          class="w-full mt-2 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white py-2.5 px-4 rounded-lg text-sm font-mono transition-all hover:-translate-y-0.5 active:scale-[0.98] active:translate-y-0 shadow-sm flex items-center justify-center gap-2 disabled:opacity-70 disabled:pointer-events-none"
+          class="w-full mt-2 bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white py-2.5 px-4 rounded-lg text-sm font-mono transition-all hover:-translate-y-0.5 active:scale-[0.98] active:translate-y-0 shadow-sm flex items-center justify-center gap-2 disabled:opacity-70 disabled:pointer-events-none"
         >
-          <Icon
+          <span
             v-if="authStore.isLoading"
-            name="material-symbols:sync-rounded"
-            class="text-xl animate-spin"
-          />
+            class="flex items-center justify-center gap-2"
+          >
+            <Icon
+              name="material-symbols:sync-rounded"
+              class="text-xl animate-spin"
+            />
+            Logging in...</span
+          >
+
           <span v-else>Sign in</span>
           <Icon
             v-if="!authStore.isLoading"
@@ -111,7 +117,7 @@
           Don't have an account? <br />
           <NuxtLink
             to="/auth/register"
-            class="text-indigo-600 dark:text-indigo-400 font-mono hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors ml-1"
+            class="text-primary-600 dark:text-primary-400 font-mono hover:text-primary-700 dark:hover:text-primary-300 transition-colors ml-1"
           >
             Create Profile
           </NuxtLink>
@@ -140,12 +146,13 @@ const showPassword = ref(false);
 const handleLogin = async () => {
   try {
     await authStore.login(email.value, password.value);
+
     toastSuccess(
       "Welcome back to the Editorial workspace.",
       "Login Successful",
     );
-    // Redirect to the articles directory
-    await navigateTo("/articles");
+
+    await navigateTo("/");
   } catch (err) {
     console.error(err);
     toastError(

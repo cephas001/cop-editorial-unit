@@ -13,7 +13,7 @@
       <div class="flex items-center gap-4 w-full max-w-md">
         <button
           @click="isMobileMenuOpen = !isMobileMenuOpen"
-          class="md:hidden text-black dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 flex items-center justify-center"
+          class="md:hidden text-black dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 flex items-center justify-center"
         >
           <Icon name="material-symbols:menu-rounded" class="text-xl" />
         </button>
@@ -24,7 +24,7 @@
             class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 text-xl"
           />
           <input
-            class="w-full bg-slate-100 dark:bg-slate-800 border border-transparent dark:border-slate-700 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white dark:focus:bg-slate-900 text-sm text-slate-900 dark:text-white placeholder:text-slate-500 transition-all duration-200"
+            class="w-full bg-slate-100 dark:bg-slate-800 border border-transparent dark:border-slate-700 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white dark:focus:bg-slate-900 text-sm text-slate-900 dark:text-white placeholder:text-slate-500 transition-all duration-200"
             placeholder="Search articles, tasks, or users..."
             type="text"
           />
@@ -36,7 +36,7 @@
         <NotificationButton />
 
         <NuxtLink
-          class="h-8 w-8 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 flex items-center justify-center font-semibold overflow-hidden border border-slate-200 dark:border-slate-700 cursor-pointer hover:ring-2 hover:ring-indigo-500 transition-all"
+          class="h-8 w-8 rounded-full bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300 flex items-center justify-center font-semibold overflow-hidden border border-slate-200 dark:border-slate-700 cursor-pointer hover:ring-2 hover:ring-primary-500 transition-all"
           to="/profile"
         >
           <img

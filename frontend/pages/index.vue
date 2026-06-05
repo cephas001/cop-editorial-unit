@@ -21,7 +21,7 @@
       </div>
       <div class="flex gap-3">
         <NuxtLink
-          class="px-2 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-mono transition-colors shadow-sm flex items-center gap-2"
+          class="px-2 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg text-xs font-mono transition-colors shadow-sm flex items-center gap-2"
           to="/editor/new"
         >
           <Icon name="material-symbols:add-rounded" class="text-lg" />
@@ -44,12 +44,12 @@
         >
           <Icon
             name="material-symbols:edit-document-outline-rounded"
-            class="text-4xl text-indigo-600 dark:text-indigo-400"
+            class="text-4xl text-primary-600 dark:text-primary-400"
           />
         </div>
         <div class="flex items-center gap-3 mb-4">
           <div
-            class="w-10 h-10 rounded-full bg-indigo-50 dark:bg-indigo-500/10 flex items-center justify-center text-indigo-600 dark:text-indigo-400"
+            class="w-10 h-10 rounded-full bg-primary-50 dark:bg-primary-500/10 flex items-center justify-center text-primary-600 dark:text-primary-400"
           >
             <Icon
               name="material-symbols:edit-document-outline-rounded"
@@ -224,7 +224,7 @@
                     class="font-semibold text-slate-800 dark:text-slate-200"
                     >{{ activity.user?.fullName?.split(" ")[0] }}</span
                   >
-                  {{ activity.message }}
+                  {{ activity.message.replace(/_/g, " ") }}
                 </p>
               </div>
             </li>
@@ -273,7 +273,7 @@
                     type="checkbox"
                     :checked="task.status === 'COMPLETED'"
                     @change="toggleTaskStatus(task)"
-                    class="peer appearance-none w-5 h-5 border-2 border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-800 checked:bg-indigo-600 checked:border-indigo-600 focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-900 transition-all cursor-pointer"
+                    class="peer appearance-none w-5 h-5 border-2 border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-800 checked:bg-primary-600 checked:border-primary-600 focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-900 transition-all cursor-pointer"
                   />
                   <Icon
                     name="material-symbols:check-rounded"
@@ -283,7 +283,7 @@
                 <div class="flex flex-col flex-1">
                   <span
                     :class="[
-                      'text-sm font-medium transition-colors group-hover:text-indigo-600 dark:group-hover:text-indigo-400',
+                      'text-sm font-medium transition-colors group-hover:text-primary-600 dark:group-hover:text-primary-400',
                       task.status === 'COMPLETED'
                         ? 'line-through text-slate-400 dark:text-slate-500'
                         : 'text-black dark:text-slate-100',
@@ -356,7 +356,7 @@
           <div v-if="!isCreatingTask" class="flex justify-center">
             <button
               @click="isCreatingTask = true"
-              class="w-full py-2 flex items-center justify-center gap-2 text-xs font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-500/20 transition-colors"
+              class="w-full py-2 flex items-center justify-center gap-2 text-xs font-medium text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-500/10 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-500/20 transition-colors"
             >
               <Icon name="material-symbols:add-rounded" class="text-md" />
               New Task
@@ -369,20 +369,20 @@
               type="text"
               placeholder="Task Title..."
               required
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent text-sm text-black dark:text-white placeholder:text-slate-400 transition-colors"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent text-sm text-black dark:text-white placeholder:text-slate-400 transition-colors"
             />
 
             <textarea
               v-model="newTask.description"
               placeholder="Add detailed instructions... (optional)"
               rows="2"
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent text-sm text-black dark:text-white placeholder:text-slate-400 transition-colors resize-none"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent text-sm text-black dark:text-white placeholder:text-slate-400 transition-colors resize-none"
             ></textarea>
 
             <div class="flex gap-2">
               <select
                 v-model="newTask.priority"
-                class="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent text-sm text-black dark:text-white transition-colors"
+                class="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-2 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent text-sm text-black dark:text-white transition-colors"
               >
                 <option value="LOW">Low Priority</option>
                 <option value="MEDIUM">Medium Priority</option>
@@ -392,14 +392,14 @@
               <input
                 type="date"
                 v-model="newTask.dueDate"
-                class="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent text-sm text-black dark:text-white transition-colors"
+                class="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-2 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent text-sm text-black dark:text-white transition-colors"
               />
             </div>
 
             <select
               v-if="user?.role === 'ADMIN'"
               v-model="newTask.assigneeId"
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent text-sm text-black dark:text-white transition-colors"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent text-sm text-black dark:text-white transition-colors"
             >
               <option :value="user.id">Assign to myself</option>
               <option
@@ -422,7 +422,7 @@
               <button
                 type="submit"
                 :disabled="!newTask.title.trim() || isSubmittingTask"
-                class="px-4 py-1.5 text-xs font-medium bg-indigo-600 text-white hover:bg-indigo-700 rounded-md disabled:opacity-50 flex items-center gap-1 transition-colors shadow-sm"
+                class="px-4 py-1.5 text-xs font-medium bg-primary-600 text-white hover:bg-primary-700 rounded-md disabled:opacity-50 flex items-center gap-1 transition-colors shadow-sm"
               >
                 <Icon
                   v-if="isSubmittingTask"
@@ -601,7 +601,7 @@ const getActivityColor = (type) => {
     case "CREATE":
       return "bg-sky-500 ring-sky-50 dark:ring-sky-500/20";
     case "EDIT":
-      return "bg-indigo-500 ring-indigo-50 dark:ring-indigo-500/20";
+      return "bg-primary-500 ring-primary-50 dark:ring-primary-500/20";
     case "STATUS":
       return "bg-emerald-500 ring-emerald-50 dark:ring-emerald-500/20";
     case "COMMENT":

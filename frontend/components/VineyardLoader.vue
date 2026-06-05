@@ -7,17 +7,17 @@
       height="100%"
     >
       <defs>
-        <linearGradient id="indigoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#818CF8" />
-          <stop offset="50%" stop-color="#6366F1" />
-          <stop offset="100%" stop-color="#4338CA" />
+        <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="var(--primary-400)" />
+          <stop offset="50%" stop-color="var(--primary-500)" />
+          <stop offset="100%" stop-color="var(--primary-700)" />
         </linearGradient>
       </defs>
 
       <path
         d="M 16 60 A 44 44 0 0 0 104 60"
         fill="none"
-        stroke="#6366F1"
+        stroke="var(--primary-500)"
         stroke-opacity="0.15"
         stroke-width="5"
         stroke-linecap="round"
@@ -26,7 +26,7 @@
       <path
         d="M 16 60 A 44 44 0 0 0 104 60"
         fill="none"
-        stroke="url(#indigoGrad)"
+        stroke="url(#primaryGrad)"
         stroke-width="5"
         stroke-linecap="round"
         class="bottom-arc-anim"
@@ -35,14 +35,14 @@
       <g class="mic-group">
         <path
           d="M 55 72 L 65 72 L 70 82 Q 70 84 68 84 L 52 84 Q 50 84 50 82 Z"
-          fill="url(#indigoGrad)"
+          fill="url(#primaryGrad)"
         />
         <line
           x1="60"
           y1="58"
           x2="60"
           y2="72"
-          stroke="url(#indigoGrad)"
+          stroke="url(#primaryGrad)"
           stroke-width="4"
         />
         <rect
@@ -51,7 +51,7 @@
           width="8"
           height="3"
           rx="1.5"
-          fill="url(#indigoGrad)"
+          fill="url(#primaryGrad)"
         />
         <rect
           x="55"
@@ -59,7 +59,7 @@
           width="10"
           height="3"
           rx="1.5"
-          fill="url(#indigoGrad)"
+          fill="url(#primaryGrad)"
         />
 
         <rect
@@ -69,7 +69,7 @@
           height="26"
           rx="10"
           fill="none"
-          stroke="url(#indigoGrad)"
+          stroke="url(#primaryGrad)"
           stroke-width="3"
         />
         <rect
@@ -78,7 +78,7 @@
           width="10"
           height="16"
           rx="5"
-          fill="url(#indigoGrad)"
+          fill="url(#primaryGrad)"
           opacity="0.9"
         />
       </g>
@@ -90,7 +90,7 @@
 defineProps({
   size: {
     type: String,
-    default: "120px", // Default size, easily overwritten (e.g., size="64px")
+    default: "120px",
   },
 });
 </script>

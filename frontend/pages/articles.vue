@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col min-h-[110vh] font-sans">
+  <div class="flex flex-col min-h-screen font-sans">
     <div
       v-motion
       :initial="{ opacity: 0, y: -20 }"
@@ -18,7 +18,7 @@
       </div>
       <NuxtLink
         to="/editor/new"
-        class="px-2 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-mono transition-colors shadow-sm flex items-center gap-2"
+        class="px-2 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg text-xs font-mono transition-colors shadow-sm flex items-center gap-2"
       >
         <Icon name="material-symbols:add-rounded" class="text-lg" />
         New Draft
@@ -65,7 +65,7 @@
           >Sort by:</span
         >
         <select
-          class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 text-xs md:text-sm font-mono text-slate-700 dark:text-slate-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-colors cursor-pointer"
+          class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 text-xs md:text-sm font-mono text-slate-700 dark:text-slate-200 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-colors cursor-pointer"
           v-model="sortOrder"
         >
           <option>Newest First</option>
@@ -83,7 +83,7 @@
         v-for="article in filteredArticles"
         :key="article.id"
         :to="`/editor/${article.id}`"
-        class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-600 transition-all duration-200 group flex flex-col h-full cursor-pointer"
+        class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:border-primary-300 dark:hover:border-primary-600 transition-all duration-200 group flex flex-col h-full cursor-pointer"
         v-if="filteredArticles.length > 0"
       >
         <div
@@ -97,7 +97,7 @@
 
           <div
             v-else
-            class="w-full h-full bg-gradient-to-br from-indigo-500/10 to-purple-500/10 flex items-center justify-center text-indigo-500/50 group-hover:scale-105 transition-transform duration-500"
+            class="w-full h-full bg-gradient-to-br from-primary-500/10 to-purple-500/10 flex items-center justify-center text-primary-500/50 group-hover:scale-105 transition-transform duration-500"
           >
             <Icon
               name="material-symbols:edit-document-outline-rounded"
@@ -127,7 +127,7 @@
 
         <div class="p-5 flex flex-col flex-1">
           <h3
-            class="text-md md:text-lg font-semibold text-slate-900 dark:text-white mb-2 line-clamp-2 group-hover:text-indigo-600 transition-colors"
+            class="text-md md:text-lg font-semibold text-slate-900 dark:text-white mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors"
           >
             {{ article.title }}
           </h3>
@@ -137,7 +137,7 @@
           >
             <div class="flex items-center gap-2">
               <div
-                class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center text-[10px] font-bold"
+                class="w-6 h-6 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center text-[10px] font-bold"
               >
                 <img
                   :src="article.author?.avatarUrl"
@@ -164,7 +164,7 @@
 
       <div
         v-else
-        class="col-span-full text-center pt-10 font-serif text-slate-500 dark:text-slate-400"
+        class="col-span-full text-xs md:text-sm text-center pt-10 font-serif text-slate-500 dark:text-slate-400"
       >
         There are no articles to display
       </div>
@@ -173,10 +173,10 @@
     <div
       v-else
       v-motion-fade
-      class="flex flex-col items-center justify-center flex-1 min-h-[400px] w-full"
+      class="pt-5 flex flex-col items-center justify-start flex-1 min-h-[400px] w-full"
     >
       <VineyardLoader size="120px" />
-      <span class="mt-6 text-sm font-mono text-indigo-500/70 animate-pulse">
+      <span class="mt-6 text-sm font-mono text-primary-500/70 animate-pulse">
         Fetching the vineyard...
       </span>
     </div>

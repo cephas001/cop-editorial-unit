@@ -37,7 +37,7 @@
           <button
             v-if="unreadCount > 0"
             @click="markAllAsRead"
-            class="text-xs font-mono text-indigo-600 dark:text-indigo-400 hover:underline transition-colors"
+            class="text-xs font-mono text-primary-600 dark:text-primary-400 hover:underline transition-colors"
           >
             Mark read
           </button>
@@ -54,7 +54,7 @@
       <div v-if="isLoading" class="p-8 flex justify-center">
         <Icon
           name="material-symbols:sync-rounded"
-          class="text-2xl text-indigo-500 animate-spin"
+          class="text-2xl text-primary-500 animate-spin"
         />
       </div>
 
@@ -80,13 +80,15 @@
             class="group p-4 hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors cursor-pointer flex items-start gap-3 relative"
             :class="
               !notification.isRead
-                ? 'bg-indigo-50/50 dark:bg-indigo-900/10'
+                ? 'bg-primary-50/50 dark:bg-primary-900/10'
                 : ''
             "
           >
             <div
               class="mt-1.5 shrink-0 w-2 h-2 rounded-full"
-              :class="!notification.isRead ? 'bg-indigo-500' : 'bg-transparent'"
+              :class="
+                !notification.isRead ? 'bg-primary-500' : 'bg-transparent'
+              "
             ></div>
 
             <div class="flex-1 pr-8">
@@ -98,7 +100,7 @@
                     : 'text-slate-600 dark:text-slate-400',
                 ]"
               >
-                {{ notification.content }}
+                {{ notification.content.replace(/_/g, " ") }}
               </p>
               <span
                 class="text-[10px] font-mono text-slate-400 dark:text-slate-500 mt-1 block"

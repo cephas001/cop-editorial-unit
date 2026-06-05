@@ -7,7 +7,7 @@
       class="text-center pt-8 md:pt-12 pb-6 border-b border-slate-200 dark:border-slate-800"
     >
       <div
-        class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 mb-6 shadow-sm border border-indigo-100 dark:border-indigo-500/20"
+        class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary-50 dark:bg-primary-500/10 text-primary-600 dark:text-primary-400 mb-6 shadow-sm border border-primary-100 dark:border-primary-500/20"
       >
         <Icon name="material-symbols:help-center-rounded" class="text-3xl" />
       </div>
@@ -142,7 +142,7 @@
             {{ faq.question }}
             <Icon
               name="material-symbols:expand-more-rounded"
-              class="text-xl text-slate-400 transition-transform duration-300 group-open:rotate-180 group-open:text-indigo-600 dark:group-open:text-indigo-400 shrink-0 ml-4"
+              class="text-xl text-slate-400 transition-transform duration-300 group-open:rotate-180 group-open:text-primary-600 dark:group-open:text-primary-400 shrink-0 ml-4"
             />
           </summary>
           <div
@@ -168,7 +168,7 @@
       class="max-w-3xl mx-auto"
     >
       <div
-        class="bg-indigo-50 dark:bg-indigo-900/10 rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 border border-indigo-100 dark:border-indigo-500/20 shadow-sm"
+        class="bg-primary-50 dark:bg-primary-900/10 rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 border border-primary-100 dark:border-primary-500/20 shadow-sm"
       >
         <div class="text-center md:text-left">
           <h3
@@ -184,7 +184,7 @@
           </p>
         </div>
         <button
-          class="shrink-0 bg-indigo-600 text-white hover:bg-indigo-700 rounded-lg px-6 py-3 font-mono text-xs md:text-sm flex items-center gap-2 transition-colors shadow-sm active:scale-95"
+          class="shrink-0 bg-primary-600 text-white hover:bg-primary-700 rounded-lg px-6 py-3 font-mono text-xs md:text-sm flex items-center gap-2 transition-colors shadow-sm active:scale-95"
           @click="sendAdminMail"
         >
           <Icon

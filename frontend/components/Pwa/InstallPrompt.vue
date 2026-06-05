@@ -41,7 +41,7 @@
       <button
         v-if="!isIOS"
         @click="installApp"
-        class="w-full bg-indigo-600 text-white py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-indigo-500 active:bg-indigo-700 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/20"
+        class="w-full bg-primary-600 text-white py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-primary-500 active:bg-primary-700 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-primary-600/20"
       >
         <Icon name="material-symbols:download-rounded" class="text-lg" />
         Install App

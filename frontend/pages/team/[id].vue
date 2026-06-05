@@ -5,7 +5,7 @@
     class="flex flex-col items-center justify-center flex-1 min-h-[400px] w-full"
   >
     <VineyardLoader size="120px" />
-    <span class="mt-6 text-sm font-mono text-indigo-500/70 animate-pulse">
+    <span class="mt-6 text-sm font-mono text-primary-500/70 animate-pulse">
       Loading profile...
     </span>
   </div>
@@ -13,7 +13,7 @@
   <div v-else-if="profile" class="pb-24 font-sans min-h-screen">
     <header class="relative mb-12">
       <div
-        class="h-48 md:h-64 bg-gradient-to-br from-indigo-500 via-purple-500 to-sky-500 opacity-90 relative overflow-hidden rounded-t-lg"
+        class="h-48 md:h-64 bg-gradient-to-br from-primary-500 via-purple-500 to-sky-500 opacity-90 relative overflow-hidden rounded-t-lg"
       >
         <div class="absolute inset-0 bg-white/10 mix-blend-overlay"></div>
       </div>
@@ -62,7 +62,7 @@
               class="flex flex-wrap items-center justify-center md:justify-start gap-4 text-xs md:text-sm text-slate-600 dark:text-slate-400"
             >
               <span
-                class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-400 font-medium border border-indigo-100 dark:border-indigo-500/20"
+                class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-50 text-primary-700 dark:bg-primary-500/10 dark:text-primary-400 font-medium border border-primary-100 dark:border-primary-500/20"
               >
                 <Icon
                   name="material-symbols:workspace-premium-rounded"
@@ -125,7 +125,7 @@
             >
               <Icon
                 name="material-symbols:info-rounded"
-                class="text-indigo-500"
+                class="text-primary-500"
               />
               At a Glance
             </h2>
@@ -213,7 +213,7 @@
                 @click="navigateToEditor(article.id)"
               >
                 <div
-                  class="absolute left-0 top-0 bottom-0 w-1 bg-indigo-500 scale-y-0 group-hover:scale-y-100 transition-transform origin-top"
+                  class="absolute left-0 top-0 bottom-0 w-1 bg-primary-500 scale-y-0 group-hover:scale-y-100 transition-transform origin-top"
                 ></div>
 
                 <time
@@ -234,13 +234,13 @@
                   <span class="inline-block relative">
                     {{ article.title }}
                     <span
-                      class="block max-w-0 group-hover:max-w-full transition-all duration-300 h-[2px] bg-indigo-500 mt-0.5"
+                      class="block max-w-0 group-hover:max-w-full transition-all duration-300 h-[2px] bg-primary-500 mt-0.5"
                     ></span>
                   </span>
                 </h3>
 
                 <div
-                  class="flex justify-end items-center text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase tracking-wider group-hover:translate-x-1 transition-transform mt-4"
+                  class="flex justify-end items-center text-primary-600 dark:text-primary-400 text-xs font-bold uppercase tracking-wider group-hover:translate-x-1 transition-transform mt-4"
                 >
                   Read Article
                   <Icon
@@ -271,7 +271,10 @@
     <p class="text-slate-500 mt-2">
       The profile you are looking for does not exist.
     </p>
-    <button @click="router.back()" class="mt-6 text-indigo-600 hover:underline">
+    <button
+      @click="router.back()"
+      class="mt-6 text-primary-600 hover:underline"
+    >
       Go back
     </button>
   </div>
@@ -317,6 +320,6 @@ const navigateToEditor = (articleId) => {
   padding-top: 0.1rem;
   padding-right: 0.5rem;
   font-weight: 700;
-  color: #6366f1; /* Tailwind indigo-500 */
+  color: #6366f1; /* Tailwind primary-500 */
 }
 </style>

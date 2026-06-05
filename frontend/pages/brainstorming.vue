@@ -8,7 +8,7 @@
       class="flex flex-col md:flex-row items-start justify-between mb-6 gap-4"
     >
       <div class="w-full max-w-full flex-1">
-        <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+        <div class="flex gap-1 md:gap-2 flex-col justify-start">
           <h1
             class="text-xl md:text-2xl font-semibold text-slate-900 dark:text-white tracking-tight"
           >
@@ -18,7 +18,7 @@
             v-if="sessionsList.length > 0"
             v-model="currentSession"
             @change="fetchIdeasForSession"
-            class="bg-slate-100 dark:bg-slate-800 border-none text-xs md:text-sm font-semibold text-indigo-600 dark:text-indigo-400 rounded-lg py-1.5 px-3 focus:ring-2 focus:ring-indigo-600 cursor-pointer w-fit max-w-full truncate"
+            class="bg-slate-100 dark:bg-slate-800 border-none text-xs md:text-sm font-semibold text-primary-600 dark:text-primary-400 rounded-lg py-1.5 px-3 focus:ring-2 focus:ring-primary-600 cursor-pointer w-fit max-w-full truncate"
           >
             <option
               v-for="session in sessionsList"
@@ -49,7 +49,7 @@
         <button
           @click="isIdeaModalOpen = true"
           :disabled="!currentSession"
-          class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs md:text-sm font-mono transition-colors shadow-sm flex items-center gap-2 disabled:opacity-50"
+          class="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg text-xs md:text-sm font-mono transition-colors shadow-sm flex items-center gap-2 disabled:opacity-50"
         >
           <Icon name="material-symbols:add-rounded" class="text-lg" />
           New Idea
@@ -63,7 +63,7 @@
       class="flex-1 flex flex-col items-center justify-center w-full h-full min-h-[50vh]"
     >
       <VineyardLoader size="120px" />
-      <span class="mt-6 text-sm font-mono text-indigo-500/70 animate-pulse"
+      <span class="mt-6 text-sm font-mono text-primary-500/70 animate-pulse"
         >Loading board...</span
       >
     </div>
@@ -150,7 +150,7 @@
             >
               <template #item="{ element }">
                 <div
-                  class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-600 transition-colors group relative flex flex-col"
+                  class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 hover:border-primary-300 dark:hover:border-primary-600 transition-colors group relative flex flex-col"
                 >
                   <div class="flex items-center justify-between mb-3">
                     <span
@@ -175,7 +175,7 @@
 
                   <h3
                     @click="openIdeaDetails(element)"
-                    class="text-xs md:text-sm font-mono text-slate-900 dark:text-white mb-3 md:mb-4 leading-snug line-clamp-4 cursor-pointer hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                    class="text-xs md:text-sm font-mono text-slate-900 dark:text-white mb-3 md:mb-4 leading-snug line-clamp-4 cursor-pointer hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                     title="Click to view full idea"
                   >
                     {{ element.content }}
@@ -198,7 +198,7 @@
 
                     <div class="flex -space-x-2">
                       <div
-                        class="w-6 h-6 rounded-full border-2 border-white dark:border-slate-800 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 flex items-center justify-center text-[10px] font-bold z-10"
+                        class="w-6 h-6 rounded-full border-2 border-white dark:border-slate-800 bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300 flex items-center justify-center text-[10px] font-bold z-10"
                       >
                         <img
                           v-if="element.author?.avatarUrl"
@@ -223,7 +223,7 @@
                       class="text-xs font-semibold text-slate-600 dark:text-slate-400 text-center py-1 bg-slate-50 dark:bg-slate-800/50 rounded-lg"
                     >
                       Assigned to:
-                      <span class="text-indigo-600 dark:text-indigo-400">{{
+                      <span class="text-primary-600 dark:text-primary-400">{{
                         element.assignee.fullName
                       }}</span>
                     </div>
@@ -231,7 +231,7 @@
                     <button
                       v-else
                       @click.stop="openAssignTaskModal(element)"
-                      class="w-full py-1.5 flex items-center justify-center gap-1.5 text-xs font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10 hover:bg-indigo-100 dark:hover:bg-indigo-500/20 rounded-lg transition-colors"
+                      class="w-full py-1.5 flex items-center justify-center gap-1.5 text-xs font-semibold text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-500/10 hover:bg-primary-100 dark:hover:bg-primary-500/20 rounded-lg transition-colors"
                     >
                       <Icon
                         name="material-symbols:assignment-add-outline-rounded"
@@ -248,7 +248,7 @@
                     <select
                       :value="element.status"
                       @change="(e) => moveCardMobile(element, e.target.value)"
-                      class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-1.5 px-2 text-xs font-semibold text-slate-600 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                      class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-1.5 px-2 text-xs font-semibold text-slate-600 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-primary-600"
                     >
                       <option value="IDEA">Move to: Ideas</option>
                       <option value="IN_DISCUSSION">
@@ -322,7 +322,7 @@
               rows="4"
               placeholder="e.g., An interview piece focusing on..."
               required
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600 text-sm text-slate-900 dark:text-white resize-none"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-slate-900 dark:text-white resize-none"
             ></textarea>
           </div>
 
@@ -333,7 +333,7 @@
             >
             <select
               v-model="newIdea.tag"
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600 text-sm text-slate-900 dark:text-white"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-slate-900 dark:text-white"
             >
               <option value="Editorial">Editorial</option>
               <option value="Interview">Interview</option>
@@ -356,7 +356,7 @@
             <button
               type="submit"
               :disabled="isSubmitting"
-              class="px-4 py-2 text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-700 rounded-lg disabled:opacity-50 transition-colors flex items-center gap-2"
+              class="px-4 py-2 text-sm font-medium bg-primary-600 text-white hover:bg-primary-700 rounded-lg disabled:opacity-50 transition-colors flex items-center gap-2"
             >
               <Icon
                 v-if="isSubmitting"
@@ -421,7 +421,7 @@
         >
           <div class="flex gap-4 mb-8">
             <div
-              class="w-8 h-8 shrink-0 rounded-full border-2 border-white dark:border-slate-800 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 flex items-center justify-center text-sm font-bold shadow-sm"
+              class="w-8 h-8 shrink-0 rounded-full border-2 border-white dark:border-slate-800 bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300 flex items-center justify-center text-sm font-bold shadow-sm"
             >
               <img
                 v-if="activeIdea?.author?.avatarUrl"
@@ -460,7 +460,7 @@
           <div v-if="isLoadingComments" class="flex justify-center py-4">
             <Icon
               name="material-symbols:sync-rounded"
-              class="text-2xl text-indigo-500 animate-spin"
+              class="text-2xl text-primary-500 animate-spin"
             />
           </div>
 
@@ -513,7 +513,7 @@
                   <button
                     v-if="comment.authorId === user?.id"
                     @click="startEditing(comment)"
-                    class="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-indigo-600 transition-opacity p-1 flex items-center justify-center"
+                    class="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-primary-600 transition-opacity p-1 flex items-center justify-center"
                     title="Edit Comment"
                   >
                     <Icon
@@ -535,7 +535,7 @@
                   <textarea
                     v-model="editCommentText"
                     rows="2"
-                    class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-3 text-sm focus:ring-1 focus:ring-indigo-600 resize-none text-slate-900 dark:text-white mb-2"
+                    class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary-600 resize-none text-slate-900 dark:text-white mb-2"
                   ></textarea>
                   <div class="flex justify-end gap-2">
                     <button
@@ -547,7 +547,7 @@
                     <button
                       @click="saveEdit(comment.id)"
                       :disabled="isSavingEdit"
-                      class="px-3 py-1.5 text-[10px] font-medium bg-indigo-600 text-white hover:bg-indigo-700 rounded disabled:opacity-50 transition-colors flex items-center gap-1"
+                      class="px-3 py-1.5 text-[10px] font-medium bg-primary-600 text-white hover:bg-primary-700 rounded disabled:opacity-50 transition-colors flex items-center gap-1"
                     >
                       <Icon
                         v-if="isSavingEdit"
@@ -571,7 +571,7 @@
             class="relative flex items-center gap-3"
           >
             <div
-              class="w-8 h-8 shrink-0 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 flex items-center justify-center text-xs font-bold"
+              class="w-8 h-8 shrink-0 rounded-full bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300 flex items-center justify-center text-xs font-bold"
             >
               <img
                 v-if="user?.avatarUrl"
@@ -586,12 +586,12 @@
                 type="text"
                 :disabled="isSubmittingComment"
                 placeholder="Share your thoughts..."
-                class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-full py-2.5 pl-4 pr-12 text-xs md:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition-all disabled:opacity-60"
+                class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-full py-2.5 pl-4 pr-12 text-xs md:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-600 transition-all disabled:opacity-60"
               />
               <button
                 type="submit"
                 :disabled="!newIdeaComment.trim() || isSubmittingComment"
-                class="absolute right-2 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition-colors disabled:opacity-40 disabled:hover:bg-indigo-600 flex items-center justify-center"
+                class="absolute right-2 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-primary-600 text-white rounded-full hover:bg-primary-700 transition-colors disabled:opacity-40 disabled:hover:bg-primary-600 flex items-center justify-center"
               >
                 <Icon
                   v-if="isSubmittingComment"
@@ -634,7 +634,7 @@
           >
             <Icon
               name="material-symbols:assignment-add-outline-rounded"
-              class="text-indigo-600 dark:text-indigo-400"
+              class="text-primary-600 dark:text-primary-400"
             />
             Assign Idea as Task
           </h3>
@@ -656,7 +656,7 @@
               v-model="newTask.title"
               type="text"
               required
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent text-sm text-slate-900 dark:text-white placeholder:text-slate-400 transition-colors"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent text-sm text-slate-900 dark:text-white placeholder:text-slate-400 transition-colors"
             />
           </div>
 
@@ -668,7 +668,7 @@
             <textarea
               v-model="newTask.description"
               rows="3"
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent text-sm text-slate-900 dark:text-white placeholder:text-slate-400 transition-colors resize-none"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent text-sm text-slate-900 dark:text-white placeholder:text-slate-400 transition-colors resize-none"
             ></textarea>
           </div>
 
@@ -680,7 +680,7 @@
               >
               <select
                 v-model="newTask.priority"
-                class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent text-sm text-slate-900 dark:text-white transition-colors"
+                class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-2 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent text-sm text-slate-900 dark:text-white transition-colors"
               >
                 <option value="LOW">Low</option>
                 <option value="MEDIUM">Medium</option>
@@ -696,7 +696,7 @@
               <input
                 type="date"
                 v-model="newTask.dueDate"
-                class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent text-sm text-slate-900 dark:text-white transition-colors"
+                class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-2 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent text-sm text-slate-900 dark:text-white transition-colors"
               />
             </div>
           </div>
@@ -709,7 +709,7 @@
             <select
               v-if="user?.role === 'ADMIN'"
               v-model="newTask.assigneeId"
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent text-sm text-slate-900 dark:text-white transition-colors"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent text-sm text-slate-900 dark:text-white transition-colors"
             >
               <option :value="user.id">Assign to myself</option>
               <option
@@ -735,7 +735,7 @@
             <button
               type="submit"
               :disabled="!newTask.title.trim() || isSubmittingTask"
-              class="px-4 py-2 text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-700 rounded-lg disabled:opacity-50 flex items-center gap-2 transition-colors shadow-sm"
+              class="px-4 py-2 text-sm font-medium bg-primary-600 text-white hover:bg-primary-700 rounded-lg disabled:opacity-50 flex items-center gap-2 transition-colors shadow-sm"
             >
               <Icon
                 v-if="isSubmittingTask"
@@ -818,7 +818,7 @@ const getTagColor = (tag) => {
     Guide:
       "text-emerald-700 bg-emerald-100 dark:bg-emerald-500/20 dark:text-emerald-400",
     Editorial:
-      "text-indigo-700 bg-indigo-100 dark:bg-indigo-500/20 dark:text-indigo-400",
+      "text-primary-700 bg-primary-100 dark:bg-primary-500/20 dark:text-primary-400",
     Interview:
       "text-amber-700 bg-amber-100 dark:bg-amber-500/20 dark:text-amber-400",
     Feature: "text-sky-700 bg-sky-100 dark:bg-sky-500/20 dark:text-sky-400",

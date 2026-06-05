@@ -49,7 +49,7 @@
             </button>
             <button
               @click="handleCrop"
-              class="px-6 py-2 rounded-lg text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-700 transition-colors shadow-sm"
+              class="px-6 py-2 rounded-lg text-sm font-medium bg-primary-600 text-white hover:bg-primary-700 transition-colors shadow-sm"
             >
               Apply
             </button>
