@@ -76,17 +76,24 @@
     >
       <Icon
         name="material-symbols:psychology-outline-rounded"
-        class="text-6xl text-slate-400 mb-4"
+        class="text-4xl md:text-6xl text-slate-400 mb-4"
       />
-      <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+      <h3
+        class="text-md md:text-lg font-semibold text-slate-900 dark:text-white mb-2"
+      >
         No Active Session
       </h3>
-      <p class="text-slate-500 dark:text-slate-400 mb-4 text-sm">
-        Create a new brainstorm session to start collaborating.
+      <p
+        class="text-slate-500 dark:text-slate-400 mb-4 text-xs md:text-sm text-center px-2"
+      >
+        <span v-if="user?.role !== 'ADMIN'">Wait for an admin to create</span>
+        <span v-else>Create</span> a new brainstorm session to start
+        collaborating.
       </p>
       <button
         @click="createDefaultSession"
-        class="px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg text-sm font-semibold transition-colors"
+        class="px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg text-xs md:text-sm font-semibold transition-colors"
+        v-if="user?.role == 'ADMIN'"
       >
         Start New Session
       </button>
