@@ -42,8 +42,8 @@ export default defineNuxtConfig({
   pwa: {
     registerType: "autoUpdate",
     manifest: {
-      name: "Our Editorial Unit",
-      short_name: "The Vineyard's Voice",
+      name: "The Vineyard's Voice",
+      short_name: "The Vineyard",
       description: "Team collaboration and editorial management platform.",
       theme_color: "#4f46e5", // Tailwind indigo-600
       background_color: "#ffffff",
