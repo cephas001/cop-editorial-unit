@@ -1,4 +1,5 @@
 const { createClient } = require("@supabase/supabase-js");
+require("dotenv").config();
 
 // Initialize the Supabase client using your environment variables
 const supabase = createClient(

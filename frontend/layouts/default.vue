@@ -13,7 +13,7 @@
       <div class="flex items-center gap-4 w-full max-w-md">
         <button
           @click="isMobileMenuOpen = !isMobileMenuOpen"
-          class="md:hidden text-black hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 flex items-center justify-center"
+          class="md:hidden text-black dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 flex items-center justify-center"
         >
           <Icon name="material-symbols:menu-rounded" class="text-xl" />
         </button>
