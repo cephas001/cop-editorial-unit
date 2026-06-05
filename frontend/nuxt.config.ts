@@ -43,7 +43,7 @@ export default defineNuxtConfig({
     registerType: "autoUpdate",
     manifest: {
       name: "Our Editorial Unit",
-      short_name: "The Vineyard",
+      short_name: "The Vineyard's Voice",
       description: "Team collaboration and editorial management platform.",
       theme_color: "#4f46e5", // Tailwind indigo-600
       background_color: "#ffffff",
