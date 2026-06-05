@@ -830,7 +830,7 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "~/assets/css/main.css";
 
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;

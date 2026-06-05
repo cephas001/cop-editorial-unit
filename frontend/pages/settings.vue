@@ -643,7 +643,8 @@ onMounted(() => {
 </script>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "~/assets/css/main.css";
+
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }

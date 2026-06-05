@@ -1099,7 +1099,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "~/assets/css/main.css";
 
 .kanban-scrollbar::-webkit-scrollbar {
   height: 6px;

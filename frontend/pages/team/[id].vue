@@ -311,7 +311,7 @@ const navigateToEditor = (articleId) => {
 </script>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "~/assets/css/main.css";
 
 .drop-cap::first-letter {
   float: left;

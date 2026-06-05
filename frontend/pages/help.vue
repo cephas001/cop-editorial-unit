@@ -243,7 +243,7 @@ const sendAdminMail = () => {
 </script>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "~/assets/css/main.css";
 
 /* Details/Summary cleanup to remove native HTML triangles */
 details > summary::-webkit-details-marker {

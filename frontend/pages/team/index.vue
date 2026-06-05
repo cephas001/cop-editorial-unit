@@ -495,7 +495,3 @@ onMounted(() => {
   loadData();
 });
 </script>
-
-<style scoped>
-@reference "tailwindcss";
-</style>
