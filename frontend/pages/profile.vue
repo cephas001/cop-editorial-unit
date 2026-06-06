@@ -479,11 +479,13 @@
               >
                 <Icon
                   name="material-symbols:visibility-rounded"
-                  class="text-xl"
+                  class="text-lg md:text-xl"
                 />
               </div>
               <div>
-                <p class="text-sm font-semibold text-slate-900 dark:text-white">
+                <p
+                  class="text-xs md:text-sm font-semibold text-slate-900 dark:text-white"
+                >
                   View Picture
                 </p>
                 <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
@@ -498,10 +500,15 @@
               <div
                 class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 group-hover:bg-primary-50 dark:group-hover:bg-primary-500/20 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors"
               >
-                <Icon name="material-symbols:edit-rounded" class="text-xl" />
+                <Icon
+                  name="material-symbols:edit-rounded"
+                  class="text-lg md:text-xl"
+                />
               </div>
               <div>
-                <p class="text-sm font-semibold text-slate-900 dark:text-white">
+                <p
+                  class="text-xs md:text-sm font-semibold text-slate-900 dark:text-white"
+                >
                   Change Picture
                 </p>
                 <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
@@ -518,12 +525,12 @@
               >
                 <Icon
                   name="material-symbols:delete-outline-rounded"
-                  class="text-xl"
+                  class="text-md md:text-xl"
                 />
               </div>
               <div>
                 <p
-                  class="text-sm font-semibold text-rose-600 dark:text-rose-400"
+                  class="text-xs md:text-sm font-semibold text-rose-600 dark:text-rose-400"
                 >
                   Remove Picture
                 </p>

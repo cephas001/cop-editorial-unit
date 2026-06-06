@@ -470,9 +470,11 @@
           >
             <Icon
               name="material-symbols:chat-bubble-outline-rounded"
-              class="text-4xl text-slate-400 mb-2"
+              class="text-3xl md:text-4xl text-slate-400 mb-2"
             />
-            <p class="text-sm font-medium text-slate-600 dark:text-slate-400">
+            <p
+              class="text-xs md:text-sm font-medium text-slate-600 dark:text-slate-400"
+            >
               No comments yet. Start the discussion!
             </p>
           </div>
@@ -580,18 +582,19 @@
               />
               <span v-else>{{ user?.fullName?.charAt(0) || "U" }}</span>
             </div>
-            <div class="relative flex-1">
-              <input
+            <div class="relative flex flex-1">
+              <textarea
                 v-model="newIdeaComment"
-                type="text"
+                rows="1"
                 :disabled="isSubmittingComment"
                 placeholder="Share your thoughts..."
-                class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-full py-2.5 pl-4 pr-12 text-xs md:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-600 transition-all disabled:opacity-60"
-              />
+                class="block w-full resize-none bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-md py-2.5 pl-4 pr-12 text-xs md:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-600 transition-all disabled:opacity-60"
+              ></textarea>
+
               <button
                 type="submit"
                 :disabled="!newIdeaComment.trim() || isSubmittingComment"
-                class="absolute right-2 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-primary-600 text-white rounded-full hover:bg-primary-700 transition-colors disabled:opacity-40 disabled:hover:bg-primary-600 flex items-center justify-center"
+                class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-primary-600 text-white rounded-full hover:bg-primary-700 transition-colors disabled:opacity-40 disabled:hover:bg-primary-600 flex items-center justify-center"
               >
                 <Icon
                   v-if="isSubmittingComment"

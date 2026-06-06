@@ -118,7 +118,7 @@
                   </p>
                 </div>
                 <div
-                  class="flex gap-3 overflow-x-auto pb-3 pt-1 hide-scrollbar w-full"
+                  class="flex gap-3 overflow-x-auto pb-3 pt-1 pl-1 hide-scrollbar w-full"
                 >
                   <button
                     v-for="color in themeColors"

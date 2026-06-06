@@ -43,13 +43,13 @@
           <div class="flex gap-3 w-full sm:w-auto justify-end">
             <button
               @click="$emit('close')"
-              class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+              class="px-4 py-2 rounded-lg text-xs md:text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
             >
               Cancel
             </button>
             <button
               @click="handleCrop"
-              class="px-6 py-2 rounded-lg text-sm font-medium bg-primary-600 text-white hover:bg-primary-700 transition-colors shadow-sm"
+              class="px-6 py-2 rounded-lg text-xs md:text-sm font-medium bg-primary-600 text-white hover:bg-primary-700 transition-colors shadow-sm"
             >
               Apply
             </button>
