@@ -11,7 +11,7 @@
   </div>
 
   <div v-else-if="profile" class="pb-24 font-sans min-h-screen">
-    <header class="relative mb-12">
+    <header class="relative mb-8">
       <div
         class="h-48 md:h-64 bg-gradient-to-br from-primary-500 via-purple-500 to-sky-500 opacity-90 relative overflow-hidden rounded-t-lg"
       >
@@ -104,7 +104,7 @@
           <section>
             <h2 class="sr-only">Biography</h2>
             <div
-              class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-wrap text-center md:text-left"
+              class="text-xs md:text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-wrap text-center md:text-left"
             >
               <span v-if="profile.bio" class="drop-cap">{{
                 profile.bio.charAt(0)
@@ -200,7 +200,7 @@
 
             <div
               v-if="!profile.articles || profile.articles.length === 0"
-              class="text-center py-12 text-slate-500 font-mono text-sm"
+              class="text-center py-12 text-slate-500 font-mono text-xs md:text-sm"
             >
               This author hasn't published any articles yet.
             </div>

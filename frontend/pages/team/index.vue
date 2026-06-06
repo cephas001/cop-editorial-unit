@@ -228,7 +228,7 @@
           v-motion-fade
           class="text-center py-12 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700 border-dashed"
         >
-          <p class="text-slate-500 px-2">
+          <p class="text-slate-500 px-3 text-xs md:text-sm">
             The wall is empty! Be the first to spread some love.
           </p>
         </div>
