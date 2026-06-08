@@ -65,31 +65,32 @@
           />
         </div>
 
-        <div class="flex-1 z-10 w-full">
+        <div
+          class="flex-1 z-10 w-full p-6 rounded-3xl bg-white/40 dark:bg-slate-900/40 backdrop-blur-2xl backdrop-saturate-150 border border-white/50 dark:border-slate-700/50 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.1)]"
+        >
           <div
             class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2"
           >
             <div>
-              <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-2">
+              <h2
+                class="text-xl md:text-2xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight"
+              >
                 {{ user?.fullName || "Loading..." }}
               </h2>
               <div
-                class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600"
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/60 dark:bg-slate-800/60 backdrop-blur-md backdrop-saturate-150 border border-white/50 dark:border-slate-700/50 shadow-sm"
               >
-                <Icon
-                  name="material-symbols:edit-note-rounded"
-                  class="text-primary-600 dark:text-primary-400 text-base"
-                />
                 <span
-                  class="text-xs font-semibold text-slate-700 dark:text-slate-300"
+                  class="text-xs font-semibold text-slate-800 dark:text-slate-200"
                 >
                   {{ user?.role === "ADMIN" ? "Unit Head" : "Writer" }}
                 </span>
               </div>
             </div>
+
             <button
               @click="openEditProfile"
-              class="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 text-xs md:text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors flex items-center justify-center gap-2 bg-white dark:bg-slate-800 shadow-sm w-fit mx-auto"
+              class="px-4 py-2 rounded-xl border border-white/60 dark:border-slate-700/50 text-slate-700 dark:text-slate-200 text-xs md:text-sm font-medium hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-300 flex items-center justify-center gap-2 bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl backdrop-saturate-150 shadow-sm hover:shadow active:scale-95 w-fit mx-auto md:mx-0"
             >
               <Icon
                 name="material-symbols:edit-rounded"
@@ -100,36 +101,10 @@
           </div>
 
           <p
-            class="text-sm text-slate-500 dark:text-slate-400 max-w-2xl mt-4 leading-relaxed whitespace-pre-wrap"
+            class="text-sm text-slate-600 dark:text-slate-300 max-w-2xl mt-5 leading-relaxed whitespace-pre-wrap"
           >
             {{ user?.bio || "No bio added yet." }}
           </p>
-
-          <div
-            class="flex items-center justify-center md:justify-start gap-6 mt-6"
-          >
-            <div class="text-center md:text-left">
-              <span
-                class="block text-lg md:text-xl font-bold text-slate-900 dark:text-white"
-                >{{ totalWriteups }}</span
-              >
-              <span
-                class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider"
-                >Articles</span
-              >
-            </div>
-            <div class="w-px h-8 bg-slate-200 dark:bg-slate-700"></div>
-            <div class="text-center md:text-left">
-              <span
-                class="block text-lg md:text-xl font-bold text-slate-900 dark:text-white"
-                >{{ draftCount }}</span
-              >
-              <span
-                class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider"
-                >Drafts</span
-              >
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -567,6 +542,9 @@ import { useAppToast } from "~/composables/useAppToast";
 import { useConfirm } from "~/composables/useConfirm";
 import { useRouter } from "vue-router";
 import { vAutoAnimate } from "@formkit/auto-animate/vue";
+import { useWindowScroll } from "@vueuse/core";
+
+const { y } = useWindowScroll();
 
 const authStore = useAuthStore();
 const router = useRouter();
