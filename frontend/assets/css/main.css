@@ -2,14 +2,30 @@
 @import "@fontsource/jetbrains-mono";
 @import "@fontsource/lora";
 @import "@fontsource/merriweather";
+
+@import "@fontsource/poppins";
+@import "@fontsource/playfair-display";
+@import "@fontsource/fira-code";
+@import "@fontsource/lato";
+@import "@fontsource/literata";
+@import "@fontsource/roboto";
+@import "@fontsource/pt-serif";
+@import "@fontsource/source-code-pro";
+@import "@fontsource/montserrat";
+@import "@fontsource/eb-garamond";
+@import "@fontsource/space-mono";
+@import "@fontsource/nunito";
+@import "@fontsource/zilla-slab";
+@import "@fontsource/ubuntu-mono";
+
 @import "tailwindcss";
 @import "@nuxt/ui";
 
 @theme {
-    /* Map Tailwind's default font families to your installed fonts */
-    --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-    --font-serif: "Lora", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    /* Map Tailwind's default font families to dynamic CSS variables */
+    --font-sans: var(--app-font-sans, "Inter"), ui-sans-serif, system-ui, sans-serif;
+    --font-serif: var(--app-font-serif, "Lora"), ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    --font-mono: var(--app-font-mono, "JetBrains Mono"), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
     /* Map our new 'primary' color to dynamic CSS variables */
     --color-primary-50: var(--primary-50);

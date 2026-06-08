@@ -7,7 +7,7 @@
       class="mb-8"
     >
       <h1
-        class="text-xl md:text-2xl font-semibold text-slate-900 dark:text-white tracking-tight mb-2"
+        class="text-xl md:text-2xl font-semibold text-black dark:text-white tracking-tight mb-2"
       >
         Settings
       </h1>
@@ -83,7 +83,7 @@
           <div v-if="activeTab === 'preferences'" class="space-y-8">
             <div>
               <h2
-                class="text-sm md:text-md font-bold text-slate-900 dark:text-white mb-4"
+                class="text-sm md:text-md font-bold text-black dark:text-white mb-4"
               >
                 Theme Appearance
               </h2>
@@ -93,7 +93,7 @@
               >
                 <div>
                   <h3
-                    class="text-xs md:text-sm font-semibold text-slate-900 dark:text-white"
+                    class="text-xs md:text-sm font-bold text-black dark:text-white"
                   >
                     Dark Mode
                   </h3>
@@ -109,7 +109,7 @@
               >
                 <div>
                   <h3
-                    class="text-xs md:text-sm font-semibold text-slate-900 dark:text-white"
+                    class="text-xs md:text-sm font-bold text-black dark:text-white"
                   >
                     Theme Color
                   </h3>
@@ -131,15 +131,63 @@
                         ? 'border-slate-900 dark:border-white scale-110'
                         : 'border-transparent hover:scale-105',
                     ]"
+                    :style="
+                      color.customBg
+                        ? `background-color: ${color.customBg}`
+                        : ''
+                    "
                     :title="color.name"
                   ></button>
+                </div>
+              </div>
+
+              <div
+                class="flex gap-3 justify-between py-4 border-b border-slate-100 dark:border-slate-700 flex-col"
+              >
+                <div>
+                  <h3
+                    class="text-xs md:text-sm font-bold text-black dark:text-white"
+                  >
+                    Typography Suite
+                  </h3>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">
+                    Change the reading and writing experience across the app.
+                  </p>
+                </div>
+                <div
+                  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-2"
+                >
+                  <button
+                    v-for="bundle in typographyBundles"
+                    :key="bundle.name"
+                    @click="setTypographyBundle(bundle)"
+                    :class="[
+                      'flex flex-col text-left p-3 rounded-xl border transition-all duration-200',
+                      activeTypographyName === bundle.name
+                        ? 'border-primary-600 bg-primary-50 dark:bg-primary-900/20 shadow-sm ring-1 ring-primary-600'
+                        : 'border-slate-200 dark:border-slate-700 hover:border-primary-300 dark:hover:border-primary-700 hover:bg-slate-50 dark:hover:bg-slate-800/50',
+                    ]"
+                  >
+                    <span
+                      class="text-xs md:text-sm font-bold text-black dark:text-white"
+                      :style="{ fontFamily: bundle.sans }"
+                    >
+                      {{ bundle.name }}
+                    </span>
+                    <span
+                      class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-1"
+                      :style="{ fontFamily: bundle.serif }"
+                    >
+                      Aa Bb Cc • {{ bundle.sans.replace(/['"]/g, "") }}
+                    </span>
+                  </button>
                 </div>
               </div>
             </div>
 
             <div>
               <h2
-                class="text-sm md:text-md font-bold text-slate-900 dark:text-white mb-4"
+                class="text-sm md:text-md font-bold text-black dark:text-white mb-4"
               >
                 Personal Details
               </h2>
@@ -160,7 +208,7 @@
                     <span v-else>{{ user?.fullName?.charAt(0) || "U" }}</span>
                   </div>
                   <div>
-                    <p class="text-sm font-bold text-slate-900 dark:text-white">
+                    <p class="text-sm font-bold text-black dark:text-white">
                       {{ user?.fullName || "Loading..." }}
                     </p>
                     <p
@@ -194,10 +242,12 @@
             v-if="activeTab === 'notifications'"
             class="relative h-full flex flex-col"
           >
-            <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-2">
+            <h2 class="text-md font-bold text-black dark:text-white mb-2">
               App Notifications
             </h2>
-            <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">
+            <p
+              class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mb-6"
+            >
               Select when you want to be alerted within the application.
             </p>
 
@@ -214,11 +264,13 @@
                 </div>
                 <div>
                   <p
-                    class="text-sm font-semibold text-slate-900 dark:text-white"
+                    class="text-xs md:text-sm font-semibold text-black dark:text-white"
                   >
                     Task Assignments
                   </p>
-                  <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
+                  <p
+                    class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-0.5"
+                  >
                     Get notified when a Unit Head assigns you a new task.
                   </p>
                 </div>
@@ -236,11 +288,13 @@
                 </div>
                 <div>
                   <p
-                    class="text-sm font-semibold text-slate-900 dark:text-white"
+                    class="text-xs md:text-sm font-semibold text-black dark:text-white"
                   >
                     Article Status Changes
                   </p>
-                  <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
+                  <p
+                    class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-0.5"
+                  >
                     Alerts when an article moves from Draft to Review or
                     Published.
                   </p>
@@ -259,11 +313,13 @@
                 </div>
                 <div>
                   <p
-                    class="text-sm font-semibold text-slate-900 dark:text-white"
+                    class="text-xs md:text-sm font-semibold text-black dark:text-white"
                   >
                     Comments & Mentions
                   </p>
-                  <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
+                  <p
+                    class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-0.5"
+                  >
                     Notifications when someone tags you in a comment thread.
                   </p>
                 </div>
@@ -271,11 +327,11 @@
             </div>
 
             <div
-              class="mt-8 flex justify-end pt-4 border-t border-slate-100 dark:border-slate-700"
+              class="mt-4 flex justify-end pt-4 border-t border-slate-100 dark:border-slate-700"
             >
               <button
                 @click="savePreferences"
-                class="bg-primary-600 hover:bg-primary-700 text-white font-medium text-sm px-5 py-2.5 rounded-lg transition-colors shadow-sm"
+                class="bg-primary-600 hover:bg-primary-700 text-white font-medium text-xs md:text-sm px-5 py-2.5 rounded-lg transition-colors shadow-sm"
               >
                 Save Preferences
               </button>
@@ -288,10 +344,10 @@
           >
             <div class="flex justify-between items-center mb-6">
               <div>
-                <h2 class="text-lg font-bold text-slate-900 dark:text-white">
+                <h2 class="text-md font-bold text-black dark:text-white">
                   Team Members
                 </h2>
-                <p class="text-sm text-slate-500 mt-1">
+                <p class="text-xs md:text-sm text-slate-500 mt-1">
                   Manage roles and permissions.
                 </p>
               </div>
@@ -347,7 +403,7 @@
                     </div>
                     <div class="min-w-0">
                       <p
-                        class="text-sm font-semibold text-slate-900 dark:text-white truncate"
+                        class="text-xs md:text-sm font-semibold text-black dark:text-white truncate"
                       >
                         {{ member.fullName }}
                       </p>
@@ -430,13 +486,13 @@ const notificationPrefs = ref({
   comments: true,
 });
 
-// --- NEW: THEME COLOR LOGIC ---
+// --- THEME COLOR LOGIC ---
 const activeColorName = ref("Indigo");
 
 const themeColors = [
   {
     name: "Indigo",
-    previewClass: "bg-indigo-500", // Fixed: Use static indigo so the button doesn't change color!
+    previewClass: "bg-indigo-500",
     values: {
       50: "#eef2ff",
       100: "#e0e7ff",
@@ -466,6 +522,24 @@ const themeColors = [
       800: "#1e40af",
       900: "#1e3a8a",
       950: "#172554",
+    },
+  },
+  {
+    name: "Navy Blue",
+    previewClass: "", // Handled via customBg to ensure precise hex
+    customBg: "#1b2431",
+    values: {
+      50: "#f4f6f8",
+      100: "#e3e8ee",
+      200: "#cdd7e1",
+      300: "#adc0d3",
+      400: "#87a4bf",
+      500: "#6886a4",
+      600: "#526b87",
+      700: "#42556d",
+      800: "#37475b",
+      900: "#1b2431",
+      950: "#111822",
     },
   },
   {
@@ -517,6 +591,23 @@ const themeColors = [
       800: "#92400e",
       900: "#78350f",
       950: "#451a03",
+    },
+  },
+  {
+    name: "Pink",
+    previewClass: "bg-pink-500",
+    values: {
+      50: "#fdf2f8",
+      100: "#fce7f3",
+      200: "#fbcfe8",
+      300: "#f9a8d4",
+      400: "#f472b6",
+      500: "#ec4899",
+      600: "#db2777",
+      700: "#be185d",
+      800: "#9d174d",
+      900: "#831843",
+      950: "#500724",
     },
   },
   {
@@ -584,15 +675,76 @@ const setThemeColor = (colorObj) => {
   localStorage.setItem("app-theme-color", JSON.stringify(colorObj));
 };
 
-// Apply saved theme on mount
-const loadSavedTheme = () => {
-  const saved = localStorage.getItem("app-theme-color");
-  if (saved) {
-    const colorObj = JSON.parse(saved);
+// --- TYPOGRAPHY BUNDLE LOGIC ---
+const activeTypographyName = ref("Default");
+
+const typographyBundles = [
+  {
+    name: "Default",
+    sans: '"Inter"',
+    serif: '"Lora"',
+    mono: '"JetBrains Mono"',
+  },
+  {
+    name: "The Modernist",
+    sans: '"Poppins"',
+    serif: '"Merriweather"',
+    mono: '"Fira Code"',
+  },
+  {
+    name: "Classic Publisher",
+    sans: '"Lato"',
+    serif: '"Playfair Display"',
+    mono: '"IBM Plex Mono"',
+  },
+  {
+    name: "The Bookworm",
+    sans: '"Work Sans"',
+    serif: '"Literata"',
+    mono: '"JetBrains Mono"',
+  },
+  {
+    name: "The Broadcaster",
+    sans: '"Roboto"',
+    serif: '"PT Serif"',
+    mono: '"Source Code Pro"',
+  },
+  {
+    name: "Creative Studio",
+    sans: '"Montserrat"',
+    serif: '"EB Garamond"',
+    mono: '"Space Mono"',
+  },
+  {
+    name: "Friendly Workspace",
+    sans: '"Nunito"',
+    serif: '"Zilla Slab"',
+    mono: '"Ubuntu Mono"',
+  },
+];
+
+const setTypographyBundle = (bundle) => {
+  activeTypographyName.value = bundle.name;
+  document.documentElement.style.setProperty("--app-font-sans", bundle.sans);
+  document.documentElement.style.setProperty("--app-font-serif", bundle.serif);
+  document.documentElement.style.setProperty("--app-font-mono", bundle.mono);
+  localStorage.setItem("app-typography-bundle", JSON.stringify(bundle));
+};
+
+// --- LOAD PREFERENCES ON MOUNT ---
+const loadSavedPreferences = () => {
+  const savedColor = localStorage.getItem("app-theme-color");
+  if (savedColor) {
+    const colorObj = JSON.parse(savedColor);
     setThemeColor(colorObj);
   }
+
+  const savedTypography = localStorage.getItem("app-typography-bundle");
+  if (savedTypography) {
+    const typographyObj = JSON.parse(savedTypography);
+    setTypographyBundle(typographyObj);
+  }
 };
-// ------------------------------
 
 const savePreferences = () => {
   toastSuccess("Preferences saved successfully.");
@@ -637,7 +789,7 @@ const removeUser = async (userId) => {
 };
 
 onMounted(() => {
-  loadSavedTheme(); // Load theme color preference
+  loadSavedPreferences();
   loadTeamMembers();
 });
 </script>
