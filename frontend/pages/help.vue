@@ -12,7 +12,7 @@
         <Icon name="material-symbols:help-center-rounded" class="text-3xl" />
       </div>
       <h1
-        class="text-xl md:text-2xl font-bold text-slate-900 dark:text-white tracking-tight mb-4"
+        class="text-xl md:text-2xl font-bold text-black dark:text-white tracking-tight mb-4"
       >
         How can we help?
       </h1>
@@ -39,7 +39,7 @@
             />
           </div>
           <h3
-            class="text-md md:text-lg font-bold text-slate-900 dark:text-white mb-2"
+            class="text-md md:text-lg font-bold text-black dark:text-white mb-2"
           >
             Writing & Drafts
           </h3>
@@ -70,7 +70,7 @@
             />
           </div>
           <h3
-            class="text-md md:text-lg font-bold text-slate-900 dark:text-white mb-2"
+            class="text-md md:text-lg font-bold text-black dark:text-white mb-2"
           >
             Task Management
           </h3>
@@ -101,7 +101,7 @@
             />
           </div>
           <h3
-            class="text-md md:text-lg font-bold text-slate-900 dark:text-white mb-2"
+            class="text-md md:text-lg font-bold text-black dark:text-white mb-2"
           >
             Brainstorming
           </h3>
@@ -121,9 +121,7 @@
       :enter="{ opacity: 1, y: 0, transition: { delay: 400, duration: 400 } }"
       class="max-w-3xl mx-auto"
     >
-      <h2
-        class="text-md font-bold text-slate-900 dark:text-white mb-8 text-center"
-      >
+      <h2 class="text-md font-bold text-black dark:text-white mb-8 text-center">
         Frequently Asked Questions
       </h2>
 
@@ -172,7 +170,7 @@
       >
         <div class="text-center md:text-left">
           <h3
-            class="text-lg md:text-xl font-bold text-slate-900 dark:text-white mb-2"
+            class="text-lg md:text-xl font-bold text-black dark:text-white mb-2"
           >
             Still need help?
           </h3>

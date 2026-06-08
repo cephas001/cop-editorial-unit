@@ -8,7 +8,7 @@
     >
       <div>
         <h1
-          class="text-xl md:text-2xl font-semibold text-slate-900 dark:text-white tracking-tight"
+          class="text-xl md:text-2xl font-semibold text-black dark:text-white tracking-tight"
         >
           Ohana means Family
         </h1>
@@ -69,7 +69,7 @@
 
         <div class="flex-1 text-center md:text-left relative z-10">
           <h2
-            class="text-xl md:text-2xl font-bold text-slate-900 dark:text-white mb-1"
+            class="text-xl md:text-2xl font-bold text-black dark:text-white mb-1"
           >
             {{ spotlightUser.fullName }}
           </h2>
@@ -170,7 +170,7 @@
               <span v-else>{{ member.fullName.charAt(0) }}</span>
             </div>
             <h4
-              class="text-md md:text-lg text-slate-900 dark:text-white font-bold mb-1 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors"
+              class="text-md md:text-lg text-black dark:text-white font-bold mb-1 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors"
             >
               {{ member.fullName }}
             </h4>
@@ -206,7 +206,7 @@
         >
           <div class="flex items-center gap-2">
             <h3
-              class="text-md md:text-lg font-bold text-slate-900 dark:text-white font-mono"
+              class="text-md md:text-lg font-bold text-black dark:text-white font-mono"
             >
               Kudos Wall
             </h3>
@@ -299,7 +299,7 @@
           class="px-6 py-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center"
         >
           <h3
-            class="font-bold text-slate-900 dark:text-white flex items-center gap-2"
+            class="font-bold text-black dark:text-white flex items-center gap-2"
           >
             Leave a Kudo
           </h3>

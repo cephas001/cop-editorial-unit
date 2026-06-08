@@ -70,7 +70,7 @@
             class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2"
           >
             <div>
-              <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-2">
+              <h2 class="text-xl font-bold text-black dark:text-white mb-2">
                 {{ user?.fullName || "Loading..." }}
               </h2>
               <div
@@ -106,7 +106,7 @@
           >
             <div class="text-center md:text-left">
               <span
-                class="block text-lg md:text-xl font-bold text-slate-900 dark:text-white"
+                class="block text-lg md:text-xl font-bold text-black dark:text-white"
                 >{{ totalWriteups }}</span
               >
               <span
@@ -117,7 +117,7 @@
             <div class="w-px h-8 bg-slate-200 dark:bg-slate-700"></div>
             <div class="text-center md:text-left">
               <span
-                class="block text-lg md:text-xl font-bold text-slate-900 dark:text-white"
+                class="block text-lg md:text-xl font-bold text-black dark:text-white"
                 >{{ draftCount }}</span
               >
               <span
@@ -145,7 +145,7 @@
             'px-4 py-3 text-xs md:text-sm font-semibold whitespace-nowrap transition-colors border-b-2',
             activeTab === 'writeups'
               ? 'text-primary-600 dark:text-primary-400 border-primary-600 dark:border-primary-400'
-              : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border-transparent',
+              : 'text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white border-transparent',
           ]"
         >
           My Writeups
@@ -156,7 +156,7 @@
             'px-4 py-3 text-xs md:text-sm font-semibold whitespace-nowrap transition-colors border-b-2',
             activeTab === 'comments'
               ? 'text-primary-600 dark:text-primary-400 border-primary-600 dark:border-primary-400'
-              : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border-transparent',
+              : 'text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white border-transparent',
           ]"
         >
           My Comments
@@ -167,7 +167,7 @@
             'px-4 py-3 text-xs md:text-sm font-semibold whitespace-nowrap transition-colors border-b-2',
             activeTab === 'ideas'
               ? 'text-primary-600 dark:text-primary-400 border-primary-600 dark:border-primary-400'
-              : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border-transparent',
+              : 'text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white border-transparent',
           ]"
         >
           Saved Ideas
@@ -213,7 +213,7 @@
                 class="md:col-span-7 flex flex-col items-center text-center md:items-start md:text-left"
               >
                 <span
-                  class="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-1"
+                  class="text-sm font-semibold text-black dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-1"
                 >
                   {{ article.title || "Untitled Draft" }}
                 </span>
@@ -329,7 +329,7 @@
                 }}</span>
               </div>
               <p
-                class="text-sm font-semibold text-slate-900 dark:text-white mb-3 line-clamp-2 leading-snug"
+                class="text-sm font-semibold text-black dark:text-white mb-3 line-clamp-2 leading-snug"
               >
                 {{ idea.content }}
               </p>
@@ -373,7 +373,7 @@
         <div
           class="px-6 py-5 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50"
         >
-          <h3 class="text-lg font-bold text-slate-900 dark:text-white">
+          <h3 class="text-lg font-bold text-black dark:text-white">
             Edit Profile
           </h3>
           <button
@@ -393,7 +393,7 @@
               v-model="editForm.fullName"
               type="text"
               required
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-slate-900 dark:text-white"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-black dark:text-white"
             />
           </div>
           <div>
@@ -405,7 +405,7 @@
               v-model="editForm.bio"
               rows="4"
               placeholder="Tell the team a bit about yourself..."
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-slate-900 dark:text-white resize-none"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-black dark:text-white resize-none"
             ></textarea>
           </div>
           <div
@@ -455,7 +455,7 @@
           <div
             class="px-6 py-5 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50"
           >
-            <h3 class="text-base font-bold text-slate-900 dark:text-white">
+            <h3 class="text-base font-bold text-black dark:text-white">
               Profile Picture
             </h3>
             <button
@@ -480,7 +480,7 @@
               </div>
               <div>
                 <p
-                  class="text-xs md:text-sm font-semibold text-slate-900 dark:text-white"
+                  class="text-xs md:text-sm font-semibold text-black dark:text-white"
                 >
                   View Picture
                 </p>
@@ -503,7 +503,7 @@
               </div>
               <div>
                 <p
-                  class="text-xs md:text-sm font-semibold text-slate-900 dark:text-white"
+                  class="text-xs md:text-sm font-semibold text-black dark:text-white"
                 >
                   Change Picture
                 </p>

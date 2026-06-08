@@ -8,7 +8,7 @@
     >
       <div>
         <h1
-          class="text-xl md:text-2xl font-semibold text-slate-900 dark:text-white tracking-tight"
+          class="text-xl md:text-2xl font-semibold text-black dark:text-white tracking-tight"
         >
           Directory
         </h1>
@@ -127,7 +127,7 @@
 
         <div class="p-5 flex flex-col flex-1">
           <h3
-            class="text-md md:text-lg font-semibold text-slate-900 dark:text-white mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors"
+            class="text-md md:text-lg font-semibold text-black dark:text-white mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors"
           >
             {{ article.title }}
           </h3>

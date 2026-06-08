@@ -23,7 +23,7 @@
       >
         <div>
           <h2
-            class="text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            class="text-xl font-bold text-black dark:text-white tracking-tight"
           >
             {{ monthName }} {{ currentYear }}
           </h2>
@@ -151,7 +151,7 @@
         class="p-5 sm:p-6 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/50 shrink-0"
       >
         <h3
-          class="text-sm md:text-base font-semibold text-slate-900 dark:text-white tracking-tight"
+          class="text-sm md:text-base font-semibold text-black dark:text-white tracking-tight"
         >
           My Tasks
         </h3>
@@ -204,7 +204,7 @@
 
               <div class="flex-1 min-w-0">
                 <p
-                  class="text-sm font-semibold text-slate-900 dark:text-white leading-tight truncate mb-1"
+                  class="text-sm font-semibold text-black dark:text-white leading-tight truncate mb-1"
                   :class="{
                     'line-through text-slate-400': task.status === 'COMPLETED',
                   }"
@@ -276,7 +276,7 @@
                   :class="
                     task.status === 'COMPLETED'
                       ? 'text-slate-500 dark:text-slate-400 line-through'
-                      : 'text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400'
+                      : 'text-black dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400'
                   "
                 >
                   {{ task.title }}
@@ -336,7 +336,7 @@
           class="px-6 py-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50 shrink-0"
         >
           <h3
-            class="text-lg font-semibold text-slate-900 dark:text-white flex items-center gap-2"
+            class="text-lg font-semibold text-black dark:text-white flex items-center gap-2"
           >
             <Icon
               name="material-symbols:calendar-today-rounded"
@@ -370,7 +370,7 @@
           >
             <div class="flex justify-between items-start gap-4 mb-2">
               <h4
-                class="text-sm font-semibold text-slate-900 dark:text-white"
+                class="text-sm font-semibold text-black dark:text-white"
                 :class="
                   task.status === 'COMPLETED' ? 'line-through opacity-70' : ''
                 "
@@ -421,7 +421,7 @@
               </div>
               <span class="text-xs font-mono text-slate-600 dark:text-slate-400"
                 >Assigned to
-                <span class="font-bold text-slate-900 dark:text-white">{{
+                <span class="font-bold text-black dark:text-white">{{
                   task.assignee?.fullName
                 }}</span></span
               >
@@ -450,7 +450,7 @@
         <div
           class="px-6 py-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50"
         >
-          <h3 class="text-base font-bold text-slate-900 dark:text-white">
+          <h3 class="text-base font-bold text-black dark:text-white">
             Assign New Task
           </h3>
           <button
@@ -472,7 +472,7 @@
               type="text"
               placeholder="e.g., Draft Adekoya Interview"
               required
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-slate-900 dark:text-white"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-black dark:text-white"
             />
           </div>
 
@@ -485,7 +485,7 @@
               v-model="newTask.description"
               rows="3"
               placeholder="Add detailed instructions..."
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-slate-900 dark:text-white resize-none"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-black dark:text-white resize-none"
             ></textarea>
           </div>
 
@@ -497,7 +497,7 @@
               >
               <select
                 v-model="newTask.priority"
-                class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-slate-900 dark:text-white"
+                class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-black dark:text-white"
               >
                 <option value="LOW">Low</option>
                 <option value="MEDIUM">Medium</option>
@@ -513,7 +513,7 @@
                 type="date"
                 v-model="newTask.dueDate"
                 required
-                class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-slate-900 dark:text-white"
+                class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-black dark:text-white"
               />
             </div>
           </div>
@@ -525,7 +525,7 @@
             >
             <select
               v-model="newTask.assigneeId"
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-slate-900 dark:text-white"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-black dark:text-white"
             >
               <option :value="user.id">Assign to myself</option>
               <option

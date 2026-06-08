@@ -10,7 +10,7 @@
       <div class="w-full max-w-full flex-1">
         <div class="flex gap-1 md:gap-2 flex-col justify-start">
           <h1
-            class="text-xl md:text-2xl font-semibold text-slate-900 dark:text-white tracking-tight"
+            class="text-xl md:text-2xl font-semibold text-black dark:text-white tracking-tight"
           >
             Brainstorming Board
           </h1>
@@ -79,7 +79,7 @@
         class="text-4xl md:text-6xl text-slate-400 mb-4"
       />
       <h3
-        class="text-md md:text-lg font-semibold text-slate-900 dark:text-white mb-2"
+        class="text-md md:text-lg font-semibold text-black dark:text-white mb-2"
       >
         No Active Session
       </h3>
@@ -92,7 +92,7 @@
       </p>
       <button
         @click="createDefaultSession"
-        class="px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg text-xs md:text-sm font-semibold transition-colors"
+        class="px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-black rounded-lg text-xs md:text-sm font-semibold transition-colors"
         v-if="user?.role == 'ADMIN'"
       >
         Start New Session
@@ -122,7 +122,7 @@
             class="p-4 flex justify-between items-center border-b border-slate-200 dark:border-slate-700/50"
           >
             <div class="flex items-center gap-2">
-              <h2 class="text-sm font-semibold text-slate-900 dark:text-white">
+              <h2 class="text-sm font-semibold text-black dark:text-white">
                 {{ column.title }}
               </h2>
               <span
@@ -175,7 +175,7 @@
 
                   <h3
                     @click="openIdeaDetails(element)"
-                    class="text-xs md:text-sm font-mono text-slate-900 dark:text-white mb-3 md:mb-4 leading-snug line-clamp-4 cursor-pointer hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                    class="text-xs md:text-sm font-mono text-black dark:text-white mb-3 md:mb-4 leading-snug line-clamp-4 cursor-pointer hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                     title="Click to view full idea"
                   >
                     {{ element.content }}
@@ -300,7 +300,7 @@
         <div
           class="px-6 py-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50"
         >
-          <h3 class="text-base font-bold text-slate-900 dark:text-white">
+          <h3 class="text-base font-bold text-black dark:text-white">
             Propose New Idea
           </h3>
           <button
@@ -322,7 +322,7 @@
               rows="4"
               placeholder="e.g., An interview piece focusing on..."
               required
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-slate-900 dark:text-white resize-none"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-black dark:text-white resize-none"
             ></textarea>
           </div>
 
@@ -333,7 +333,7 @@
             >
             <select
               v-model="newIdea.tag"
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-slate-900 dark:text-white"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 text-sm text-black dark:text-white"
             >
               <option value="Editorial">Editorial</option>
               <option value="Interview">Interview</option>
@@ -436,7 +436,7 @@
               class="flex-1 bg-white dark:bg-slate-800 p-4 rounded-2xl rounded-tl-none shadow-sm border border-slate-200 dark:border-slate-700"
             >
               <p
-                class="text-xs md:text-sm font-semibold text-slate-900 dark:text-white mb-1"
+                class="text-xs md:text-sm font-semibold text-black dark:text-white mb-1"
               >
                 {{ activeIdea?.author?.fullName }}
               </p>
@@ -502,7 +502,7 @@
                 <div class="flex items-baseline justify-between gap-2 mb-0.5">
                   <div class="flex items-baseline gap-2">
                     <span
-                      class="text-xs md:text-sm font-semibold text-slate-900 dark:text-white"
+                      class="text-xs md:text-sm font-semibold text-black dark:text-white"
                       >{{ comment.author?.fullName }}</span
                     >
                     <span class="text-[10px] text-slate-400">{{
@@ -537,7 +537,7 @@
                   <textarea
                     v-model="editCommentText"
                     rows="2"
-                    class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary-600 resize-none text-slate-900 dark:text-white mb-2"
+                    class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary-600 resize-none text-black dark:text-white mb-2"
                   ></textarea>
                   <div class="flex justify-end gap-2">
                     <button
@@ -588,7 +588,7 @@
                 rows="1"
                 :disabled="isSubmittingComment"
                 placeholder="Share your thoughts..."
-                class="block w-full resize-none bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-md py-2.5 pl-4 pr-12 text-xs md:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-600 transition-all disabled:opacity-60"
+                class="block w-full resize-none bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-md py-2.5 pl-4 pr-12 text-xs md:text-sm text-black dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-600 transition-all disabled:opacity-60"
               ></textarea>
 
               <button
@@ -633,7 +633,7 @@
           class="px-6 py-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50"
         >
           <h3
-            class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2"
+            class="text-base font-bold text-black dark:text-white flex items-center gap-2"
           >
             <Icon
               name="material-symbols:assignment-add-outline-rounded"
@@ -659,7 +659,7 @@
               v-model="newTask.title"
               type="text"
               required
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent text-sm text-slate-900 dark:text-white placeholder:text-slate-400 transition-colors"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent text-sm text-black dark:text-white placeholder:text-slate-400 transition-colors"
             />
           </div>
 
@@ -671,7 +671,7 @@
             <textarea
               v-model="newTask.description"
               rows="3"
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent text-sm text-slate-900 dark:text-white placeholder:text-slate-400 transition-colors resize-none"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent text-sm text-black dark:text-white placeholder:text-slate-400 transition-colors resize-none"
             ></textarea>
           </div>
 
@@ -683,7 +683,7 @@
               >
               <select
                 v-model="newTask.priority"
-                class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-2 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent text-sm text-slate-900 dark:text-white transition-colors"
+                class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-2 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent text-sm text-black dark:text-white transition-colors"
               >
                 <option value="LOW">Low</option>
                 <option value="MEDIUM">Medium</option>
@@ -699,7 +699,7 @@
               <input
                 type="date"
                 v-model="newTask.dueDate"
-                class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-2 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent text-sm text-slate-900 dark:text-white transition-colors"
+                class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-2 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent text-sm text-black dark:text-white transition-colors"
               />
             </div>
           </div>
@@ -712,7 +712,7 @@
             <select
               v-if="user?.role === 'ADMIN'"
               v-model="newTask.assigneeId"
-              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent text-sm text-slate-900 dark:text-white transition-colors"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent text-sm text-black dark:text-white transition-colors"
             >
               <option :value="user.id">Assign to myself</option>
               <option
