@@ -36,7 +36,7 @@
         v-motion
         :initial="{ opacity: 0, y: 30 }"
         :enter="{ opacity: 1, y: 0, transition: { delay: 100, duration: 400 } }"
-        class="bg-white/60 dark:bg-slate-900/40 backdrop-blur-md rounded-xl p-6 border border-white/40 dark:border-slate-700/50 shadow-lg relative overflow-hidden group cursor-pointer"
+        class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm relative overflow-hidden group cursor-pointer"
         @click="navigateTo('/articles')"
       >
         <div
@@ -77,7 +77,7 @@
         v-motion
         :initial="{ opacity: 0, y: 30 }"
         :enter="{ opacity: 1, y: 0, transition: { delay: 200, duration: 400 } }"
-        class="bg-white/60 dark:bg-slate-900/40 backdrop-blur-md rounded-xl p-6 border border-white/40 dark:border-slate-700/50 shadow-lg relative overflow-hidden group cursor-pointer"
+        class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm relative overflow-hidden group cursor-pointer"
         @click="handleTaskClick"
       >
         <div
@@ -121,7 +121,7 @@
         v-motion
         :initial="{ opacity: 0, y: 30 }"
         :enter="{ opacity: 1, y: 0, transition: { delay: 300, duration: 400 } }"
-        class="bg-white/60 dark:bg-slate-900/40 backdrop-blur-md rounded-xl p-6 border border-white/40 dark:border-slate-700/50 shadow-lg relative overflow-hidden group cursor-pointer"
+        class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm relative overflow-hidden group cursor-pointer"
         @click="navigateTo('/brainstorming')"
       >
         <div
