@@ -1,6 +1,6 @@
 <template>
   <div
-    class="min-h-[110vh] flex items-center justify-center p-4 antialiased font-sans bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-200"
+    class="min-h-[105vh] flex items-center justify-center p-4 antialiased font-sans bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-200"
   >
     <div
       class="w-full max-w-md bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 px-6 py-8 flex flex-col gap-8"

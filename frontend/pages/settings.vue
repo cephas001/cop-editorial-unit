@@ -248,8 +248,61 @@
             <p
               class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mb-6"
             >
-              Select when you want to be alerted within the application.
+              Stay perfectly in sync with your editorial team.
             </p>
+
+            <div
+              class="bg-primary-50 dark:bg-primary-500/10 border border-primary-200 dark:border-primary-500/30 rounded-xl p-5 mb-8"
+            >
+              <div class="flex items-start gap-3">
+                <Icon
+                  name="material-symbols:info-outline-rounded"
+                  class="text-primary-600 dark:text-primary-400 text-xl md:text-2xl shrink-0 mt-0.5"
+                />
+                <div>
+                  <h3
+                    class="text-xs md:text-sm font-bold text-primary-900 dark:text-primary-100"
+                  >
+                    How to enable alerts
+                  </h3>
+                  <p
+                    class="text-xs md:text-sm text-primary-700 dark:text-primary-300 mt-1.5 leading-relaxed"
+                  >
+                    Because this is a web-based application, your device needs
+                    explicit permission to send you alerts.
+                  </p>
+                  <ul
+                    class="text-xs md:text-sm text-primary-800 dark:text-primary-200 mt-3 space-y-2 list-disc list-inside ml-1"
+                  >
+                    <li>
+                      <strong>Android / Desktop:</strong> Click the enable
+                      button below and select "Allow" when your browser prompts
+                      you.
+                    </li>
+                    <li>
+                      <strong>iPhone / iPad:</strong> Apple requires you to
+                      install this app first. Tap the
+                      <strong>Share</strong> icon in Safari, select
+                      <strong>Add to Home Screen</strong>, and then open the app
+                      from your home screen, come back to this page, and click
+                      the Enable button below.
+                    </li>
+                  </ul>
+                  <div class="mt-5">
+                    <button
+                      @click="requestNotificationPermission"
+                      class="bg-primary-600 hover:bg-primary-700 text-white font-medium text-xs md:text-sm px-4 py-2.5 rounded-lg transition-colors shadow-sm flex items-center gap-1"
+                    >
+                      <Icon
+                        name="material-symbols:notifications-active-outline-rounded"
+                        class="text-lg"
+                      />
+                      Enable Push Notifications
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <div class="space-y-3 flex-1">
               <label
@@ -264,7 +317,7 @@
                 </div>
                 <div>
                   <p
-                    class="text-xs md:text-sm font-semibold text-black dark:text-white"
+                    class="text-xs md:text-sm font-bold text-black dark:text-white"
                   >
                     Task Assignments
                   </p>
@@ -288,7 +341,7 @@
                 </div>
                 <div>
                   <p
-                    class="text-xs md:text-sm font-semibold text-black dark:text-white"
+                    class="text-xs md:text-sm font-bold text-black dark:text-white"
                   >
                     Article Status Changes
                   </p>
@@ -313,7 +366,7 @@
                 </div>
                 <div>
                   <p
-                    class="text-xs md:text-sm font-semibold text-black dark:text-white"
+                    class="text-xs md:text-sm font-bold text-black dark:text-white"
                   >
                     Comments & Mentions
                   </p>
@@ -403,7 +456,7 @@
                     </div>
                     <div class="min-w-0">
                       <p
-                        class="text-xs md:text-sm font-semibold text-black dark:text-white truncate"
+                        class="text-sm font-semibold text-black dark:text-white truncate"
                       >
                         {{ member.fullName }}
                       </p>
@@ -486,6 +539,81 @@ const notificationPrefs = ref({
   comments: true,
 });
 
+// --- NEW: NOTIFICATION PERMISSION LOGIC ---
+// Add this helper function at the top of your script block
+// Browsers require the VAPID key to be converted to a specific binary format
+const urlB64ToUint8Array = (base64String) => {
+  const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+  const base64 = (base64String + padding)
+    .replace(/\-/g, "+")
+    .replace(/_/g, "/");
+  const rawData = window.atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+};
+
+// The actual button click handler
+const requestNotificationPermission = async () => {
+  try {
+    // 1. Check if the browser even supports Service Workers and Push
+    if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
+      toastError("Push notifications are not supported in this browser.");
+      return;
+    }
+
+    // 2. Ask the user for permission (Triggers the native Allow/Block popup)
+    const permission = await Notification.requestPermission();
+    if (permission !== "granted") {
+      toastError(
+        "Permission denied. You must allow notifications in your browser settings.",
+      );
+      return;
+    }
+
+    // 3. Get the active Service Worker registration
+    const registration = await navigator.serviceWorker.ready;
+
+    // 4. Subscribe the device using your Public VAPID Key
+    const config = useRuntimeConfig();
+    const applicationServerKey = urlB64ToUint8Array(config.public.vapidKey);
+
+    const subscription = await registration.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: applicationServerKey,
+    });
+
+    // 5. Send the subscription to your Express backend
+    await useApiFetch("/notifications/subscribe", {
+      method: "POST",
+      body: {
+        endpoint: subscription.endpoint,
+        keys: {
+          p256dh: btoa(
+            String.fromCharCode.apply(
+              null,
+              new Uint8Array(subscription.getKey("p256dh")),
+            ),
+          ),
+          auth: btoa(
+            String.fromCharCode.apply(
+              null,
+              new Uint8Array(subscription.getKey("auth")),
+            ),
+          ),
+        },
+      },
+    });
+
+    toastSuccess("Push notifications successfully enabled for this device!");
+  } catch (error) {
+    console.error("Failed to subscribe to push notifications:", error);
+    toastError("An error occurred while setting up notifications.");
+  }
+};
+
 // --- THEME COLOR LOGIC ---
 const activeColorName = ref("Indigo");
 
@@ -526,7 +654,7 @@ const themeColors = [
   },
   {
     name: "Navy Blue",
-    previewClass: "", // Handled via customBg to ensure precise hex
+    previewClass: "",
     customBg: "#1b2431",
     values: {
       50: "#f4f6f8",

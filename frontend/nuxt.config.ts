@@ -36,16 +36,23 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiBase: process.env.API_BASE_URL || "http://localhost:5000/api",
+      vapidKey: process.env.NUXT_PUBLIC_VAPID_KEY || "",
     },
   },
 
   pwa: {
+    // --- NEW: Tell Vite PWA we are writing our own Service Worker ---
+    strategies: "injectManifest",
+    srcDir: "public",
+    filename: "sw.js",
+    // --------------------------------------------------------------
+
     registerType: "autoUpdate",
     manifest: {
       name: "The Vineyard's Voice",
       short_name: "The Vineyard",
       description: "Team collaboration and editorial management platform.",
-      theme_color: "#4f46e5", // Tailwind primary-600
+      theme_color: "#4f46e5",
       background_color: "#ffffff",
       display: "standalone",
       orientation: "portrait",
@@ -68,15 +75,18 @@ export default defineNuxtConfig({
         },
       ],
     },
-    workbox: {
-      navigateFallback: "/",
+
+    // --- NEW: Replaces the 'workbox' block so offline caching still works ---
+    injectManifest: {
       globPatterns: ["**/*.{js,css,html,png,svg,ico}"],
     },
+    // ------------------------------------------------------------------------
+
     client: {
       installPrompt: true,
     },
     devOptions: {
-      enabled: true, // Set to false in production
+      enabled: true,
       suppressWarnings: true,
       type: "module",
     },
