@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const prisma = require("../prismaClient");
 const { requireAuth } = require("../middleware/auth");
+const { sendPushNotification } = require("../utils/pushHelper");
 
 // 1. GET all comments for a specific article
 router.get("/article/:articleId", requireAuth, async (req, res) => {
@@ -65,6 +66,12 @@ router.post("/", requireAuth, async (req, res) => {
             content: "Someone replied to your comment.",
           },
         });
+
+        await sendPushNotification(parentComment.authorId, {
+          title: "New Reply",
+          body: "Someone replied to your comment.",
+          url: `/editor/${articleId}`,
+        });
       }
     } else {
       // It's a direct article comment: notify the article author
@@ -77,6 +84,12 @@ router.post("/", requireAuth, async (req, res) => {
             userId: article.authorId,
             content: `New comment on your draft: "${article.title}"`,
           },
+        });
+
+        await sendPushNotification(article.authorId, {
+          title: "New Comment",
+          body: `New comment on your draft: "${article.title}"`,
+          url: `/editor/${articleId}`,
         });
       }
     }
@@ -109,6 +122,12 @@ router.patch("/:commentId/resolve", requireAuth, async (req, res) => {
           userId: existingComment.authorId,
           content: "Your comment was marked as resolved.",
         },
+      });
+
+      await sendPushNotification(existingComment.authorId, {
+        title: "Comment Resolved",
+        body: "Your comment was marked as resolved.",
+        url: `/editor/${existingComment.articleId}`,
       });
     }
 

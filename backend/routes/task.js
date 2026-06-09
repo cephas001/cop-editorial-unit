@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const prisma = require("../prismaClient");
 const { requireAuth } = require("../middleware/auth");
+const { sendPushNotification } = require("../utils/pushHelper");
 
 // 1. GET: Fetch tasks (Supports personal view or global team view)
 router.get("/", requireAuth, async (req, res) => {
@@ -61,6 +62,14 @@ router.post("/", requireAuth, async (req, res) => {
           content: `New Task Assigned: "${title}"`,
         },
       });
+      z;
+
+      // --- NEW: FIRE PUSH NOTIFICATION ---
+      await sendPushNotification(assigneeId, {
+        title: "New Task Assigned",
+        body: `"${title}"`,
+        url: `/`,
+      });
     }
 
     res.status(201).json(newTask);
@@ -97,6 +106,12 @@ router.patch("/:id/status", requireAuth, async (req, res) => {
           userId: existingTask.assignerId,
           content: `Task Completed: "${existingTask.title}"`,
         },
+      });
+
+      await sendPushNotification(existingTask.assignerId, {
+        title: "Task Completed",
+        body: `"${existingTask.title}" has been finished.`,
+        url: `/tasks`,
       });
     }
 

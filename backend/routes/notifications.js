@@ -2,6 +2,64 @@ const express = require("express");
 const router = express.Router();
 const prisma = require("../prismaClient");
 const { requireAuth } = require("../middleware/auth");
+const webpush = require("web-push");
+
+// Configure web-push with your VAPID keys
+webpush.setVapidDetails(
+  process.env.VAPID_SUBJECT,
+  process.env.VAPID_PUBLIC_KEY,
+  process.env.VAPID_PRIVATE_KEY,
+);
+
+// ---------------------------------------------------------
+// NEW: Subscribe a user's device to push notifications
+// ---------------------------------------------------------
+router.post("/subscribe", requireAuth, async (req, res) => {
+  try {
+    const { endpoint, keys } = req.body;
+
+    if (!endpoint || !keys) {
+      return res.status(400).json({ error: "Invalid subscription object" });
+    }
+
+    // Upsert ensures we don't save duplicate endpoints if they resubscribe
+    await prisma.pushSubscription.upsert({
+      where: { endpoint: endpoint },
+      update: {
+        userId: req.user.id,
+        p256dh: keys.p256dh,
+        auth: keys.auth,
+      },
+      create: {
+        endpoint: endpoint,
+        p256dh: keys.p256dh,
+        auth: keys.auth,
+        userId: req.user.id,
+      },
+    });
+
+    res.status(201).json({ success: true, message: "Device subscribed" });
+  } catch (error) {
+    console.error("Error saving push subscription:", error);
+    res.status(500).json({ error: "Failed to subscribe device" });
+  }
+});
+
+// ---------------------------------------------------------
+// NEW: Unsubscribe a device (e.g. when logging out)
+// ---------------------------------------------------------
+router.post("/unsubscribe", requireAuth, async (req, res) => {
+  try {
+    const { endpoint } = req.body;
+    await prisma.pushSubscription.deleteMany({
+      where: { endpoint: endpoint, userId: req.user.id },
+    });
+    res.json({ success: true });
+  } catch (error) {
+    console.error("Error removing push subscription:", error);
+    res.status(500).json({ error: "Failed to unsubscribe" });
+  }
+});
 
 // 1. GET: Fetch recent notifications for the logged-in user
 router.get("/", requireAuth, async (req, res) => {

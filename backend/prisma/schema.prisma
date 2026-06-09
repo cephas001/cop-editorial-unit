@@ -63,6 +63,7 @@ model User {
   ideaComments       IdeaComment[]
   kudos              Kudos[]
   assignedIdeas      Idea[]              @relation("IdeaAssignee")
+  pushSubscriptions  PushSubscription[]
 }
 
 model Article {
@@ -201,4 +202,16 @@ model Kudos {
   // The person who wrote the note
   authorId  String
   author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+model PushSubscription {
+  id        String   @id @default(uuid())
+  endpoint  String   @unique // The unique URL provided by the browser (Apple/Google)
+  p256dh    String   // Encryption key
+  auth      String   // Auth secret
+  userId    String
+  createdAt DateTime @default(now())
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

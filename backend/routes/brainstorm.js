@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const prisma = require("../prismaClient");
 const { requireAuth } = require("../middleware/auth");
+const { sendPushNotification } = require("../utils/pushHelper");
 
 // --- SESSIONS ---
 
@@ -88,6 +89,12 @@ router.patch("/ideas/:id/assign", requireAuth, async (req, res) => {
       },
     });
 
+    await sendPushNotification(assigneeId, {
+      title: "New Assignment",
+      body: `You have been assigned to idea: "${updatedIdea.content}".`,
+      url: `/brainstorming`, // Or whatever your ideas route is
+    });
+
     res.json(updatedIdea);
   } catch (error) {
     console.error("Error assigning idea:", error);
@@ -138,6 +145,12 @@ router.patch("/ideas/:id/status", requireAuth, async (req, res) => {
           userId: existingIdea.authorId,
           content: `Your idea was moved to ${status.replace("_", " ")}.`,
         },
+      });
+
+      await sendPushNotification(existingIdea.authorId, {
+        title: "Idea Moved",
+        body: `Your idea was moved to ${status.replace("_", " ")}.`,
+        url: `/brainstorming`,
       });
     }
 
@@ -190,6 +203,12 @@ router.post("/ideas/:ideaId/comments", requireAuth, async (req, res) => {
           userId: idea.authorId,
           content: "Someone commented on your brainstorm idea.",
         },
+      });
+
+      await sendPushNotification(idea.authorId, {
+        title: "New Idea Comment",
+        body: "Someone commented on your brainstorm idea.",
+        url: `/brainstorming`,
       });
     }
 

@@ -5,6 +5,7 @@ const supabase = require("../supabaseClient");
 const { requireAuth } = require("../middleware/auth");
 const { logActivity } = require("../utils/logger");
 const multer = require("multer");
+const { sendPushNotification } = require("../utils/pushHelper");
 
 const upload = multer({
   storage: multer.memoryStorage(),
@@ -160,6 +161,12 @@ router.put("/:id", requireAuth, async (req, res) => {
               userId: existingArticle.authorId,
               content: `Your article "${existingArticle.title}" was moved to ${status}.`,
             },
+          });
+
+          await sendPushNotification(existingArticle.authorId, {
+            title: "Article Status Updated",
+            body: `Your article "${existingArticle.title}" was moved to ${status}.`,
+            url: `/editor/${id}`,
           });
         }
       }

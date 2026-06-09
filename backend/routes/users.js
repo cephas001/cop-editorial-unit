@@ -4,6 +4,7 @@ const prisma = require("../prismaClient");
 const supabase = require("../supabaseClient");
 const { requireAuth } = require("../middleware/auth");
 const multer = require("multer");
+const { sendPushNotification } = require("../utils/pushHelper");
 
 const upload = multer({
   storage: multer.memoryStorage(),
@@ -259,6 +260,12 @@ router.patch("/:id/promote", requireAuth, async (req, res) => {
       userId: targetUserId,
       content: "You have been promoted to an ADMIN role!",
     },
+  });
+
+  await sendPushNotification(targetUserId, {
+    title: "Role Upgrade",
+    body: "You have been promoted to a Unit Head!",
+    url: `/settings`,
   });
 
   res.json({ message: "User promoted to ADMIN" });

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const prisma = require("../prismaClient");
 const { requireAuth } = require("../middleware/auth");
+const { sendPushNotification } = require("../utils/pushHelper");
 
 // 1. GET all kudos for the wall
 router.get("/", requireAuth, async (req, res) => {
@@ -56,6 +57,16 @@ router.post("/", requireAuth, async (req, res) => {
       await prisma.notification.createMany({
         data: notificationsToInsert,
       });
+
+      // We map over all users and execute the pushes simultaneously
+      const pushPromises = otherUsers.map((user) =>
+        sendPushNotification(user.id, {
+          title: "New Team Kudo! 🎉",
+          body: "Someone just posted a new Kudo on the Team Wall!",
+          url: `/kudos`, // Or your wall route
+        }),
+      );
+      await Promise.all(pushPromises);
     }
 
     res.status(201).json(newKudo);
