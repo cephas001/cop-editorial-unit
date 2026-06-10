@@ -64,6 +64,8 @@ model User {
   kudos              Kudos[]
   assignedIdeas      Idea[]              @relation("IdeaAssignee")
   pushSubscriptions  PushSubscription[]
+  conversations    Conversation[] @relation("ConversationParticipants")
+  sentMessages     Message[]      @relation("SentMessages")
 }
 
 model Article {
@@ -214,4 +216,32 @@ model PushSubscription {
 
   // Relations
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Conversation {
+  id            String    @id @default(uuid())
+  title         String?   // Optional: Useful if you ever add Group Chats (e.g., "Design Team")
+  isGroup       Boolean   @default(false)
+  lastMessageAt DateTime  @default(now()) // Makes sorting the inbox list incredibly fast
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  participants  User[]    @relation("ConversationParticipants")
+  messages      Message[]
+}
+
+model Message {
+  id             String   @id @default(uuid())
+  content        String
+  isRead         Boolean  @default(false)
+  createdAt      DateTime @default(now())
+
+  // The user who sent it
+  senderId       String
+  sender         User     @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+
+  // The conversation it belongs to
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
 }

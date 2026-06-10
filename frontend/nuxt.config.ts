@@ -37,6 +37,8 @@ export default defineNuxtConfig({
     public: {
       apiBase: process.env.API_BASE_URL || "http://localhost:5000/api",
       vapidKey: process.env.NUXT_PUBLIC_VAPID_KEY || "",
+      supabaseUrl: process.env.NUXT_PUBLIC_SUPABASE_URL || "",
+      supabaseKey: process.env.NUXT_PUBLIC_SUPABASE_KEY || "",
     },
   },
 
@@ -85,10 +87,29 @@ export default defineNuxtConfig({
     client: {
       installPrompt: true,
     },
+
     devOptions: {
       enabled: true,
       suppressWarnings: true,
       type: "module",
+    },
+
+    supabase: {
+      redirectOptions: {
+        login: "/auth/login",
+        callback: "/auth/confirm",
+      },
+    },
+
+    vite: {
+      optimizeDeps: {
+        include: [
+          "@vue/devtools-core",
+          "@vue/devtools-kit",
+          "workbox-window",
+          "@formkit/auto-animate/vue",
+        ],
+      },
     },
   },
 });

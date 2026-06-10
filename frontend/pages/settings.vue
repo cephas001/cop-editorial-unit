@@ -56,7 +56,7 @@
         </button>
 
         <button
-          v-if="user?.role === 'ADMIN'"
+          v-if="isAdmin"
           @click="activeTab = 'team'"
           :class="[
             'flex-shrink-0 flex items-center gap-3 px-4 py-3 rounded-lg transition-colors w-auto md:w-full text-left font-medium text-xs md:text-sm whitespace-nowrap',
@@ -205,7 +205,7 @@
                       :src="user.avatarUrl"
                       class="w-full h-full object-cover"
                     />
-                    <span v-else>{{ user?.fullName?.charAt(0) || "U" }}</span>
+                    <span v-else>{{ userFallbackInitial }}</span>
                   </div>
                   <div>
                     <p class="text-sm font-bold text-black dark:text-white">
@@ -392,7 +392,7 @@
           </div>
 
           <div
-            v-if="activeTab === 'team' && user?.role === 'ADMIN'"
+            v-if="activeTab === 'team' && isAdmin"
             class="flex flex-col h-full min-h-[350px]"
           >
             <div class="flex justify-between items-center mb-6">
@@ -452,7 +452,7 @@
                         :src="member.avatarUrl"
                         class="w-full h-full object-cover"
                       />
-                      <span v-else>{{ member.fullName.charAt(0) }}</span>
+                      <span v-else>{{ member.fullName?.charAt(0) }}</span>
                     </div>
                     <div class="min-w-0">
                       <p
@@ -513,7 +513,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { useAuthStore } from "~/stores/auth";
 import { useAppToast } from "~/composables/useAppToast";
 import { useConfirm } from "~/composables/useConfirm";
@@ -521,6 +521,11 @@ import { vAutoAnimate } from "@formkit/auto-animate/vue";
 
 const authStore = useAuthStore();
 const user = computed(() => authStore.user);
+const isAdmin = computed(() => user.value?.role === "ADMIN");
+const userFallbackInitial = computed(
+  () => user.value?.fullName?.charAt(0) || "U",
+);
+
 const {
   success: toastSuccess,
   error: toastError,
@@ -532,6 +537,8 @@ const confirm = useConfirm();
 const activeTab = ref("preferences");
 const teamMembers = ref([]);
 const isLoadingTeam = ref(false);
+const activeColorName = ref("Indigo");
+const activeTypographyName = ref("Default");
 
 const notificationPrefs = ref({
   tasks: true,
@@ -539,9 +546,63 @@ const notificationPrefs = ref({
   comments: true,
 });
 
-// --- NEW: NOTIFICATION PERMISSION LOGIC ---
-// Add this helper function at the top of your script block
-// Browsers require the VAPID key to be converted to a specific binary format
+// --- OPTIMIZATION: Tab Watcher Lazy Loading ---
+// Only fire the fetch query when the user actively opens the team panel
+watch(
+  activeTab,
+  (newTab) => {
+    if (newTab === "team" && isAdmin.value && teamMembers.value.length === 0) {
+      loadTeamMembers();
+    }
+  },
+  { immediate: false },
+);
+
+const loadTeamMembers = async () => {
+  isLoadingTeam.value = true;
+  try {
+    const data = await useApiFetch("/users");
+    teamMembers.value = data.filter((u) => u.id !== user.value?.id);
+  } catch (error) {
+    toastError("Failed to load team data.");
+  } finally {
+    isLoadingTeam.value = false;
+  }
+};
+
+// --- PREFERENCE MUTATION ACTIONS ---
+const setThemeColor = (colorObj) => {
+  activeColorName.value = colorObj.name;
+  if (!process.client) return;
+  for (const [shade, hex] of Object.entries(colorObj.values)) {
+    document.documentElement.style.setProperty(`--primary-${shade}`, hex);
+  }
+  localStorage.setItem("app-theme-color", JSON.stringify(colorObj));
+};
+
+const setTypographyBundle = (bundle) => {
+  activeTypographyName.value = bundle.name;
+  if (!process.client) return;
+  document.documentElement.style.setProperty("--app-font-sans", bundle.sans);
+  document.documentElement.style.setProperty("--app-font-serif", bundle.serif);
+  document.documentElement.style.setProperty("--app-font-mono", bundle.mono);
+  localStorage.setItem("app-typography-bundle", JSON.stringify(bundle));
+};
+
+const loadSavedPreferences = () => {
+  if (!process.client) return;
+  const savedColor = localStorage.getItem("app-theme-color");
+  if (savedColor) setThemeColor(JSON.parse(savedColor));
+
+  const savedTypography = localStorage.getItem("app-typography-bundle");
+  if (savedTypography) setTypographyBundle(JSON.parse(savedTypography));
+};
+
+const savePreferences = () => {
+  toastSuccess("Preferences saved successfully.");
+};
+
+// --- WEB PUSH SYSTEM ---
 const urlB64ToUint8Array = (base64String) => {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
   const base64 = (base64String + padding)
@@ -555,37 +616,28 @@ const urlB64ToUint8Array = (base64String) => {
   return outputArray;
 };
 
-// The actual button click handler
 const requestNotificationPermission = async () => {
   try {
-    // 1. Check if the browser even supports Service Workers and Push
     if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
       toastError("Push notifications are not supported in this browser.");
       return;
     }
 
-    // 2. Ask the user for permission (Triggers the native Allow/Block popup)
     const permission = await Notification.requestPermission();
     if (permission !== "granted") {
-      toastError(
-        "Permission denied. You must allow notifications in your browser settings.",
-      );
+      toastError("Permission denied. Enable notifications in your settings.");
       return;
     }
 
-    // 3. Get the active Service Worker registration
     const registration = await navigator.serviceWorker.ready;
-
-    // 4. Subscribe the device using your Public VAPID Key
     const config = useRuntimeConfig();
     const applicationServerKey = urlB64ToUint8Array(config.public.vapidKey);
 
     const subscription = await registration.pushManager.subscribe({
       userVisibleOnly: true,
-      applicationServerKey: applicationServerKey,
+      applicationServerKey,
     });
 
-    // 5. Send the subscription to your Express backend
     await useApiFetch("/notifications/subscribe", {
       method: "POST",
       body: {
@@ -607,16 +659,48 @@ const requestNotificationPermission = async () => {
       },
     });
 
-    toastSuccess("Push notifications successfully enabled for this device!");
+    toastSuccess("Push notifications successfully enabled!");
   } catch (error) {
-    console.error("Failed to subscribe to push notifications:", error);
+    console.error(error);
     toastError("An error occurred while setting up notifications.");
   }
 };
 
-// --- THEME COLOR LOGIC ---
-const activeColorName = ref("Indigo");
+const promoteUser = async (userId) => {
+  const isConfirmed = await confirm.ask({
+    title: "Promote User?",
+    message:
+      "Promote this user to an Admin (Unit Head)? They will gain access to assign tasks.",
+    confirmText: "Promote",
+    cancelText: "Cancel",
+  });
 
+  if (!isConfirmed) return;
+  try {
+    await useApiFetch(`/users/${userId}/promote`, { method: "PATCH" });
+    toastSuccess("User promoted successfully.");
+    await loadTeamMembers();
+  } catch (error) {
+    toastError("Failed to promote user.");
+  }
+};
+
+const removeUser = async (userId) => {
+  toastInfo("User removal is restricted in this sprint.");
+};
+
+onMounted(() => {
+  loadSavedPreferences();
+  // Call team list directly only if deep landing tab matches
+  if (activeTab.value === "team" && isAdmin.value) {
+    loadTeamMembers();
+  }
+});
+</script>
+
+<script>
+// --- OPTIMIZATION: Out-of-Scope Static allocations ---
+// Moving heavy datasets outside the instance execution context prevents constant memory reallocations
 const themeColors = [
   {
     name: "Indigo",
@@ -791,21 +875,6 @@ const themeColors = [
   },
 ];
 
-const setThemeColor = (colorObj) => {
-  activeColorName.value = colorObj.name;
-
-  // Inject the new hex values into the CSS variables at the document root
-  for (const [shade, hex] of Object.entries(colorObj.values)) {
-    document.documentElement.style.setProperty(`--primary-${shade}`, hex);
-  }
-
-  // Save preference to localStorage so it persists across reloads
-  localStorage.setItem("app-theme-color", JSON.stringify(colorObj));
-};
-
-// --- TYPOGRAPHY BUNDLE LOGIC ---
-const activeTypographyName = ref("Default");
-
 const typographyBundles = [
   {
     name: "Default",
@@ -850,81 +919,10 @@ const typographyBundles = [
     mono: '"Ubuntu Mono"',
   },
 ];
-
-const setTypographyBundle = (bundle) => {
-  activeTypographyName.value = bundle.name;
-  document.documentElement.style.setProperty("--app-font-sans", bundle.sans);
-  document.documentElement.style.setProperty("--app-font-serif", bundle.serif);
-  document.documentElement.style.setProperty("--app-font-mono", bundle.mono);
-  localStorage.setItem("app-typography-bundle", JSON.stringify(bundle));
-};
-
-// --- LOAD PREFERENCES ON MOUNT ---
-const loadSavedPreferences = () => {
-  const savedColor = localStorage.getItem("app-theme-color");
-  if (savedColor) {
-    const colorObj = JSON.parse(savedColor);
-    setThemeColor(colorObj);
-  }
-
-  const savedTypography = localStorage.getItem("app-typography-bundle");
-  if (savedTypography) {
-    const typographyObj = JSON.parse(savedTypography);
-    setTypographyBundle(typographyObj);
-  }
-};
-
-const savePreferences = () => {
-  toastSuccess("Preferences saved successfully.");
-};
-
-const loadTeamMembers = async () => {
-  if (user.value?.role !== "ADMIN") return;
-
-  isLoadingTeam.value = true;
-  try {
-    const data = await useApiFetch("/users");
-    teamMembers.value = data.filter((u) => u.id !== user.value.id);
-  } catch (error) {
-    toastError("Failed to load team data.");
-  } finally {
-    isLoadingTeam.value = false;
-  }
-};
-
-const promoteUser = async (userId) => {
-  const isConfirmed = await confirm.ask({
-    title: "Promote User?",
-    message:
-      "Promote this user to an Admin (Unit Head)? They will gain full access to assign tasks and manage editorial content.",
-    confirmText: "Promote",
-    cancelText: "Cancel",
-  });
-
-  if (!isConfirmed) return;
-
-  try {
-    await useApiFetch(`/users/${userId}/promote`, { method: "PATCH" });
-    toastSuccess("User promoted successfully.");
-    await loadTeamMembers();
-  } catch (error) {
-    toastError("Failed to promote user.");
-  }
-};
-
-const removeUser = async (userId) => {
-  toastInfo("User removal is restricted in this sprint.");
-};
-
-onMounted(() => {
-  loadSavedPreferences();
-  loadTeamMembers();
-});
 </script>
 
 <style scoped>
 @reference "~/assets/css/main.css";
-
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }

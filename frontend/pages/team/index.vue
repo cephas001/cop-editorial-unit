@@ -28,10 +28,12 @@
     <div
       v-if="isLoading"
       v-motion-fade
-      class="flex flex-col items-center justify-center flex-1 min-h-[400px] w-full"
+      class="flex flex-col items-center justify-center flex-1 min-h-[300px] w-full"
     >
-      <VineyardLoader size="120px" />
-      <span class="mt-6 text-sm font-mono text-primary-500/70 animate-pulse">
+      <VineyardLoader size="110px" />
+      <span
+        class="mt-6 text-xs md:text-sm font-mono text-primary-500/70 animate-pulse"
+      >
         Fetching roster...
       </span>
     </div>

@@ -14,6 +14,9 @@
 <script setup>
 import { useSettingsStore } from "@/stores/settings";
 import { onMounted } from "vue";
+import { usePresence } from "~/composables/usePresence";
+
+const { initPresence } = usePresence();
 
 const settings = useSettingsStore();
 
@@ -21,6 +24,7 @@ const settings = useSettingsStore();
 settings.initTheme();
 
 onMounted(() => {
+  initPresence();
   const saved = localStorage.getItem("app-theme-color");
   if (saved) {
     const colorObj = JSON.parse(saved);

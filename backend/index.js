@@ -12,6 +12,7 @@ const userRoutes = require("./routes/users");
 const activityRoutes = require("./routes/activities");
 const notificationRoutes = require("./routes/notifications");
 const kudosRoutes = require("./routes/kudos");
+const conversationRoutes = require("./routes/conversations");
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/activities", activityRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/kudos", kudosRoutes);
+app.use("/api/conversations", conversationRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5000;

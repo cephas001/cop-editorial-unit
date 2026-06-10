@@ -3,6 +3,7 @@
     class="antialiased min-h-screen font-sans bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-200"
   >
     <header
+      v-if="!hideTopbar"
       :class="[
         'fixed top-0 right-0 h-16 z-40 flex items-center justify-between px-4 sm:px-6 lg:px-8 w-full md:w-[calc(100%-16rem)] transition-all duration-300',
         isScrolled
@@ -119,6 +120,13 @@
         />
 
         <SidebarLink
+          to="/messages"
+          icon="material-symbols:chat-outline-rounded"
+          label="Chat"
+          @click="isMobileMenuOpen = false"
+        />
+
+        <SidebarLink
           to="/profile"
           icon="material-symbols:person-outline-rounded"
           label="User Profile"
@@ -183,7 +191,12 @@
     ></div>
 
     <main
-      class="pt-24 pb-12 px-4 sm:px-6 lg:px-8 md:ml-64 min-h-screen max-w-7xl mx-auto"
+      :class="[
+        'md:ml-64 min-h-screen w-full',
+        hideTopbar
+          ? 'pt-0 pb-0 px-0 max-w-none'
+          : 'pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto',
+      ]"
     >
       <slot />
     </main>
@@ -191,12 +204,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, onMounted, onBeforeUnmount, computed } from "vue";
+import { useRoute } from "vue-router";
 import { useAuthStore } from "~/stores/auth";
 import { storeToRefs } from "pinia";
 
 const isMobileMenuOpen = ref(false);
 const isScrolled = ref(false);
+const route = useRoute();
+const hideTopbar = computed(() => route.meta.hideTopbar === true);
 
 const authStore = useAuthStore();
 const { user } = storeToRefs(authStore);
