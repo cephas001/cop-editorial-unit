@@ -13,6 +13,7 @@ const activityRoutes = require("./routes/activities");
 const notificationRoutes = require("./routes/notifications");
 const kudosRoutes = require("./routes/kudos");
 const conversationRoutes = require("./routes/conversations");
+const webhooksRoutes = require("./routes/webhooks");
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.use("/api/activities", activityRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/kudos", kudosRoutes);
 app.use("/api/conversations", conversationRoutes);
+app.use("/api/webhooks", webhooksRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5000;

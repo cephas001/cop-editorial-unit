@@ -574,9 +574,21 @@ const loadTeamMembers = async () => {
 const setThemeColor = (colorObj) => {
   activeColorName.value = colorObj.name;
   if (!process.client) return;
+  // 1. Inject CSS Variables
   for (const [shade, hex] of Object.entries(colorObj.values)) {
     document.documentElement.style.setProperty(`--primary-${shade}`, hex);
   }
+  // 2. NEW: Hijack the PWA meta theme-color tag
+  let metaTheme = document.querySelector('meta[name="theme-color"]');
+  if (!metaTheme) {
+    // If it doesn't exist, create it
+    metaTheme = document.createElement("meta");
+    metaTheme.setAttribute("name", "theme-color");
+    document.head.appendChild(metaTheme);
+  }
+
+  // Use the '600' shade (your primary brand color) to color the mobile status bar
+  metaTheme.setAttribute("content", colorObj.values[600]);
   localStorage.setItem("app-theme-color", JSON.stringify(colorObj));
 };
 

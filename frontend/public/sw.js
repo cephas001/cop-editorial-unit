@@ -22,14 +22,15 @@ self.addEventListener("push", function (event) {
 
           // If the app is open AND they are actively looking at it
           if (client.focused) {
-            isAppFocused = true;
+            // Check if they are looking at the exact chat this message belongs to
+            // payload.url looks like "/messages/123-abc"
+            if (client.url.includes(payload.url)) {
+              isAppFocused = true; // They are staring right at the sender. Silence!
+              break;
+            }
 
-            // OPTIONAL SUPER-POWER:
-            // If you only want to suppress the notification if they are specifically
-            // on the messages page, you can check the URL!
-            // if (client.url.includes('/messages')) { isAppFocused = true; }
-
-            break;
+            // If they are on the Dashboard, Settings, or a DIFFERENT chat,
+            // isAppFocused remains false, and the notification will slide down!
           }
         }
 
