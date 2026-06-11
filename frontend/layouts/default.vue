@@ -192,13 +192,18 @@
 
     <main
       :class="[
-        'md:ml-64 min-h-screen w-full',
-        hideTopbar
-          ? 'pt-0 pb-0 px-0 max-w-none'
-          : 'pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto',
+        'md:ml-64 min-h-screen transition-all duration-300',
+        hideTopbar ? 'p-0' : 'pt-24 pb-12 px-4 sm:px-6 lg:px-8',
       ]"
     >
-      <slot />
+      <div
+        :class="[
+          'w-full flex-1',
+          hideTopbar ? 'max-w-none' : 'max-w-7xl mx-auto',
+        ]"
+      >
+        <slot />
+      </div>
     </main>
   </div>
 </template>
