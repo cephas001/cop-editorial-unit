@@ -13,6 +13,13 @@ export default defineNuxtConfig({
 
   app: {
     head: {
+      meta: [
+        {
+          name: "viewport",
+          content:
+            "width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover",
+        },
+      ],
       link: [
         {
           rel: "icon",
@@ -54,7 +61,7 @@ export default defineNuxtConfig({
       name: "The Vineyard's Voice",
       short_name: "The Vineyard",
       description: "Team collaboration and editorial management platform.",
-      theme_color: "#4f46e5",
+      theme_color: "#ffffff",
       background_color: "#ffffff",
       display: "standalone",
       orientation: "portrait",

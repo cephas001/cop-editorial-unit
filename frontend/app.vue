@@ -23,6 +23,12 @@ const settings = useSettingsStore();
 // Run once when component mounts
 settings.initTheme();
 
+useHead({
+  bodyAttrs: {
+    class: "bg-slate-50 dark:bg-slate-900 transition-colors duration-200",
+  },
+});
+
 const bootGlobalPreferences = () => {
   if (!process.client) return;
 
