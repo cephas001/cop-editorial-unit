@@ -116,10 +116,6 @@
           @click="publishLive"
           class="text-xs sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white transition-colors shadow-sm flex items-center gap-1 sm:gap-2 whitespace-nowrap shrink-0"
         >
-          <Icon
-            name="material-symbols:rocket-launch-rounded"
-            class="text-sm sm:text-base"
-          />
           Publish
         </button>
 
