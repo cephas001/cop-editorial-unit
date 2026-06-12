@@ -120,7 +120,7 @@
             name="material-symbols:rocket-launch-rounded"
             class="text-sm sm:text-base"
           />
-          Publish<span class="hidden sm:inline"> Live</span>
+          Publish
         </button>
 
         <div
