@@ -80,160 +80,173 @@
           v-auto-animate
           class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 min-h-[400px] relative overflow-hidden"
         >
-          <div v-if="activeTab === 'preferences'" class="space-y-8">
-            <div>
-              <h2
-                class="text-sm md:text-md font-bold text-black dark:text-white mb-4"
+          <div v-if="activeTab === 'preferences'" class="min-h-[300px]">
+            <div
+              v-if="isLoadingPreferences"
+              class="flex flex-col items-center justify-center h-full py-16"
+            >
+              <PreferencesLoader size="60px" />
+              <span
+                class="mt-4 text-xs font-mono text-slate-500 dark:text-slate-400 animate-pulse"
+                >Syncing preferences...</span
               >
-                Theme Appearance
-              </h2>
-
-              <div
-                class="flex items-center justify-between py-4 border-b border-slate-100 dark:border-slate-700"
-              >
-                <div>
-                  <h3
-                    class="text-xs md:text-sm font-bold text-black dark:text-white"
-                  >
-                    Dark Mode
-                  </h3>
-                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">
-                    Adjust the interface to match your system preferences.
-                  </p>
-                </div>
-                <ToggleModeButton />
-              </div>
-
-              <div
-                class="flex gap-3 justify-between py-4 border-b border-slate-100 dark:border-slate-700 flex-col"
-              >
-                <div>
-                  <h3
-                    class="text-xs md:text-sm font-bold text-black dark:text-white"
-                  >
-                    Theme Color
-                  </h3>
-                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">
-                    Personalize your workspace accent color.
-                  </p>
-                </div>
-                <div
-                  class="flex gap-3 overflow-x-auto pb-3 pt-1 pl-1 hide-scrollbar w-full"
-                >
-                  <button
-                    v-for="color in themeColors"
-                    :key="color.name"
-                    @click="setThemeColor(color)"
-                    class="w-8 h-8 shrink-0 rounded-full border-2 transition-transform"
-                    :class="[
-                      color.previewClass,
-                      activeColorName === color.name
-                        ? 'border-slate-900 dark:border-white scale-110'
-                        : 'border-transparent hover:scale-105',
-                    ]"
-                    :style="
-                      color.customBg
-                        ? `background-color: ${color.customBg}`
-                        : ''
-                    "
-                    :title="color.name"
-                  ></button>
-                </div>
-              </div>
-
-              <div
-                class="flex gap-3 justify-between py-4 border-b border-slate-100 dark:border-slate-700 flex-col"
-              >
-                <div>
-                  <h3
-                    class="text-xs md:text-sm font-bold text-black dark:text-white"
-                  >
-                    Typography Suite
-                  </h3>
-                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">
-                    Change the reading and writing experience across the app.
-                  </p>
-                </div>
-                <div
-                  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-2"
-                >
-                  <button
-                    v-for="bundle in typographyBundles"
-                    :key="bundle.name"
-                    @click="setTypographyBundle(bundle)"
-                    :class="[
-                      'flex flex-col text-left p-3 rounded-xl border transition-all duration-200',
-                      activeTypographyName === bundle.name
-                        ? 'border-primary-600 bg-primary-50 dark:bg-primary-900/20 shadow-sm ring-1 ring-primary-600'
-                        : 'border-slate-200 dark:border-slate-700 hover:border-primary-300 dark:hover:border-primary-700 hover:bg-slate-50 dark:hover:bg-slate-800/50',
-                    ]"
-                  >
-                    <span
-                      class="text-xs md:text-sm font-bold text-black dark:text-white"
-                      :style="{ fontFamily: bundle.sans }"
-                    >
-                      {{ bundle.name }}
-                    </span>
-                    <span
-                      class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-1"
-                      :style="{ fontFamily: bundle.serif }"
-                    >
-                      Aa Bb Cc • {{ bundle.sans.replace(/['"]/g, "") }}
-                    </span>
-                  </button>
-                </div>
-              </div>
             </div>
 
-            <div>
-              <h2
-                class="text-sm md:text-md font-bold text-black dark:text-white mb-4"
-              >
-                Personal Details
-              </h2>
-              <div
-                class="bg-slate-50 dark:bg-slate-900/50 p-5 rounded-xl border border-slate-200 dark:border-slate-700 mb-6"
-              >
-                <div
-                  class="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4"
+            <div v-else class="space-y-8">
+              <div>
+                <h2
+                  class="text-sm md:text-md font-bold text-black dark:text-white mb-4"
                 >
-                  <div
-                    class="w-12 h-12 rounded-full border-2 border-white dark:border-slate-800 shadow-sm overflow-hidden bg-primary-100 dark:bg-primary-900/50 flex items-center justify-center text-primary-600 dark:text-primary-400 font-bold text-lg"
-                  >
-                    <img
-                      v-if="user?.avatarUrl"
-                      :src="user.avatarUrl"
-                      class="w-full h-full object-cover"
-                    />
-                    <span v-else>{{ userFallbackInitial }}</span>
-                  </div>
+                  Theme Appearance
+                </h2>
+
+                <div
+                  class="flex items-center justify-between py-4 border-b border-slate-100 dark:border-slate-700"
+                >
                   <div>
-                    <p class="text-sm font-bold text-black dark:text-white">
-                      {{ user?.fullName || "Loading..." }}
-                    </p>
-                    <p
-                      class="text-xs font-mono text-slate-500 dark:text-slate-400"
+                    <h3
+                      class="text-xs md:text-sm font-bold text-black dark:text-white"
                     >
-                      {{ user?.email }}
+                      Dark Mode
+                    </h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">
+                      Adjust the interface to match your system preferences.
                     </p>
+                  </div>
+                  <ToggleModeButton />
+                </div>
+
+                <div
+                  class="flex gap-3 justify-between py-4 border-b border-slate-100 dark:border-slate-700 flex-col"
+                >
+                  <div>
+                    <h3
+                      class="text-xs md:text-sm font-bold text-black dark:text-white"
+                    >
+                      Theme Color
+                    </h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">
+                      Personalize your workspace accent color.
+                    </p>
+                  </div>
+                  <div
+                    class="flex gap-3 overflow-x-auto pb-3 pt-1 pl-1 hide-scrollbar w-full"
+                  >
+                    <button
+                      v-for="color in themeColors"
+                      :key="color.name"
+                      @click="setThemeColor(color)"
+                      class="w-8 h-8 shrink-0 rounded-full border-2 transition-transform"
+                      :class="[
+                        color.previewClass,
+                        activeColorName === color.name
+                          ? 'border-slate-900 dark:border-white scale-110'
+                          : 'border-transparent hover:scale-105',
+                      ]"
+                      :style="
+                        color.customBg
+                          ? `background-color: ${color.customBg}`
+                          : ''
+                      "
+                      :title="color.name"
+                    ></button>
                   </div>
                 </div>
-                <p
-                  class="text-xs text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed whitespace-pre-wrap"
+
+                <div
+                  class="flex gap-3 justify-between py-4 border-b border-slate-100 dark:border-slate-700 flex-col"
                 >
-                  {{
-                    user?.bio ||
-                    "No bio added yet. Tell the team a bit about yourself!"
-                  }}
-                </p>
+                  <div>
+                    <h3
+                      class="text-xs md:text-sm font-bold text-black dark:text-white"
+                    >
+                      Typography Suite
+                    </h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">
+                      Change the reading and writing experience across the app.
+                    </p>
+                  </div>
+                  <div
+                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-2"
+                  >
+                    <button
+                      v-for="bundle in typographyBundles"
+                      :key="bundle.name"
+                      @click="setTypographyBundle(bundle)"
+                      :class="[
+                        'flex flex-col text-left p-3 rounded-xl border transition-all duration-200',
+                        activeTypographyName === bundle.name
+                          ? 'border-primary-600 bg-primary-50 dark:bg-primary-900/20 shadow-sm ring-1 ring-primary-600'
+                          : 'border-slate-200 dark:border-slate-700 hover:border-primary-300 dark:hover:border-primary-700 hover:bg-slate-50 dark:hover:bg-slate-800/50',
+                      ]"
+                    >
+                      <span
+                        class="text-xs md:text-sm font-bold text-black dark:text-white"
+                        :style="{ fontFamily: bundle.sans }"
+                      >
+                        {{ bundle.name }}
+                      </span>
+                      <span
+                        class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-1"
+                        :style="{ fontFamily: bundle.serif }"
+                      >
+                        Aa Bb Cc • {{ bundle.sans.replace(/['"]/g, "") }}
+                      </span>
+                    </button>
+                  </div>
+                </div>
               </div>
-              <div class="flex justify-end">
-                <button
-                  @click="navigateTo('/profile')"
-                  class="bg-primary-600 hover:bg-primary-700 text-white font-medium text-xs md:text-sm px-5 py-2.5 rounded-lg transition-colors shadow-sm"
+
+              <div>
+                <h2
+                  class="text-sm md:text-md font-bold text-black dark:text-white mb-4"
                 >
-                  Edit Profile
-                </button>
+                  Personal Details
+                </h2>
+                <div
+                  class="bg-slate-50 dark:bg-slate-900/50 p-5 rounded-xl border border-slate-200 dark:border-slate-700 mb-6"
+                >
+                  <div
+                    class="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4"
+                  >
+                    <div
+                      class="w-12 h-12 rounded-full border-2 border-white dark:border-slate-800 shadow-sm overflow-hidden bg-primary-100 dark:bg-primary-900/50 flex items-center justify-center text-primary-600 dark:text-primary-400 font-bold text-lg"
+                    >
+                      <img
+                        v-if="user?.avatarUrl"
+                        :src="user.avatarUrl"
+                        class="w-full h-full object-cover"
+                      />
+                      <span v-else>{{ userFallbackInitial }}</span>
+                    </div>
+                    <div>
+                      <p class="text-sm font-bold text-black dark:text-white">
+                        {{ user?.fullName || "Loading..." }}
+                      </p>
+                      <p
+                        class="text-xs font-mono text-slate-500 dark:text-slate-400"
+                      >
+                        {{ user?.email }}
+                      </p>
+                    </div>
+                  </div>
+                  <p
+                    class="text-xs text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed whitespace-pre-wrap"
+                  >
+                    {{
+                      user?.bio ||
+                      "No bio added yet. Tell the team a bit about yourself!"
+                    }}
+                  </p>
+                </div>
+                <div class="flex justify-end">
+                  <button
+                    @click="navigateTo('/profile')"
+                    class="bg-primary-600 hover:bg-primary-700 text-white font-medium text-xs md:text-sm px-5 py-2.5 rounded-lg transition-colors shadow-sm"
+                  >
+                    Edit Profile
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -452,7 +465,7 @@
                         :src="member.avatarUrl"
                         class="w-full h-full object-cover"
                       />
-                      <span v-else>{{ member.fullName?.charAt(0) }}</span>
+                      <span v-else>{{ member.fullName.charAt(0) }}</span>
                     </div>
                     <div class="min-w-0">
                       <p
@@ -519,6 +532,9 @@ import { useAppToast } from "~/composables/useAppToast";
 import { useConfirm } from "~/composables/useConfirm";
 import { vAutoAnimate } from "@formkit/auto-animate/vue";
 
+// NEW: Import your powerful IndexedDB Wrapper
+import { useIndexedDB } from "~/composables/useIndexedDB";
+
 const authStore = useAuthStore();
 const user = computed(() => authStore.user);
 const isAdmin = computed(() => user.value?.role === "ADMIN");
@@ -532,11 +548,16 @@ const {
   info: toastInfo,
 } = useAppToast();
 const confirm = useConfirm();
+const { getItem, setItem } = useIndexedDB();
 
 // State
 const activeTab = ref("preferences");
 const teamMembers = ref([]);
 const isLoadingTeam = ref(false);
+
+// NEW: Pre-loader flag specifically for settings to sync UI ref states cleanly
+const isLoadingPreferences = ref(true);
+
 const activeColorName = ref("Indigo");
 const activeTypographyName = ref("Default");
 
@@ -546,8 +567,6 @@ const notificationPrefs = ref({
   comments: true,
 });
 
-// --- OPTIMIZATION: Tab Watcher Lazy Loading ---
-// Only fire the fetch query when the user actively opens the team panel
 watch(
   activeTab,
   (newTab) => {
@@ -570,48 +589,72 @@ const loadTeamMembers = async () => {
   }
 };
 
-// --- PREFERENCE MUTATION ACTIONS ---
-const setThemeColor = (colorObj) => {
+// --- OPTIMIZED PREFERENCE MUTATION ACTIONS (NOW ASYNC!) ---
+const setThemeColor = async (colorObj) => {
   activeColorName.value = colorObj.name;
   if (!process.client) return;
-  // 1. Inject CSS Variables
+
+  // 1. Inject CSS Variables Instantly for Snappy UX
   for (const [shade, hex] of Object.entries(colorObj.values)) {
     document.documentElement.style.setProperty(`--primary-${shade}`, hex);
   }
-  // 2. NEW: Hijack the PWA meta theme-color tag
+
+  // 2. Hijack the PWA meta theme-color tag
   let metaTheme = document.querySelector('meta[name="theme-color"]');
   if (!metaTheme) {
-    // If it doesn't exist, create it
     metaTheme = document.createElement("meta");
     metaTheme.setAttribute("name", "theme-color");
     document.head.appendChild(metaTheme);
   }
-
-  // Use the '600' shade (your primary brand color) to color the mobile status bar
   metaTheme.setAttribute("content", colorObj.values[600]);
-  localStorage.setItem("app-theme-color", JSON.stringify(colorObj));
+
+  // 3. Save to IndexedDB (Non-blocking)
+  await setItem("app-theme-color", colorObj);
 };
 
-const setTypographyBundle = (bundle) => {
+const setTypographyBundle = async (bundle) => {
   activeTypographyName.value = bundle.name;
   if (!process.client) return;
+
+  // Apply instantly
   document.documentElement.style.setProperty("--app-font-sans", bundle.sans);
   document.documentElement.style.setProperty("--app-font-serif", bundle.serif);
   document.documentElement.style.setProperty("--app-font-mono", bundle.mono);
-  localStorage.setItem("app-typography-bundle", JSON.stringify(bundle));
+
+  // Save to IndexedDB
+  await setItem("app-typography-bundle", bundle);
 };
 
-const loadSavedPreferences = () => {
+// --- ASYNC INITIALIZATION ---
+const loadSavedPreferences = async () => {
   if (!process.client) return;
-  const savedColor = localStorage.getItem("app-theme-color");
-  if (savedColor) setThemeColor(JSON.parse(savedColor));
+  isLoadingPreferences.value = true;
 
-  const savedTypography = localStorage.getItem("app-typography-bundle");
-  if (savedTypography) setTypographyBundle(JSON.parse(savedTypography));
+  try {
+    const savedColor = await getItem("app-theme-color");
+    if (savedColor) activeColorName.value = savedColor.name;
+
+    const savedTypography = await getItem("app-typography-bundle");
+    if (savedTypography) activeTypographyName.value = savedTypography.name;
+
+    // NEW: Fetch saved notification toggles
+    const savedNotifs = await getItem("app-notification-prefs");
+    if (savedNotifs) notificationPrefs.value = savedNotifs;
+  } catch (error) {
+    console.error("Failed fetching settings from IndexedDB", error);
+  } finally {
+    isLoadingPreferences.value = false;
+  }
 };
 
-const savePreferences = () => {
-  toastSuccess("Preferences saved successfully.");
+const savePreferences = async () => {
+  try {
+    // Save the notification object to IndexedDB
+    await setItem("app-notification-prefs", notificationPrefs.value);
+    toastSuccess("Preferences saved successfully.");
+  } catch (error) {
+    toastError("Failed to save preferences.");
+  }
 };
 
 // --- WEB PUSH SYSTEM ---
@@ -703,7 +746,6 @@ const removeUser = async (userId) => {
 
 onMounted(() => {
   loadSavedPreferences();
-  // Call team list directly only if deep landing tab matches
   if (activeTab.value === "team" && isAdmin.value) {
     loadTeamMembers();
   }
@@ -711,8 +753,7 @@ onMounted(() => {
 </script>
 
 <script>
-// --- OPTIMIZATION: Out-of-Scope Static allocations ---
-// Moving heavy datasets outside the instance execution context prevents constant memory reallocations
+// Out-of-Scope Static allocations
 const themeColors = [
   {
     name: "Indigo",

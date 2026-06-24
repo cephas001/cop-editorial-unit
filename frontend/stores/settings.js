@@ -1,48 +1,72 @@
 // stores/settings.js
 import { defineStore } from "pinia";
-import { ref, onMounted } from "vue";
+import { useIndexedDB } from "~/composables/useIndexedDB";
+
+const applyThemeClass = (theme) => {
+  if (theme === "dark") {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+};
 
 export const useSettingsStore = defineStore("settings", {
   state: () => ({
-    color_theme: ref("light"),
+    color_theme: "light",
   }),
 
   actions: {
-    setLightTheme() {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("color_theme", "light");
+    async setLightTheme() {
       this.color_theme = "light";
-    },
 
-    setDarkTheme() {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("color_theme", "dark");
-      this.color_theme = "dark";
-    },
-
-    toggleDarkMode() {
-      if (this.color_theme === "light") {
-        this.setDarkTheme();
-      } else {
-        this.setLightTheme();
+      if (process.client) {
+        applyThemeClass("light");
+        const { setItem } = useIndexedDB();
+        await setItem("color_theme", "light");
+        localStorage.setItem("color_theme", "light");
       }
     },
 
-    initTheme() {
-      if (typeof window !== "undefined") {
-        const stored = localStorage.getItem("color_theme");
+    async setDarkTheme() {
+      this.color_theme = "dark";
 
-        if (!stored) {
+      if (process.client) {
+        applyThemeClass("dark");
+        const { setItem } = useIndexedDB();
+        await setItem("color_theme", "dark");
+        localStorage.setItem("color_theme", "dark");
+      }
+    },
+
+    async toggleDarkMode() {
+      if (this.color_theme === "light") {
+        await this.setDarkTheme();
+      } else {
+        await this.setLightTheme();
+      }
+    },
+
+    async initTheme() {
+      if (process.client) {
+        const { getItem } = useIndexedDB();
+        const storedTheme =
+          (await getItem("color_theme")) || localStorage.getItem("color_theme");
+
+        if (!storedTheme) {
           if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-            this.setDarkTheme();
+            await this.setDarkTheme();
           } else {
-            this.setLightTheme();
+            await this.setLightTheme();
           }
-        } else if (stored === "dark") {
-          this.setDarkTheme();
+        } else if (storedTheme === "dark") {
+          this.color_theme = "dark";
+          applyThemeClass("dark");
         } else {
-          this.setLightTheme();
+          this.color_theme = "light";
+          applyThemeClass("light");
         }
+
+        localStorage.setItem("color_theme", this.color_theme);
       }
     },
   },
