@@ -62,7 +62,6 @@ router.post("/", requireAuth, async (req, res) => {
           content: `New Task Assigned: "${title}"`,
         },
       });
-      z;
 
       // --- NEW: FIRE PUSH NOTIFICATION ---
       await sendPushNotification(assigneeId, {
