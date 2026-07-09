@@ -454,7 +454,7 @@ const handleTaskClick = () => {
 
 const authStore = useAuthStore();
 const user = computed(() => authStore.user);
-const { error: toastError } = useAppToast();
+const { error: toastError, success: toastSuccess } = useAppToast();
 
 const currentDate = new Intl.DateTimeFormat("en-US", {
   weekday: "long",
@@ -572,6 +572,8 @@ const submitTask = async () => {
     }
 
     cancelCreateTask();
+
+    toastSuccess("Task created successfully.");
   } catch (err) {
     toastError("Failed to save task.");
   } finally {
