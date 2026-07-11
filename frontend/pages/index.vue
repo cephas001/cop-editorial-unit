@@ -203,7 +203,7 @@
               <div class="flex-1 min-w-0">
                 <div class="flex justify-between items-start mb-1 gap-2">
                   <p
-                    class="text-sm font-mono text-black dark:text-white truncate"
+                    class="text-xs md:text-sm font-mono text-black dark:text-white truncate"
                   >
                     {{
                       activity.article?.title
@@ -218,7 +218,7 @@
                   </span>
                 </div>
                 <p
-                  class="text-sm text-slate-600 dark:text-slate-300 mt-0.5 leading-snug"
+                  class="text-xs md:text-sm text-slate-600 dark:text-slate-300 mt-0.5 leading-snug"
                 >
                   <span
                     class="font-semibold text-slate-800 dark:text-slate-200"
@@ -256,7 +256,7 @@
         <div class="p-4 flex-1 overflow-y-auto max-h-[300px] hide-scrollbar">
           <div
             v-if="tasks.length === 0"
-            class="text-center py-6 text-sm text-slate-500 dark:text-slate-400"
+            class="text-center py-6 text-xs md:text-sm text-slate-500 dark:text-slate-400"
           >
             No pending tasks.
           </div>
@@ -283,7 +283,7 @@
                 <div class="flex flex-col flex-1">
                   <span
                     :class="[
-                      'text-sm font-medium transition-colors group-hover:text-primary-600 dark:group-hover:text-primary-400',
+                      'text-xs md:text-sm font-medium transition-colors group-hover:text-primary-600 dark:group-hover:text-primary-400',
                       task.status === 'COMPLETED'
                         ? 'line-through text-slate-400 dark:text-slate-500'
                         : 'text-black dark:text-slate-100',
