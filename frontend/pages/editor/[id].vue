@@ -479,7 +479,9 @@
           class="px-5 py-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-white dark:bg-slate-900"
         >
           <div>
-            <div class="text-base font-bold text-slate-900 dark:text-white">
+            <div
+              class="text-sm md:text-md font-bold text-slate-900 dark:text-white"
+            >
               Collaboration
             </div>
             <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">
@@ -507,7 +509,7 @@
             ]"
           >
             <Icon name="material-symbols:chat-bubble-rounded" class="text-lg" />
-            <span class="text-sm font-semibold">Comments</span>
+            <span class="text-xs md:text-sm font-semibold">Comments</span>
           </button>
           <button
             @click="activeSidebarTab = 'activity'"
@@ -519,7 +521,7 @@
             ]"
           >
             <Icon name="material-symbols:history-rounded" class="text-lg" />
-            <span class="text-sm font-semibold">Activity</span>
+            <span class="text-xs md:text-sm font-semibold">Activity</span>
           </button>
         </div>
 
@@ -556,17 +558,17 @@
                   <img
                     v-if="comment.author.avatarUrl"
                     :src="comment.author.avatarUrl"
-                    class="w-6 h-6 rounded-full object-cover"
+                    class="w-5 h-5 rounded-full object-cover"
                   />
                   <div
                     v-else
-                    class="w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300 flex items-center justify-center text-[10px] font-bold"
+                    class="w-5 h-5 rounded-full bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300 flex items-center justify-center text-[10px] font-bold"
                   >
                     {{ comment.author.fullName.charAt(0) }}
                   </div>
                   <span
                     :class="[
-                      'text-sm font-semibold',
+                      'text-xs md:text-sm font-semibold',
                       comment.resolved
                         ? 'text-slate-500 dark:text-slate-400 line-through decoration-slate-400'
                         : 'text-slate-900 dark:text-white',
@@ -577,10 +579,7 @@
                 </div>
                 <div class="flex items-center gap-2">
                   <button
-                    v-if="
-                      !comment.resolved &&
-                      (user?.id === articleAuthorId || user?.role === 'ADMIN')
-                    "
+                    v-if="!comment.resolved && user?.id === articleAuthorId"
                     @click="resolveComment(comment.id)"
                     class="p-1 rounded text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-500/20 transition-all shadow-sm bg-white dark:bg-slate-800 flex items-center justify-center"
                     title="Mark as resolved"
@@ -612,7 +611,7 @@
 
               <div v-if="editingCommentId !== comment.id">
                 <p
-                  class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-wrap"
+                  class="text-xs md:text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-wrap"
                 >
                   {{ comment.content }}
                 </p>
