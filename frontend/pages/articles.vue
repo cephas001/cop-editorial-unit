@@ -13,7 +13,7 @@
           Directory
         </h1>
         <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
-          Manage, review, and explore all team writeups.
+          Manage and review all team writeups.
         </p>
       </div>
       <NuxtLink
