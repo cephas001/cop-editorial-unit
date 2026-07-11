@@ -96,7 +96,7 @@
             >
               <div
                 :class="[
-                  'self-end flex items-center justify-center text-sm font-mono',
+                  'self-end flex items-center justify-center text-xs font-mono',
                   day.isToday
                     ? 'w-6 h-6 rounded-full bg-primary-600 text-white font-bold shadow-sm'
                     : 'text-slate-700 dark:text-slate-300 group-hover:text-primary-600 dark:group-hover:text-primary-400',
@@ -336,7 +336,7 @@
           class="px-6 py-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50 shrink-0"
         >
           <h3
-            class="text-lg font-semibold text-black dark:text-white flex items-center gap-2"
+            class="text-xs md:text-md font-semibold text-black dark:text-white flex items-center gap-2"
           >
             <Icon
               name="material-symbols:calendar-today-rounded"
@@ -370,7 +370,7 @@
           >
             <div class="flex justify-between items-start gap-4 mb-2">
               <h4
-                class="text-sm font-semibold text-black dark:text-white"
+                class="text-xs md:text-sm text-black dark:text-white"
                 :class="
                   task.status === 'COMPLETED' ? 'line-through opacity-70' : ''
                 "
@@ -394,7 +394,7 @@
             </div>
             <p
               v-if="task.description"
-              class="text-sm text-slate-600 dark:text-slate-400 mb-4"
+              class="text-xs md:text-sm text-slate-600 dark:text-slate-400 mb-4"
               :class="
                 task.status === 'COMPLETED' ? 'line-through opacity-70' : ''
               "
@@ -406,7 +406,7 @@
               class="flex items-center gap-2 pt-3 border-t border-slate-200 dark:border-slate-700"
             >
               <div
-                class="w-6 h-6 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center overflow-hidden"
+                class="w-5 h-5 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center overflow-hidden"
               >
                 <img
                   v-if="task.assignee?.avatarUrl"
@@ -419,7 +419,8 @@
                   class="text-xs text-slate-500"
                 />
               </div>
-              <span class="text-xs font-mono text-slate-600 dark:text-slate-400"
+              <span
+                class="text-[11px] md:text-xs font-mono text-slate-600 dark:text-slate-400"
                 >Assigned to
                 <span class="font-bold text-black dark:text-white">{{
                   task.assignee?.fullName

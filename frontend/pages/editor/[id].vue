@@ -620,7 +620,7 @@
                 <textarea
                   v-model="editCommentText"
                   rows="2"
-                  class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-2 text-sm focus:ring-1 focus:ring-primary-600 resize-none text-slate-900 dark:text-white"
+                  class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-2 text-xs md:text-sm focus:ring-1 focus:ring-primary-600 resize-none text-slate-900 dark:text-white"
                 ></textarea>
                 <div class="flex justify-end gap-2">
                   <button
