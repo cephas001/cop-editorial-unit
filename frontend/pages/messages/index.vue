@@ -1,5 +1,6 @@
 <template>
   <div class="max-w-7xl mx-auto space-y-8 font-sans pb-24">
+    <!-- Header & Controls -->
     <div
       v-motion
       :initial="{ opacity: 0, y: -20 }"
@@ -44,6 +45,7 @@
       </div>
     </div>
 
+    <!-- MAIN INBOX LIST (Active Conversations) -->
     <div class="relative">
       <div
         v-motion
@@ -165,7 +167,6 @@
                       chat.messages[0]?.content || "Started a new conversation"
                     }}
                   </p>
-
                   <span
                     v-if="chat._hasUnread"
                     class="flex-shrink-0 bg-primary-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full"
@@ -180,6 +181,7 @@
       </div>
     </div>
 
+    <!-- NEW CHAT MODAL (Global Team Address Book) -->
     <div
       v-if="isNewChatModalOpen"
       class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
@@ -243,82 +245,48 @@
             </span>
           </div>
 
+          <!-- THE CORRECTED MODAL LIST (Iterates over team members, not active chats) -->
           <ul
             v-else
             v-auto-animate
             class="divide-y divide-slate-100 dark:divide-slate-700/50"
           >
             <li
-              v-for="chat in filteredConversations"
-              :key="chat.id"
-              @click="navigateTo(`/messages/${chat.id}`)"
+              v-for="member in filteredTeamMembers"
+              :key="member.id"
+              @click="startChat(member.id)"
               class="group cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors duration-200"
             >
               <div class="flex items-center p-4 sm:p-5 gap-4">
                 <div class="relative flex-shrink-0">
                   <img
-                    v-if="chat._partner?.avatarUrl"
-                    :src="chat._partner.avatarUrl"
+                    v-if="member.avatarUrl"
+                    :src="member.avatarUrl"
                     class="h-10 w-10 md:w-12 md:h-12 rounded-full object-cover border border-slate-200 dark:border-slate-700"
                   />
                   <div
                     v-else
                     class="h-10 w-10 md:w-12 md:h-12 rounded-full bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300 flex items-center justify-center font-bold text-lg border border-slate-200 dark:border-slate-700"
                   >
-                    {{ chat._partner?.fullName?.charAt(0) || "U" }}
+                    {{ member.fullName?.charAt(0) || "U" }}
                   </div>
                   <div
                     class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-white dark:border-slate-800 rounded-full"
-                    v-if="isUserOnline(chat._partner?.id)"
+                    v-if="isUserOnline(member.id)"
                   ></div>
                 </div>
 
                 <div class="flex-1 min-w-0">
-                  <div class="flex justify-between items-baseline my-1 gap-2">
-                    <h2
-                      class="text-xs md:text-sm font-semibold text-black dark:text-white truncate group-hover:text-primary-600 transition-colors"
-                    >
-                      {{ chat.isGroup ? chat.title : chat._partner?.fullName }}
-                    </h2>
-                    <span
-                      :class="[
-                        'text-[10px] md:text-xs whitespace-nowrap shrink-0 font-mono',
-                        chat._hasUnread
-                          ? 'text-primary-600 dark:text-primary-400 font-bold'
-                          : 'text-slate-400 dark:text-slate-500',
-                      ]"
-                    >
-                      {{ chat._displayTime }}
-                    </span>
-                  </div>
-
-                  <div class="flex justify-between items-center gap-2">
-                    <p
-                      :class="[
-                        'text-xs md:text-sm truncate',
-                        chat._hasUnread
-                          ? 'text-black dark:text-white font-medium'
-                          : 'text-slate-500 dark:text-slate-400',
-                      ]"
-                    >
-                      <span
-                        v-if="chat.messages[0]?.senderId === user?.id"
-                        class="text-slate-400"
-                        >You:
-                      </span>
-                      {{
-                        chat.messages[0]?.content ||
-                        "Started a new conversation"
-                      }}
-                    </p>
-
-                    <span
-                      v-if="chat._hasUnread"
-                      class="flex-shrink-0 bg-primary-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full"
-                    >
-                      New
-                    </span>
-                  </div>
+                  <h2
+                    class="text-xs md:text-sm font-semibold text-black dark:text-white truncate group-hover:text-primary-600 transition-colors"
+                  >
+                    {{ member.fullName }}
+                  </h2>
+                  <p
+                    class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-0.5 truncate"
+                  >
+                    {{ member.email || "Team Member" }}
+                  </p>
                 </div>
               </div>
             </li>
@@ -350,7 +318,6 @@ const isFetchingTeam = ref(false);
 const searchQuery = ref("");
 
 // --- DATA NORMALIZATION TRANSFORMS ---
-// This runs once when data arrives, saving CPU cycles later
 const normalizeChat = (chat) => {
   const partner =
     chat.participants?.find((p) => p.id !== user.value?.id) || null;
@@ -361,14 +328,13 @@ const normalizeChat = (chat) => {
 
   return {
     ...chat,
-    _partner: partner, // Static injection
-    _hasUnread: unread, // Static injection
-    _displayTime: formatRelativeTime(chat.lastMessageAt), // Computed once
+    _partner: partner,
+    _hasUnread: unread,
+    _displayTime: formatRelativeTime(chat.lastMessageAt),
   };
 };
 
-// --- COMPUTED ---
-// Optimized filtered list reading pure static values
+// --- COMPUTED MAPS ---
 const filteredConversations = computed(() => {
   const list = conversations.value;
   if (!searchQuery.value) return list;
@@ -381,9 +347,10 @@ const filteredConversations = computed(() => {
   });
 });
 
-// For the modal select list
 const teamMembers = ref([]);
 const memberSearchQuery = ref("");
+
+// This safely queries ALL team members fetched for the modal
 const filteredTeamMembers = computed(() => {
   if (!memberSearchQuery.value) return teamMembers.value;
   const query = memberSearchQuery.value.toLowerCase();
@@ -392,7 +359,7 @@ const filteredTeamMembers = computed(() => {
   );
 });
 
-// --- PURE UTILS (No change, but no longer executed inside template ticks)
+// --- UTILS ---
 const formatRelativeTime = (dateString) => {
   if (!dateString) return "";
   const date = new Date(dateString);
@@ -414,7 +381,6 @@ const formatRelativeTime = (dateString) => {
 const loadConversations = async () => {
   try {
     const rawChats = await useApiFetch("/conversations");
-    // Normalize every single conversation tree right out of the gate
     conversations.value = rawChats.map(normalizeChat);
   } catch (error) {
     toastError("Failed to load messages");
@@ -427,6 +393,7 @@ const loadTeamMembers = async () => {
   try {
     isFetchingTeam.value = true;
     const allUsers = await useApiFetch("/users");
+    // Ensure the current user doesn't show up in their own "Start a Chat" list
     teamMembers.value = allUsers.filter((u) => u.id !== user.value?.id);
   } catch (error) {
     console.error("Failed to load team members", error);
@@ -462,7 +429,7 @@ const startChat = async (targetUserId) => {
   }
 };
 
-// --- REALTIME (Optimized update loop) ---
+// --- REALTIME ---
 let realtimeChannel;
 
 const setupRealtime = () => {
@@ -479,13 +446,9 @@ const setupRealtime = () => {
 
         if (chatIndex !== -1) {
           const chat = conversations.value[chatIndex];
-          // Overwrite message tree arrays cleanly
           chat.messages = [newMsg];
           chat.lastMessageAt = newMsg.createdAt;
-
-          // Re-normalize just this single modified object to rewrite static lookups
           const updatedChat = normalizeChat(chat);
-
           conversations.value.splice(chatIndex, 1);
           conversations.value.unshift(updatedChat);
         } else {
@@ -496,15 +459,11 @@ const setupRealtime = () => {
     .subscribe();
 };
 
-// --- TIME REFRESH SYSTEM ---
-// Keep your timestamps accurate without layout shifting everything
 let timeUpdateInterval;
 
 onMounted(() => {
   loadConversations();
   setupRealtime();
-
-  // Recalculate relative strings cleanly every 30 seconds for current rows
   timeUpdateInterval = setInterval(() => {
     conversations.value = conversations.value.map((c) => ({
       ...c,
